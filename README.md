@@ -1,7 +1,5 @@
 # FFVII for Vue 3
 
-![FFVII Logo](https://blopeznet.github.io/ff7vue/images/logo.png)
-
 ## About
 
 Welcome to FFVII for Vue 3, a project inspired by the classic game Final Fantasy VII.

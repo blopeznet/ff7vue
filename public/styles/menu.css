@@ -1,0 +1,116 @@
+.final-box {
+    position: absolute;
+    border: 2px solid #fff;
+    background: linear-gradient(to bottom, #070B43, #0A4AA9);
+    color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 10px;
+    font-family: 'cpm';
+    font-size: 24px;
+  }
+  
+  .final-box-characters-info {
+    left: 12px;
+    width: 700px;
+    height: 520px;
+  }
+  
+  .final-box-menu-info {
+    right: 12px;
+    width: 200px;
+    height: 400px;
+  }
+  
+  .final-box-time-info {
+    right: 12px;
+    width: 200px;
+    height: 70px;
+  }
+  
+  .final-box-place-info {
+    right: 12px;
+    width: 380px;
+    height: 70px;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px;
+  }
+  
+  .grid-item {
+    font-size: 24px;
+    margin-top: -10px;
+    padding-top: 8px;
+  }
+  
+  .info-heading {
+    font-size: 32px;
+    margin-left: 32px;
+  }
+  
+  .info-text-place {
+    font-family: 'cpm';
+    font-size: 32px;
+    margin-left: -220px;
+    margin-top: 12px;
+  }
+  
+  .grid-menu-item1,
+  .grid-menu-item2 {
+    font-size: 24px;
+    cursor: pointer;
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+  
+  .tabla {
+    margin: 20px;
+  }
+  
+  table {
+    width: 50%;
+    border-collapse: separate;
+    border-spacing: 0px 0px;
+  }
+  
+  th,
+  td {
+    padding: 0px;
+    border: none;
+    text-align: center;
+    height: 0px;
+  }
+  
+  /* Style for the progress bar container */
+  progress {
+    width: 100%;
+    height: 6px;
+    border: 1px solid gray;
+    border-radius: 0;
+    overflow: hidden;
+  }
+  
+  
+  /* Style for the progress bar background */
+  progress::-webkit-progress-bar {
+    background-color: maroon;
+  }
+  
+  /* Style for the pg class */
+  .pg::-webkit-progress-value {
+    background: linear-gradient(to right, #0A4AA9, #FFFFFF);
+  }
+  
+  /* Style for the pm class */
+  .pm::-webkit-progress-value {
+    background: linear-gradient(to right, rgb(86, 239, 86), #FFFFFF);
+  }
+  
+  .grid-menu-item2:hover {
+    color: white;
+    font-size: 32px;
+  }
+  

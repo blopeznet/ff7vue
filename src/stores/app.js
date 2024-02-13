@@ -12,9 +12,9 @@ export const useAppStore = defineStore({
         locale: "en",
         effect: "",
         pageName: "",
-        musicVolume: 0.0,
+        musicVolume: 0.3,
         soundEffects: true,
-        showJoy: true,
+        showJoy: false,
     }),
     actions: {
         setLoading(loading) {

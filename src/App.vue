@@ -11,8 +11,7 @@ const router = useRouter();
 /**
  * Navigate to root
  */
-const navRoot = () => {
-  appStore.playSelect();
+const navHome = () => {
   router.push({ path: "/" });
 };
 
@@ -77,7 +76,10 @@ const updateVolume = (event) => {
     <!-- Bottom bar -->
     <div class="bottom-bar">
       <div class="button-group">
-        <div class="left-buttons">               
+        <div class="left-buttons"> 
+          <div class="round-button-container" >
+            <button @click="navHome" class="round-button">{{ useLocalizeText("reset") }}</button>
+          </div>              
           <div class="round-selector-container">
             <span class="bottom-bar-label" style="margin-bottom: 10px;">{{ useLocalizeText("volume") }}</span>
             <input type="range" min="0" max="1" step="0.01" :value="appStore.musicVolume" id="volumeControl"

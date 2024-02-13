@@ -5,7 +5,7 @@
         <p>{{ message }}</p>
       </div>
     </div>
-    <div class="background" ref="Background" style="cursor: pointer;">
+    <div class="background" ref="Background" style="cursor: pointer;" @click="handleMapClick">
       <img src="/images/map.jpg">
       <div id="arrow_up"
         style="position:absolute; left:50px; top:45%; transform: translateY(-50%); width:19px; height:18px; z-index:3">
@@ -36,6 +36,11 @@
       <div @click="router.push({ path: 'Menu' })" class="final-box-aux">
         <p class="info-text">{{ useLocalizeText('menu').toUpperCase() }}</p>
       </div>
+      <!-- Elemento de posición -->
+      <div id="position"
+        :style="{ position: 'absolute', left: positionLeft + 'px', top: positionTop + 'px', zIndex: 999 }">
+        <img src="/images/position_marker.png" width="30" height="70">
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +65,7 @@ messages.push(useLocalizeText('map_messages.04'));
 messages.push(useLocalizeText('map_messages.05'));
 const isOpen = ref(false);
 let intervalBattle = null; // Declara la variable del intervalo para batallas
+const mapBackground = ref(null);
 
 /**
  * Handle keyboard press key down
@@ -115,16 +121,16 @@ onBeforeMount(() => {
 onMounted(async () => {
   document.addEventListener('keydown', handleKeyDown);
   document.addEventListener('keyup', handleKeyUp);
+  mapBackground.value = document.querySelector('.background');
 
   // Mutation observer cloud left and top for messages
   const observer = new MutationObserver(async (mutationsList, observer) => {
     for (let mutation of mutationsList) {
       if (mutation.type === 'attributes' && (mutation.attributeName === 'style' && mutation.target.style.top || mutation.target.style.left)) {
-        if (mapStore.map_Left == 600 && mapStore.map_Top >= 60) {
+        if (mapStore.map_Left == 600 && mapStore.map_Top >= 30) {
           router.push({ path: "EndGame" });
         }
         if (!mapStore.checkCoords()) {
-          await showDialog();
           return;
         }
       }
@@ -180,10 +186,96 @@ const goToFight = async () => {
   router.push({ path: "fight" });
 };
 
+const positionLeft = ref(mapStore.map_Left); // Inicialmente en la posición del personaje
+const positionTop = ref(mapStore.map_Top);
 
+const handleMapClick = (event) => {
+
+  // Coordenadas absolutas del clic en relación con la ventana del navegador
+  const absoluteX = event.clientX;
+  const absoluteY = event.clientY;
+
+  // Coordenadas del contenedor de la aplicación
+  const appContainer = document.querySelector('#app');
+  const containerRect = appContainer.getBoundingClientRect();
+  const containerWidth = containerRect.width;
+  const containerHeight = containerRect.height;
+
+  // Coordenadas del fondo (centrado en la ventana del navegador)
+  const backgroundRect = document.querySelector('.background').getBoundingClientRect();
+  const backgroundWidth = backgroundRect.width;
+  const backgroundHeight = backgroundRect.height;
+
+  // Desplazamiento horizontal y vertical del fondo respecto al contenedor de la aplicación
+  const offsetX = (containerWidth - backgroundWidth) / 2;
+  const offsetY = (containerHeight - backgroundHeight) / 2;
+
+  // Coordenadas relativas al fondo
+  const relativeX = absoluteX - containerRect.left - offsetX;
+  const relativeY = absoluteY - containerRect.top - offsetY;
+
+  // Coordenadas ajustadas para tener en cuenta el zoom
+  const zoom = parseFloat(appContainer.style.zoom || '100') / 100; // Obtener el nivel de zoom actual
+  const adjustedX = relativeX / zoom;
+  const adjustedY = relativeY / zoom;
+
+
+  positionLeft.value = adjustedX;
+  positionTop.value = adjustedY;
+
+
+  // Mostrar el elemento #position
+  document.getElementById('position').style.display = 'block';
+
+  // Verificar si el clic está dentro de los límites del mapa
+  if (adjustedX >= 0 && adjustedX <= 600 && adjustedY >= 0 && adjustedY <= 400) {
+    // Mostrar el elemento #position
+    document.getElementById('position').style.display = 'block';
+
+    // Calcular la distancia que el muñeco y su sombra deben moverse en cada eje
+    const dx = adjustedX - mapStore.map_Left;
+    const dy = adjustedY - mapStore.map_Top;
+
+    // Determinar la dirección basada en el cambio en las coordenadas
+    let src;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      src = dx > 0 ? './images/go_right.gif' : './images/go_left.gif';
+    } else {
+      src = dy > 0 ? './images/go_down.gif' : './images/go_up.gif';
+    }
+
+    // Cambiar la imagen del muñeco
+    mapStore.map_src = src;
+
+    // Calcular el número total de pasos basado en la distancia y la velocidad deseada
+    const totalSteps = Math.max(Math.abs(dx), Math.abs(dy)); // Tomar la distancia más larga como base
+    const moveDistanceX = dx / totalSteps;
+    const moveDistanceY = dy / totalSteps;
+
+    let step = 0;
+    const moveInterval = setInterval(() => {
+      // Mover el muñeco y su sombra un paso más cerca de la posición final
+      mapStore.map_Left += moveDistanceX;
+      mapStore.map_Top += moveDistanceY;
+
+      // Verificar si el muñeco y su sombra han alcanzado la posición final
+      if (++step >= totalSteps) {
+        clearInterval(moveInterval); // Detener la animación
+        document.getElementById('position').style.display = 'none'; // Ocultar el elemento #position
+        mapStore.map_src = './images/stop_down.gif'; // Restaurar la imagen de parada
+      }
+    }, 1000 / 30); // Actualizar 30 veces por segundo (aproximadamente cada 33 ms)
+  }
+};
 
 
 </script>
-<style scoped></style>
+<style scoped>
+#position img {
+  display: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
 
    

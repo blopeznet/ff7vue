@@ -1,3 +1,5 @@
+<div style="background-color: #121212; color: #FFFFFF;">
+
 # FFVII for Vue 3
 
 ![FFVII Logo](https://blopeznet.github.io/ff7vue/images/logo.png)
@@ -26,3 +28,4 @@ You can view the source code repository [here](https://github.com/blopeznet/ff7v
 
 Feel free to [contact me](mailto:borjalgarcia@hotmail.com) if you have any questions or suggestions regarding this project.
 
+</div>

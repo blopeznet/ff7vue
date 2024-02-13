@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/ff7vue/final_fantasy_7.svg" />
+    <!-- Set the viewport width to device width and initial scale to 1.0 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/ff7vue/styles/styles.css">
+    <title>FFVII vue3</title>
+    <style>
+        /* Set body and html to 100% height */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Adjust zoom according to screen height */
+        #app {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Style for the warning message */
+        #resolution-warning {
+            position: fixed;
+            top: 90px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            display: none;
+            z-index: 9999999;
+            max-width: 300px;            
+        }
+    </style>
+  <script type="module" crossorigin src="/ff7vue/assets/index-XrAYtDq1.js"></script>
+  <link rel="stylesheet" crossorigin href="/ff7vue/assets/index-DERF9syK.css">
+</head>
+<body>
+    <!-- Warning message for low screen resolution -->
+    <div id="resolution-warning">
+        <p>Your screen resolution is too low to play this game. Please use a screen resolution of at least 800x600.</p>
+    </div>
+
+    <!-- Main app container -->
+    <div id="app"></div>
+
+    <script>
+        // Function to adjust zoom according to screen height
+        function adjustZoom() {
+            const windowHeight = window.innerHeight;
+            const screenWidth = window.innerWidth; // Get the screen width
+
+            // Show the warning message if the screen resolution is too low
+            if (screenWidth < 800 || windowHeight < 600) {
+                document.getElementById('resolution-warning').style.display = 'block';
+            } else {
+                document.getElementById('resolution-warning').style.display = 'none';
+            }
+
+            // Calculate the zoom level based on screen height
+            const screenHeight = 600; // Define the base screen height (600px in this example)
+            const zoom = ((windowHeight / screenHeight) * 100)-30;
+
+            document.querySelector('#app').style.zoom = `${zoom}%`;
+        }
+
+        // Adjust zoom and show warning message when the page loads
+        window.addEventListener('load', () => {
+            adjustZoom();
+            window.addEventListener('resize', adjustZoom);
+        });
+    </script>
+</body>
+</html>

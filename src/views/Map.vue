@@ -261,7 +261,9 @@ const handleMapClick = (event) => {
       // Verificar si el muñeco y su sombra han alcanzado la posición final
       if (++step >= totalSteps) {
         clearInterval(moveInterval); // Detener la animación
-        document.getElementById('position').style.display = 'none'; // Ocultar el elemento #position
+        if (document && document.style){
+         document.getElementById('position').style.display = 'none'; // Ocultar el elemento #position
+        }
         mapStore.map_src = './images/stop_down.gif'; // Restaurar la imagen de parada
       }
     }, 1000 / 30); // Actualizar 30 veces por segundo (aproximadamente cada 33 ms)

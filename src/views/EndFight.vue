@@ -64,6 +64,7 @@ const isOpen = ref(false);
 onBeforeMount(() => {
   appStore.setPageName("EndFight");
   //If win combat, reset Enemy live, if loose, reset our lives before add gil
+  console.info("fightStore.lastCombatStatus",fightStore.lastCombatStatus);
   if (fightStore.lastCombatStatus == 0){
     fightStore.resetChars();
   }else if (fightStore.lastCombatStatus == 1){

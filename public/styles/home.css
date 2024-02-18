@@ -2,25 +2,22 @@
 
 .home-logo {
     position: fixed;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 200px;
+    left: 200px;
     z-index: 1;
 }
 
 .home-menu {
     position: fixed;
-    bottom: 0%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 510px;
+    left: 300px;
     z-index: 1;
 }
 
 .version{
     position: fixed;
-    bottom: 0%;
-    left: 10%;
-    font-size: 22px;
-    transform: translate(-50%, -50%);
+    top: 560px;
+    left: 24px;
+    font-size: 14px;
     z-index: 1;
 }

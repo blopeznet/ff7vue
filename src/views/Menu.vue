@@ -16,17 +16,17 @@
                 <table style="width:200px;margin-left: 24px;" v-if="character.isAvaliable">
                   <thead>
                     <tr>
-                      <th style="font-size: 28px;">{{ useLocalizeText(character.name) }}</th>
+                      <th>{{ useLocalizeText(character.name) }}</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td style="font-size: 24px;font-weight: bold;color:aqua;">{{ useLocalizeText('nv') }}</td>
+                    <tr style="height:40px;">
+                      <td style="color:aqua;">{{ useLocalizeText('nv') }}</td>
                       <td>{{ character.level }}</td>
                     </tr>
-                    <tr>
-                      <td style="font-size: 24px;font-weight: bolder;color:aqua;">{{ useLocalizeText('pg') }}</td>
+                    <tr style="height:40px;">
+                      <td style="color:aqua;">{{ useLocalizeText('pg') }}</td>
                       <td>
                         <div style="display: flex; flex-direction: column; align-items: center;">
                           <span style="margin-bottom: -6px;">{{ character.pg }}/{{ character.pgMax }}</span>
@@ -34,8 +34,8 @@
                         </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td style="font-size: 24px;font-weight: bolder;color:aqua">{{ useLocalizeText('pm') }}</td>
+                    <tr style="height:40px;">
+                      <td style="color:aqua">{{ useLocalizeText('pm') }}</td>
                       <td>
                         <div style="display: flex; flex-direction: column; align-items: center;">
                           <span style="margin-bottom: -6px;">{{ character.pm }}/{{ character.pmMax }}</span>

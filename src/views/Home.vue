@@ -5,7 +5,7 @@
       <div class="home-logo">
         <img src="/images/logo.png" width="400" height="130">
       </div>
-      <span class="version"> {{ "Demo Ver. 0.40"  }} </span>
+      <span class="version"> {{ "Demo Ver. 0.50"  }} </span>
       <ul class="home-menu">
         <li @click="navHistory">{{ useLocalizeText('play') }}</li>
       </ul>

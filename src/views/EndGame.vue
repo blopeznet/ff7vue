@@ -6,9 +6,9 @@
         <img src="/images/logo.png" width="400" height="130">
       </div>
       <ul class="menu">
-        <span style="font-size: 32px;">{{ useLocalizeText('play_again') }}</span>
-        <li @click="navRoot">{{ useLocalizeText('yes') }}</li>
+        <p>{{ useLocalizeText('play_again') }}</p>
       </ul>
+      <li @click="navRoot">{{ useLocalizeText('yes') }}</li>
     </div>
   </div>
 </template>

@@ -1,6 +1,16 @@
 /**
  * Hide arrow
  */
+export function showArrow() {
+  const elementArrow = document.querySelector("#arrow");
+  if (elementArrow) {
+    elementArrow.style.visibility = "visible"; // Ocultar la flecha
+  }
+}
+
+/**
+ * Hide arrow
+ */
 export function hideArrow() {
   const elementArrow = document.querySelector("#arrow");
   if (elementArrow) {
@@ -14,9 +24,8 @@ export function hideArrow() {
 export function updateArrowPosition(selectedCharacter) {
   const elementArrow = document.querySelector("#arrow");
   const elementCharacter = document.querySelector(
-    "#" + selectedCharacter.value.fileName
+    "#" + selectedCharacter.fileName
   );
-
   if (elementArrow) {
     if (elementArrow && elementCharacter) {
       const targetLeft = parseFloat(
@@ -518,7 +527,7 @@ export function calculateStyleMagics() {
   const bottom = 0;
   const width = 210;
   const height = 160;
-  const zIndex = 99999;
+  const zIndex = 10000;
   const opacity = 1;
 
   return {

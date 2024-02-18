@@ -6,8 +6,8 @@
     padding: 0px;
     margin: 0px;
     border-radius: 10px;
-    font-family: 'cpm';
-    font-size: 24px;
+    font: bold 10px arial;
+    font-size: 18px;
   }
   
   .final-box-characters-info {
@@ -41,26 +41,27 @@
   }
   
   .grid-item {
-    font-size: 24px;
-    margin-top: -10px;
+    font-size: 18px;
+    margin-top: -2px;
     padding-top: 8px;
   }
   
   .info-heading {
-    font-size: 32px;
+    font-size: 18px;
     margin-left: 32px;
   }
   
   .info-text-place {
-    font-family: 'cpm';
-    font-size: 32px;
+    font: bold 10px arial;
+    font-size: 24px;
     margin-left: -220px;
-    margin-top: 12px;
+    margin-top: 22px;
   }
   
   .grid-menu-item1,
   .grid-menu-item2 {
-    font-size: 24px;
+    font-size: 18px;
+    line-height: 32px;
     cursor: pointer;
     padding-left: 0px;
     margin-left: 0px;
@@ -90,6 +91,7 @@
     height: 6px;
     border: 1px solid gray;
     border-radius: 0;
+    margin-top: 12px;
     overflow: hidden;
   }
   
@@ -111,6 +113,6 @@
   
   .grid-menu-item2:hover {
     color: white;
-    font-size: 32px;
+    font-size: 22px;
   }
   

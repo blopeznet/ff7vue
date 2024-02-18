@@ -12,7 +12,7 @@ export const useAppStore = defineStore({
         locale: "en",
         effect: "",
         pageName: "",
-        musicVolume: 0.0,
+        musicVolume: 1.0,
         soundEffects: true,
         showJoy: false,
     }),
@@ -81,35 +81,38 @@ export const useAppStore = defineStore({
             audio.volume = this.musicVolume;
             audio.play();
         },
-        playAqua() {
-            const audio = new Audio(this.calculateAudio("aqua.mp3"));
-            audio.volume = this.musicVolume;
-            audio.play();
-        },
-        playIce() {
+        playMagic(magicName) {
             if (!this.soundEffects) return;
-            const audio = new Audio(this.calculateAudio("ice.mp3"));
+        
+            let audioFileName;
+        
+            switch (magicName) {
+                case 'aqua':
+                    audioFileName = 'aqua.mp3';
+                    break;
+                case 'ice':
+                    audioFileName = 'ice.mp3';
+                    break;
+                case 'fire':
+                    audioFileName = 'fire.mp3';
+                    break;
+                case 'thunder':
+                    audioFileName = 'thunder.mp3';
+                    break;
+                default:
+                    return;
+            }
+        
+            const audio = new Audio(this.calculateAudio(audioFileName));
             audio.volume = this.musicVolume;
             audio.play();
-        },
-        playFire() {
-            if (!this.soundEffects) return;
-            const audio = new Audio(this.calculateAudio("fire.mp3"));
-            audio.volume = this.musicVolume;
-            audio.play();
-        },
+        },        
         playSummon() {
             if (!this.soundEffects) return;
             const audio = new Audio(this.calculateAudio("summon.mp3"));
             audio.volume = this.musicVolume;
             audio.play();
-        },
-        playThunder() {
-            if (!this.soundEffects) return;
-            const audio = new Audio(this.calculateAudio("thunder.mp3"));
-            audio.volume = this.musicVolume;
-            audio.play();
-        },
+        },        
         playDead() {
             if (!this.soundEffects) return;
             const audio = new Audio(this.calculateAudio("dead.mp3"));

@@ -16,19 +16,19 @@
       <!--Arrow char selection END-->
       <!--Top hero-->
       <div class="top-hero" ref="top-hero" id="top-hero"
-        :style="{ opacity: heroes[0].isDead ? '0.3' : '1', filter: heroes[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        :style="{ opacity: heroes[0].isDead ? '0.1' : '1', filter: heroes[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/bat_sephi.gif" width="110" height="120">
       </div>
       <!--Top hero END-->
       <!--Middle hero-->
       <div class="middle-hero" ref="middle-hero" id="middle-hero"
-        :style="{ opacity: heroes[1].isDead ? '0.3' : '1', filter: heroes[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        :style="{ opacity: heroes[1].isDead ? '0.1' : '1', filter: heroes[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/bat_cloud.gif" width="140" height="100">
       </div>
       <!--Middle hero END-->
       <!--Bottom hero-->
       <div class="bottom-hero" ref="bottom-hero" id="bottom-hero"
-        :style="{ opacity: heroes[2].isDead ? '0.3' : '1', filter: heroes[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        :style="{ opacity: heroes[2].isDead ? '0.1' : '1', filter: heroes[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/bat_aeris.gif" width="110" height="100">
       </div>
       <!--Bottom hero END-->
@@ -39,26 +39,26 @@
       <!--Magic ring END-->
       <!--Top enemy-->
       <div class="top-enemy" ref="top-enemy" id="top-enemy"
-        :style="{ opacity: enemies[0].isDead ? '0.3' : '1', filter: enemies[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/bat_enemy.gif" width="140" height="140">
+        :style="{ opacity: enemies[0].isDead ? '0.1' : '1', filter: enemies[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        <img src="/images/enemy-1.gif" width="140" height="80">
       </div>
       <!--Top enemy END-->
       <!--Middle enemy-->
       <div class="middle-enemy" ref="middle-enemy" id="middle-enemy"
-        :style="{ opacity: enemies[1].isDead ? '0.3' : '1', filter: enemies[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/bat_enemy.gif" width="140" height="140">
+        :style="{ opacity: enemies[1].isDead ? '0.1' : '1', filter: enemies[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        <img src="/images/enemy-2.gif" width="140" height="140">
       </div>
       <!--Middle enemy END-->
       <!--Bottom enemy-->
       <div class="bottom-enemy" ref="bottom-enemy" id="bottom-enemy"
-        :style="{ opacity: enemies[2].isDead ? '0.3' : '1', filter: enemies[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/bat_enemy.gif" width="140" height="140">
+        :style="{ opacity: enemies[2].isDead ? '0.1' : '1', filter: enemies[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        <img src="/images/enemy-3.gif" width="140" height="140">
       </div>
       <!--Bottom enemy END-->
       <div class="damage" ref="damage" id="damage" :style="{ opacity: lastDamage == 0 ? '0' : '1' }">
         <span style="font-size: 24px;">{{ lastDamage }}</span>
       </div>
-      <div class="debug" ref="debug" id="debug">
+      <div class="debug" ref="debug" id="debug" v-if="debug">
         <span style="font-size: 24px;">{{ enemies[0].fileName + ": " + enemies[0].pg + "/" + enemies[0].pgMax + " : "+enemies[0].damage }}</span>
         <span style="font-size: 24px;">{{ enemies[1].fileName + ": " + enemies[1].pg + "/" + enemies[1].pgMax + " : "+enemies[1].damage}}</span>
         <span style="font-size: 24px;">{{ enemies[2].fileName + ": " + enemies[2].pg + "/" + enemies[2].pgMax + " : "+enemies[2].damage}}</span>
@@ -80,7 +80,7 @@
           <th><span class="header">NAME</span></th>
           <tr v-for="(hero, index) in heroes" :key="index">
             <td>
-              <table>
+              <table style="margin-top:8px;">
                 <thead>
                   <tr>
                     <span v-if="hero.isAvaliable && !hero.hasAttacked && !hero.isDead" @click="changeSelectedChar(hero)"
@@ -109,7 +109,7 @@
             <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
               <span class="header" style="margin-bottom: -6px;">{{ useLocalizeText('PG') }}</span>
             </div>
-            <div style="flex: 1;margin-left: 48px;">
+            <div style="flex: 1;margin-left: 48px;margin-bottom: 12px">
               <div style="display: flex; flex-direction: column; align-items: center;width:100px;">
                 <span class="header" style="margin-bottom: -6px;">{{ useLocalizeText('PM') }}</span>
               </div>
@@ -125,13 +125,13 @@
                         :style="{ display: 'flex', justifyContent: 'space-between', color: hero.isDead ? 'red' : 'initial' }">
                         <!-- Column PG -->
                         <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
-                          <span style="margin-bottom: -6px;">{{ hero.pg }}/{{ hero.pgMax }}</span>
+                          <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pg }}/{{ hero.pgMax }}</span>
                           <progress :max="hero.pgMax" :value="hero.pg" :class="'pg'"></progress>
                         </div>
                         <!-- Column PM -->
                         <div style="flex: 1;margin-left: 48px;">
                           <div style="display: flex; flex-direction: column; align-items: center;width:100px;">
-                            <span style="margin-bottom: -6px;">{{ hero.pm }}/{{ hero.pmMax }}</span>
+                            <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pm }}/{{ hero.pmMax }}</span>
                             <progress :max="hero.pmMax" :value="hero.pm" :class="'pm'"></progress>
                           </div>
                         </div>
@@ -164,12 +164,12 @@
                 <thead>
                   <tr>
                     <td>
+                      <image id="ff7cursor" class="ff7cursor" v-if="action.fileName === selectedAction.fileName" />
                       <span
                         @click="(action.enabled && (action.pmPrice === 0 || (action.pmPrice > 0 && action.pmPrice <= selectedCharacter.pm))) ? actionExecute(action, action.name) : null"
                         :style="{ cursor: action.enabled ? 'pointer' : 'default', color: (action.enabled && (action.pmPrice === 0 || (action.pmPrice > 0 && action.pmPrice <= selectedCharacter.pm))) ? 'white' : 'gray' }">
                         {{ useLocalizeText(action.fileName) }}
                       </span>
-                      <span v-if="action.fileName === selectedAction.fileName">{{ " > " }}</span>
                     </td>
                   </tr>
                 </thead>
@@ -178,7 +178,7 @@
           </tr>
         </table>
       </div>
-      <div ref="menuMagic" :style="calculateStyleMagics()" v-if="showMenuMagic">
+      <div ref="menuMagic" class="final-box final-box-menuone-info" :style="calculateStyleMagics()" v-if="showMenuMagic">
         <table class="custom-table" v-if="selectedAction">
           <tr v-for="(magic, index) in selectedAction.magics" :key="index">
             <td>
@@ -186,12 +186,12 @@
                 <thead>
                   <tr>
                     <td>
+                      <image class="ff7cursor" v-if="magic.fileName === selectedMagic.fileName" />
                       <span
                         @click="(magic.enabled && (magic.pmPrice === 0 || (magic.pmPrice > 0 && magic.pmPrice <= selectedCharacter.pm))) ? magicExecute(magic) : null"
                         :style="{ cursor: magic.enabled ? 'pointer' : 'default', color: (magic.enabled && (magic.pmPrice === 0 || (magic.pmPrice > 0 && magic.pmPrice <= selectedCharacter.pm))) ? 'white' : 'gray' }">
                         {{ useLocalizeText(magic.fileName) }}
                       </span>
-                      <span v-if="magic.fileName === selectedMagic.fileName">{{ " > " }}</span>
                     </td>
                   </tr>
                 </thead>
@@ -200,7 +200,7 @@
           </tr>
         </table>
       </div>
-      <div ref="menuTargets" :style="calculateStyleTargets(sourceMenu)" v-if="showMenuTargets">
+      <div ref="menuTargets" class="final-box final-box-menuone-info" :style="calculateStyleTargets(sourceMenu)" v-if="showMenuTargets">
         <table class="custom-table" v-if="!selectedCharacter.isEnemy">
           <tr v-for="(enemy, index) in enemies" :key="index">
             <td>
@@ -255,7 +255,8 @@ import {
   updateLastDamagePosition,
   calculateStyleTargets,
   calculateStyleMagics,
-  hideArrow
+  hideArrow,
+  showArrow
 } from './uxFightHelper'
 
 import { ref, onBeforeMount, onMounted, watch } from 'vue'
@@ -267,6 +268,7 @@ import { useFightStore } from '../stores/fight'
 const fightStore = useFightStore();
 const appStore = useAppStore();
 const router = useRouter();
+const debug = ref(false);
 
 const backImage = ref(getRandomBackgroundImage()); // Imagen de fondo aleatoria
 const message = ref(''); // Para el mensaje del diálogo general
@@ -294,26 +296,24 @@ const turnCount = ref(1); // Número de turno
 /**
  * Set current page
  */
-onBeforeMount(() => {
+onBeforeMount(async () => {
   appStore.setPageName("Fight");
-  goTurn();
+  heroes.value = fightStore.characters.filter(character => !character.isDead && !character.isEnemy && !character.hasAttacked);
+  enemies.value = fightStore.characters.filter(character => !character.isDead && character.isEnemy && !character.hasAttacked);
+  turnCount.value = 0;
 });
 
 /** Begin combat **/
-onMounted(() => {
+onMounted(async () => {
+  goTurn();
 });
 
 /**
  * Set current hero, heroes, and enemies
  */
 const goTurn = async () => {
-  heroes.value = fightStore.characters.filter(character => !character.isDead && !character.isEnemy && !character.hasAttacked);
-  enemies.value = fightStore.characters.filter(character => !character.isDead && character.isEnemy && !character.hasAttacked);
-  turnCount.value = 0;
-  await changeSelectedChar(getRandomAvailableHeroAlive());
-  console.info("characters",fightStore.characters);
-  console.info("heroes",heroes.value);
-  console.info("enemies",enemies.value);
+  let char = getRandomAvailableHeroAlive();
+  await changeSelectedChar(char);
 }
 
 /**
@@ -324,11 +324,12 @@ const changeSelectedChar = async (newChar) => {
   hideAllMenus();
   selectedCharacter.value = newChar;
   selectedActions.value = selectedCharacter.value.actions;
-  selectedAction.value = {}; // Reset selected action
   if (!selectedCharacter.value.isEnemy) {
-    updateArrowPosition(selectedCharacter);
+    updateArrowPosition(selectedCharacter.value);
     showMenuBasic.value = true;
+    showArrow();
   }
+  selectedAction.value = {}; // Reset selected action
 };
 
 /**
@@ -361,6 +362,7 @@ const actionExecute = async (action) => {
       showMenuMagic.value = false;
       showMenuTargets.value = false;
       selectedAction.value = action;
+      appStore.playSummon();
       await summonExecute();
       break;
   }
@@ -376,6 +378,7 @@ const damageExecute = async (enemy) => {
     case 'attack':
       markSelectedCharacterAsAttacked();
       targetCharacter.value = enemy;
+      appStore.playAttack();
       if (showAttack(selectedCharacter, targetCharacter)) {
         if (await ApplyDamage()) {
           await executeEnemyResponse();
@@ -385,6 +388,7 @@ const damageExecute = async (enemy) => {
     case 'magic':
       markSelectedCharacterAsAttacked();
       targetCharacter.value = enemy;
+      appStore.playMagic(selectedMagic.value.fileName);
       if (showMagicAttack(selectedCharacter, targetCharacter, selectedMagic)) {
         if (await ApplyDamage()) {
           await executeEnemyResponse();
@@ -462,6 +466,7 @@ const ApplyDamage = async () => {
 
     if (targetCharacter.value.pg == 0) {
       targetCharacter.value.isDead = true;
+      appStore.playDead();
       await checkContinue();
     }
 
@@ -485,6 +490,7 @@ const ApplyDamage = async () => {
 
     for (const enemy of enemiesToDamage) {
       if (enemy.pg == 0) {
+        appStore.playDead();
         enemy.isDead = true;
       }
     }
@@ -619,6 +625,7 @@ const executeEnemyResponse = async () => {
       selectedAction.value = selectedActions.value[0];
       targetCharacter.value = getRandomAvailableHeroAliveForTarget();
       markSelectedCharacterAsAttacked();
+      appStore.playAttack();
       if (showAttack(selectedCharacter, targetCharacter)) {
         if (await ApplyDamage()) {
           if (allCharactersAttacked()) {

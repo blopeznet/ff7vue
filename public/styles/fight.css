@@ -54,9 +54,21 @@
 
 .top-enemy {
   position: fixed;
-  top: 150px;
+  top: 190px;
   left: 620px;
   z-index: 5;
+}
+
+.top-enemy::after {
+  content: '';
+  position: absolute;
+  top: 60px; /* Coloca la sombra debajo de la imagen */
+  left: -16px;
+  width: 145px;
+  height: 27px; /* Altura de la sombra */
+  z-index: 4; /* Coloca la sombra detrás de la imagen */
+  background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño de la imagen */
 }
 
 /**Enemy Middle**/
@@ -68,6 +80,18 @@
   z-index: 6;
 }
 
+.middle-enemy::after {
+  content: '';
+  position: absolute;
+  top: 130px; /* Coloca la sombra debajo de la imagen */
+  left: -16px;
+  width: 145px;
+  height: 27px; /* Altura de la sombra */
+  z-index: 4; /* Coloca la sombra detrás de la imagen */
+  background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño de la imagen */
+}
+
 /**Enemy Top**/
 
 .bottom-enemy {
@@ -75,6 +99,18 @@
   top: 300px;
   left: 650px;
   z-index: 7;
+}
+
+.bottom-enemy::after {
+  content: '';
+  position: absolute;
+  top: 117px; /* Coloca la sombra debajo de la imagen */
+  left: 0px;
+  width: 145px;
+  height: 27px; /* Altura de la sombra */
+  z-index: 6; /* Coloca la sombra detrás de la imagen */
+  background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño de la imagen */
 }
 
 .damage {
@@ -163,6 +199,7 @@
   height: 160px;
   z-index: 9999;
   opacity: 20;
+  line-height: 1.5;
 }
 
 .final-box-stats-info {
@@ -184,7 +221,7 @@
   padding: 0px;
   /* Añadir relleno opcional para celdas */
   padding-left: 12px;
-  font-size: 24px;
+  font-size: 24px;  
 }
 
 /* Style for the progress bar container */
@@ -219,7 +256,8 @@ progress::-webkit-progress-bar {
 .header {
   color: gray;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 20px; 
+  margin-top: 12px; 
 }
 
 .animated-text {
@@ -329,4 +367,23 @@ progress::-webkit-progress-bar {
   z-index: 99999;
   display: flex;
   flex-direction: column;
+}
+
+span{
+  font: bold 18px arial;
+}
+
+progress{
+  margin-top: 12px;
+}
+
+.ff7cursor {
+  position: fixed;
+  width: 30px;
+  height: 15px;
+  margin-top: 16px;
+  margin-left: -40px;
+  z-index: 9999999;
+  background-image: url('../images/FF7Cursor.png');
+  background-size:cover;
 }

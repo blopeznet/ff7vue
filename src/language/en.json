@@ -76,8 +76,8 @@
     "content_help": {
         "title": "HELP",
         "introduction": "CONTROLS",
-        "mouse": "Mouse: You can use mouse to click elements",
+        "mouse": "Mouse/Touch: You can use mouse to click elements",
         "keyboard": "Keyboard: You can use direction keyboard on MAP, and ESC to access to menu",
-        "pad": "Pad: You can use pad on screen click buttons for some actions"        
+        "pad": ""        
     }      
 }

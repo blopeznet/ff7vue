@@ -27,7 +27,7 @@ export const useFightStore = defineStore({
       const characters = [
         {
           name: "sephirot",
-          level: 30,
+          level: 99,
           pg: 9999,
           pgMax: 9999,
           pm: 9999,
@@ -42,7 +42,7 @@ export const useFightStore = defineStore({
         },
         {
           name: "cloud",
-          level: 12,
+          level: 82,
           pg: 1000,
           pgMax: 1000,
           pm: 30,
@@ -57,7 +57,7 @@ export const useFightStore = defineStore({
         },
         {
           name: "aeris",
-          level: 10,
+          level: 70,
           pg: 300,
           pgMax: 300,
           pm: 50,
@@ -79,7 +79,7 @@ export const useFightStore = defineStore({
           pmMax: 50,
           type: "enemy",
           damage: 4,
-          isAvaliable: true,
+          isAvaliable: false,
           isDead: false,
           isEnemy: true,
           hasAttacked: false,
@@ -94,7 +94,7 @@ export const useFightStore = defineStore({
           pmMax: 50,
           type: "enemy",
           damage: 5,
-          isAvaliable: true,
+          isAvaliable: false,
           isDead: false,
           isEnemy: true,
           hasAttacked: false,
@@ -109,7 +109,7 @@ export const useFightStore = defineStore({
           pmMax: 50,
           type: "enemy",
           damage: 6,
-          isAvaliable: true,
+          isAvaliable: false,
           isDead: false,
           isEnemy: true,
           hasAttacked: false,

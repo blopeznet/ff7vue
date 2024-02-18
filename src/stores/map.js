@@ -6,7 +6,7 @@ const initialState = {
     map_zIndex: 4,
     map_src: "./images/stop_down.gif",
     moveDistance: 5,
-    fightFrecuencyMs: 2000,
+    fightFrecuencyMs: 20000,
 };
 
 /**
@@ -20,7 +20,7 @@ export const useMapStore = defineStore({
         map_zIndex: 4,
         map_src: "./images/stop_down.gif",
         moveDistance: 5,
-        fightFrecuencyMs: 2000,
+        fightFrecuencyMs: 20000,
     }),
     actions: {
         moveUp() {

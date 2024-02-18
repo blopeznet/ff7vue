@@ -6,7 +6,6 @@
             <p>{{ useLocalizeText('content_help.mouse')}}</p>
             <p>{{ useLocalizeText('content_help.keyboard')}}</p>
             <p>{{ useLocalizeText('content_help.pad')}}</p>
-            <p></p>
             <a @click="navRoot" style="font-size: 28px;">{{ useLocalizeText('reset') }}</a>
         </div>
         <img class="bubble" src="/images/bubble.png">
@@ -53,8 +52,7 @@ const router = useRouter();
     left: 50%;
     margin-top: 130px;
     margin-left: 20px;
-    transform: translate(-50%, -50%);
-    font-size: 23px;
+    font-size: 18px;
 }
 
 .bubble {
@@ -107,13 +105,20 @@ const router = useRouter();
     z-index: 2;
     font-family: 'ITC Stone Sans Std', sans-serif;
     font-weight: bold;
-
-
-    /* Ensure bold weight is applied */
 }
 
 a{
-    text-decoration: underline;
+    margin-bottom: 12px!important;
+    padding: 0px!important;
+    margin-top:12px!important;
+    text-decoration: none!important;
+    font-size: 22px!important;
+    font-weight: bold;
 }
+
+a:hover{
+    font-size: 26px!important;
+}
+
 </style>
   

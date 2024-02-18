@@ -9,16 +9,23 @@
   
   .menu {
     position: fixed;
-    bottom: 4%;
-    left: 50%;
+    top: 350px;
+    left: 260px;
+    max-width: 200px;
     z-index: 1;
-    transform: translate(-50%, -50%);
+    font-size: 18px;
   }
   
   .logo {
     position: fixed;
-    top: 28%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 100px;
+    left: 200px;
+    z-index: 1;
+  }
+
+  li{
+    position: fixed;
+    top: 500px;
+    left: 365px;
     z-index: 1;
   }

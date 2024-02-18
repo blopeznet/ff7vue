@@ -1,0 +1,23 @@
+/** HOME SCREEN **/
+
+.home-logo {
+    position: fixed;
+    top: 200px;
+    left: 200px;
+    z-index: 1;
+}
+
+.home-menu {
+    position: fixed;
+    top: 510px;
+    left: 300px;
+    z-index: 1;
+}
+
+.version{
+    position: fixed;
+    top: 560px;
+    left: 24px;
+    font-size: 14px;
+    z-index: 1;
+}

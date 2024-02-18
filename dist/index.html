@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/ff7vue/final_fantasy_7.svg" />
+    <!-- Set the viewport width to device width and initial scale to 1.0 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/ff7vue/styles/styles.css">
+    <title>FFVII vue3</title>
+    <style>
+        /* Set body and html to 100% height */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Adjust zoom according to screen height */
+        #app {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Style for the warning message */
+        #resolution-warning {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 187, 0, 0.7);
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 10px;
+            display: none;
+            z-index: 9999999;
+            max-width: 300px;  
+            width: 800px;          
+        }
+    </style>
+  <script type="module" crossorigin src="/ff7vue/assets/index-Xndl0idS.js"></script>
+  <link rel="stylesheet" crossorigin href="/ff7vue/assets/index-dHlv47gZ.css">
+</head>
+<body>
+    <!-- Warning message for low screen resolution -->
+    <div id="resolution-warning">
+        <p>Please use a screen resolution of at least 800x600.</p>
+    </div>
+
+    <!-- Main app container -->
+    <div id="app"></div>
+
+    <script>
+        // Function to adjust zoom according to screen height
+        function adjustZoom() {
+            const windowHeight = window.innerHeight;
+            const screenWidth = window.innerWidth;
+
+            // Calculate the base aspect ratio (height / width)
+            const baseAspectRatio = 600 / 800; // Base resolution is 800x600
+
+            // Calculate the current aspect ratio
+            const currentAspectRatio = windowHeight / screenWidth;
+
+            // Calculate the zoom level based on the aspect ratio
+            let zoom;
+
+            if (currentAspectRatio > baseAspectRatio) {
+                // If the current aspect ratio is taller than the base, adjust zoom based on height
+                zoom = (baseAspectRatio / currentAspectRatio) * 100;
+            } else {
+                // If the current aspect ratio is wider than the base, adjust zoom based on width
+                zoom = (currentAspectRatio / baseAspectRatio) * 100;
+            }
+
+            // Apply the zoom to the app container
+            document.querySelector('#app').style.zoom = `${zoom+30}%`;
+        }
+
+        // Call the function when the page loads and when the window is resized
+        window.onload = adjustZoom;
+        window.onresize = adjustZoom;
+    </script>
+</body>
+</html>

@@ -20,6 +20,8 @@
     "yes":"Sí",
     "no":"No",
     "no_items_message":"No hay objetos para recoger.",
+    "no_items":"No hay objetos",
+    "gained_gil":"Gil ganados",
     "tmp":"Temp",
     "gil":"Gil",
     "nv":"Nivel",

@@ -10,13 +10,13 @@
       </customButton>
       <img src="/images/menu.jpg" style="opacity: 0;">
       <div class="final-box final-box-title-info">
-        <span>{{ "Gained gil." }}</span>
+        <span>{{ useLocalizeText('gained_gil')+"." }}</span>
       </div>
       <div class="final-box final-box-gained-info" @click="navMap">
         <table style="margin-left: 24px;margin-top: 4px;">
           <tr>
             <td>
-              {{ "Gained gil" }}
+              {{ useLocalizeText('gained_gil') }}
             </td>
             <td>
               {{ `${fightStore.gainedGil}G` }}
@@ -37,7 +37,7 @@
         </table>
       </div>
       <div class="final-box final-box-items-info" @click="navMap">
-        <span>{{ "No items" }}</span>
+        <span>{{ useLocalizeText('no_items') }}</span>
       </div>     
     </div>
   </div>
@@ -64,7 +64,6 @@ const isOpen = ref(false);
 onBeforeMount(() => {
   appStore.setPageName("EndFight");
   //If win combat, reset Enemy live, if loose, reset our lives before add gil
-  console.info("fightStore.lastCombatStatus",fightStore.lastCombatStatus);
   if (fightStore.lastCombatStatus == 0){
     fightStore.resetChars();
     fightStore.resetEnemy();

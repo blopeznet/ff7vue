@@ -5,7 +5,7 @@
     "settings": "Settings",
     "history_intro": "10 years ago...",
     "history": "I wanted to join Shinra's Elite Corps, to become a SOLDIER. The final test was to accompany Sephiroth to Gaia on a reconnaissance mission. We found a lost young girl, Ifalna. Sephiroth decided to take her to the nearest doctor. I finally remembered!!",
-    "map":"Map",
+    "map":"Mapa",
     "map_messages": {
         "01": "You cannot go in that direction.",
         "02": "That's not the right direction.",
@@ -20,6 +20,8 @@
     "yes":"Yes",
     "no":"No",
     "no_items_message":"There is no items to collect.",
+    "no_items":"No hay objetos",
+    "gained_gil":"Gil ganados",
     "tmp":"Tmp",
     "gil":"Gil",
     "nv":"LV",

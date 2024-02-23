@@ -130,8 +130,7 @@ onMounted(async () => {
   const observer = new MutationObserver(async (mutationsList, observer) => {
     for (let mutation of mutationsList) {
       if (mutation.type === 'attributes' && (mutation.attributeName === 'style' && mutation.target.style.top || mutation.target.style.left)) {
-        console.info("mapStore.map_Left",mapStore.map_Left);
-        console.info("mapStore.map_Top",mapStore.map_Top);
+
         if (mapStore.map_Left >= 600 && mapStore.map_Top <= 120) {
           router.push({ path: "EndGame" });
         }

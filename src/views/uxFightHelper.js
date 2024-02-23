@@ -348,8 +348,6 @@ export function moveCharacterToTarget(selectedCharacter, targetCharacter) {
   const direction = originalLeft < targetLeft ? "right" : "left";
   var distance = Math.abs(originalLeft - targetLeft);
 
-  console.info("targetCharacter", elementEnemy);
-  console.info("direction", direction);
 
   if (direction == "left") {
     targetLeft += 100;

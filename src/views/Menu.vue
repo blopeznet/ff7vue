@@ -180,7 +180,7 @@ const moveElement = () => {
 
   if (allElementsReachedFinalValues.every(value => value === true)) {
     clearInterval(moveElementInterval);
-    console.info("detiene");
+
   }
 };
 

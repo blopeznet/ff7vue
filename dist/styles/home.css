@@ -17,7 +17,19 @@
 .version{
     position: fixed;
     top: 560px;
-    left: 24px;
+    left: 680px;
     font-size: 14px;
     z-index: 1;
 }
+
+.ff7cursor {
+    position: fixed;
+    width: 30px;
+    height: 15px;
+    top: 24px;
+    left: 40px;
+    z-index: 9999999;
+    background-image: url('../images/FF7Cursor.png');
+    background-size:cover;
+  }
+

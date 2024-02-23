@@ -1,118 +1,169 @@
 .final-box {
-    position: absolute;
-    border: 2px solid #fff;
-    background: linear-gradient(to bottom, #070B43, #0A4AA9);
-    color: #FFFFFF;
-    padding: 0px;
-    margin: 0px;
-    border-radius: 10px;
-    font: bold 10px arial;
-    font-size: 18px;
-  }
-  
-  .final-box-characters-info {
-    left: 12px;
-    width: 700px;
-    height: 520px;
-  }
-  
-  .final-box-menu-info {
-    right: 12px;
-    width: 200px;
-    height: 400px;
-  }
-  
-  .final-box-time-info {
-    right: 12px;
-    width: 200px;
-    height: 70px;
-  }
-  
-  .final-box-place-info {
-    right: 12px;
-    width: 380px;
-    height: 70px;
-  }
-  
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 5px;
-  }
-  
-  .grid-item {
-    font-size: 18px;
-    margin-top: -2px;
-    padding-top: 8px;
-  }
-  
-  .info-heading {
-    font-size: 18px;
-    margin-left: 32px;
-  }
-  
-  .info-text-place {
-    font: bold 10px arial;
-    font-size: 24px;
-    margin-left: -220px;
-    margin-top: 22px;
-  }
-  
-  .grid-menu-item1,
-  .grid-menu-item2 {
-    font-size: 18px;
-    line-height: 32px;
-    cursor: pointer;
-    padding-left: 0px;
-    margin-left: 0px;
-  }
-  
-  .tabla {
-    margin: 20px;
-  }
-  
-  table {
-    width: 50%;
-    border-collapse: separate;
-    border-spacing: 0px 0px;
-  }
-  
-  th,
-  td {
-    padding: 0px;
-    border: none;
-    text-align: center;
-    height: 0px;
-  }
-  
-  /* Style for the progress bar container */
-  progress {
-    width: 100%;
-    height: 6px;
-    border: 1px solid gray;
-    border-radius: 0;
-    margin-top: 12px;
-    overflow: hidden;
-  }
-  
-  
-  /* Style for the progress bar background */
-  progress::-webkit-progress-bar {
-    background-color: maroon;
-  }
-  
-  /* Style for the pg class */
-  .pg::-webkit-progress-value {
-    background: linear-gradient(to right, #0A4AA9, #FFFFFF);
-  }
-  
-  /* Style for the pm class */
-  .pm::-webkit-progress-value {
-    background: linear-gradient(to right, rgb(86, 239, 86), #FFFFFF);
-  }
-  
-  .grid-menu-item2:hover {
-    color: white;
-    font-size: 22px;
-  }
-  
+  position: absolute;
+  border: 4px solid #fff;
+  background: linear-gradient(to bottom, #070b43, #0a4aa9);
+  color: #ffffff;
+  padding: 0px;
+  margin: 0px;
+  border-radius: 10px;
+  font: bold 10px arial;
+  font-size: 18px;
+}
+
+.final-box-characters-info {
+  left: 12px;
+  width: 700px;
+  height: 520px;
+}
+
+.final-box-menu-info {
+  right: 12px;
+  width: 200px;
+  height: 400px;
+}
+
+.final-box-time-info {
+  right: 12px;
+  width: 200px;
+  height: 70px;
+}
+
+.final-box-place-info {
+  right: 12px;
+  width: 380px;
+  height: 70px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 5px;
+}
+
+.grid-item {
+  font-size: 18px;
+  margin-top: -2px;
+  padding-top: 8px;
+}
+
+.info-heading {
+  font-size: 18px;
+  margin-left: 32px;
+}
+
+.info-text-place {
+  font: bold 10px arial;
+  font-size: 20px;
+  margin-left: -200px;
+  margin-top: 22px;
+}
+
+.grid-menu-item1,
+.grid-menu-item2 {
+  font-size: 20px;
+  line-height: 32px;
+  cursor: pointer;
+  padding-left: 0px;
+  margin-left: 0px;
+  padding: 12px;
+}
+
+.tabla {
+  margin: 20px;
+}
+
+table {
+  width: 50%;
+  border-collapse: separate;
+  border-spacing: 0px 0px;
+}
+
+th,
+td {
+  padding: 0px;
+  border: none;
+  text-align: center;
+  height: 0px;
+}
+
+/* Style for the progress bar container */
+progress {
+  width: 100%;
+  height: 6px;
+  border: 1px solid gray;
+  border-radius: 0;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+/* Style for the progress bar background */
+progress::-webkit-progress-bar {
+  background-color: maroon;
+}
+
+/* Style for the pg class */
+.pg::-webkit-progress-value {
+  background: linear-gradient(to right, #0a4aa9, #ffffff);
+}
+
+/* Style for the pm class */
+.pm::-webkit-progress-value {
+  background: linear-gradient(to right, rgb(86, 239, 86), #ffffff);
+}
+
+.grid-menu-item2:hover {
+  color: white;
+  font-size: 21px;
+}
+
+/* Estilos para los selectores al estilo FF7 */
+.ff7-button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  width: 150px;
+  margin-top: 2px;
+  outline: none; /* Evita el borde al enfocar */
+}
+
+
+.ff7-selector option {
+  background: linear-gradient(to bottom, #070b43, #0a4aa9);
+  color: #fff;
+}
+
+/* Estilos para los botones al estilo FF7 */
+.ff7-button {
+  background-color: transparent;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  min-width: 120px;
+  margin-top: 2px;
+}
+
+
+
+.bottom-bar-label{
+  font-size: 20px;
+  width: 120px;
+}
+
+a{
+  font-weight: bold;
+}
+
+a:hover{
+  font-size: 21px;
+}
+

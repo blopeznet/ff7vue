@@ -6,6 +6,8 @@
       </div>
     </div>
     <div class="background" ref="Background" @click="navMap">
+      <customButton :buttonText="useLocalizeText('map')" :onClick="appStore.navMap" >        
+      </customButton>
       <img src="/images/menu.jpg" style="opacity: 0;">
       <div class="final-box final-box-title-info">
         <span>{{ "Gained gil." }}</span>
@@ -36,10 +38,7 @@
       </div>
       <div class="final-box final-box-items-info" @click="navMap">
         <span>{{ "No items" }}</span>
-      </div>
-      <div @click="navMap" class="final-box-aux">
-          <p class="info-text">{{ useLocalizeText('map').toUpperCase() }}</p>
-        </div>
+      </div>     
     </div>
   </div>
 </template>
@@ -47,6 +46,7 @@
 <script setup>
 //Import and vars
 import { ref, onMounted, onUnmounted, onBeforeMount } from 'vue';
+import customButton from '../components/customButton.vue'
 import { useLocalizeText } from '../composables/localization'
 import { useRouter } from 'vue-router';
 import { useAppStore } from '../stores/app'
@@ -67,11 +67,16 @@ onBeforeMount(() => {
   console.info("fightStore.lastCombatStatus",fightStore.lastCombatStatus);
   if (fightStore.lastCombatStatus == 0){
     fightStore.resetChars();
+    fightStore.resetEnemy();
+    fightStore.lastCombatStatus = null;
   }else if (fightStore.lastCombatStatus == 1){
     fightStore.resetEnemy();
+    fightStore.lastCombatStatus = null;
+    fightStore.setGainedGil();
+  }else if (fightStore.lastCombatStatus == 2){
+    fightStore.resetEnemy();
+    fightStore.lastCombatStatus = null;
   }
-  fightStore.lastCombatStatus = null;
-  fightStore.setGainedGil();
 });
 
 /**

@@ -174,6 +174,13 @@ export const useFightStore = defineStore({
         fileName: "summon",
       };
 
+      const actionExit = {
+        name: useLocalizeText("leave"),
+        enabled: true,
+        pmPrice: 0,
+        fileName: "exit",
+      };
+
       // Define las magias disponibles
       const magicAqua = {
         name: useLocalizeText("aqua"),
@@ -227,14 +234,17 @@ export const useFightStore = defineStore({
           actions.push(actionAttack);
           actions.push(actionMagic);
           actions.push(actionSummon);
+          actions.push(actionExit);
           break;
         case "warrior":
           actions.push(actionAttack);
           actions.push(actionMagic);
+          actions.push(actionExit);
           break;
         case "magician":
           actions.push(actionAttack);
           actions.push(actionMagic);
+          actions.push(actionExit);
           break;
         case "enemy":
           actions.push(actionAttack);

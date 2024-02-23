@@ -76,6 +76,90 @@ export function updateRingMagicPosition(selectedCharacter) {
 }
 
 /**
+ * Update summon bubbles location above char when select
+ */
+export function updateSummonBubblesPosition(selectedCharacter) {
+  const elementY = document.querySelector("#hero-magic-ring-yellow");
+  const elementR = document.querySelector("#hero-magic-ring-red");
+  const elementG = document.querySelector("#hero-magic-ring-green");
+
+
+  const elementCharacter = document.querySelector(
+    "#" + selectedCharacter.value.fileName
+  );
+
+  if (elementCharacter) {
+    const targetLeft = parseFloat(
+      window.getComputedStyle(elementCharacter).getPropertyValue("left")
+    );
+    const targetTop = parseFloat(
+      window.getComputedStyle(elementCharacter).getPropertyValue("top")
+    );
+    const targetBottom = parseFloat(
+      window.getComputedStyle(elementCharacter).getPropertyValue("bottom")
+    );
+    const targetRight = parseFloat(
+      window.getComputedStyle(elementCharacter).getPropertyValue("right")
+    );
+
+    elementY.style.zIndex = 99999;
+    elementY.style.left = `${targetLeft-50}px`;
+    elementY.style.top = `${targetTop + 30}px`;
+    elementY.style.bottom = `${targetBottom}px`;
+    elementY.style.right = `${targetRight}px`;
+
+    elementG.style.zIndex = 99999;
+    elementG.style.left = `${targetLeft+30}px`;
+    elementG.style.top = `${targetTop}px`;
+    elementG.style.bottom = `${targetBottom}px`;
+    elementG.style.right = `${targetRight}px`;
+
+    elementR.style.zIndex = 99999;
+    elementR.style.left = `${targetLeft}px`;
+    elementR.style.top = `${targetTop + 50}px`;
+    elementR.style.bottom = `${targetBottom}px`;
+    elementR.style.right = `${targetRight}px`;
+
+    elementY.classList.add("visible"); // Agregar una clase para mostrar el anillo mágico
+  }
+}
+
+/**
+ * Hide and show summon bubbles animation
+ */
+export function showAndHideSummonBubbles() {
+  
+
+  const elementY = document.querySelector("#hero-magic-ring-yellow");
+  const elementR = document.querySelector("#hero-magic-ring-red");
+  const elementG = document.querySelector("#hero-magic-ring-green");
+
+
+  if (elementY && elementR && elementG) {
+    // Hacer visible el elemento antes de la animación
+    elementY.style.visibility = "visible";
+    elementR.style.visibility = "visible";
+    elementG.style.visibility = "visible";
+
+    // Agregar clase para animar la visibilidad del elemento
+    elementY.classList.add("animate-show");
+    elementR.classList.add("animate-show");
+    elementG.classList.add("animate-show");
+
+    setTimeout(() => {
+      elementY.classList.remove("animate-show");
+      elementR.classList.remove("animate-show");
+      elementG.classList.remove("animate-show");
+
+      // Después de la animación, ocultar el elemento nuevamente
+      elementY.style.visibility = "hidden";
+      elementR.style.visibility = "hidden";
+      elementG.style.visibility = "hidden";
+    }, 500);
+  }
+}
+
+/**
  * Hide and show magic ring loading animation
  */
 export function showAndHideRingMagic() {
@@ -189,6 +273,7 @@ export function updateAttackPosition(targetCharacter) {
  */
 export function showAttack(selectedCharacter, targetCharacter) {
   const elementArrow = document.querySelector("#arrow");
+  if (elementArrow){
   elementArrow.style.visibility = "hidden";
   const elementEnemy = document.querySelector(
     "#" + targetCharacter.value.fileName
@@ -224,7 +309,7 @@ export function showAttack(selectedCharacter, targetCharacter) {
 
     }, 1000);
   }
-
+  }
   return true;
 }
 
@@ -295,7 +380,9 @@ export function moveCharacterToTarget(selectedCharacter, targetCharacter) {
  * Hide and show summon animation (Animation)
  */
 export function showSummon(selectedCharacter) {
+  updateSummonBubblesPosition(selectedCharacter);
   updateRingMagicPosition(selectedCharacter);
+  showAndHideSummonBubbles();
   showAndHideRingMagic();
   hideCharsForSummon();
   animateSummon();
@@ -462,6 +549,23 @@ export function updateLastDamagePosition(targetCharacter) {
   }
 }
 
+
+export function applyFlipToLeft() {
+  const element1 = document.querySelector("#top-hero");
+  const element2 = document.querySelector("#middle-hero");
+  const element3 = document.querySelector("#bottom-hero");
+  const elementsToFlip = [
+    element1,
+    element2,
+    element3
+  ];
+  elementsToFlip.forEach(element => {
+    if (element) {
+      element.classList.add('flip-left');
+    }
+  });
+}
+
 /**
  * Calculate image
  */
@@ -504,7 +608,7 @@ export function calculateStyleTargets(sourceMenu) {
 
   return {
     position: "absolute",
-    border: "2px solid #fff",
+    border: "4px solid #fff",
     background: "linear-gradient(to bottom, #070B43, #0A4AA9)",
     color: "#FFFFFF",
     padding: "0px",
@@ -532,7 +636,7 @@ export function calculateStyleMagics() {
 
   return {
     position: "absolute",
-    border: "2px solid #fff",
+    border: "4px solid #fff",
     background: "linear-gradient(to bottom, #070B43, #0A4AA9)",
     color: "#FFFFFF",
     padding: "0px",

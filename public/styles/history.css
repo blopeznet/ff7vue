@@ -46,3 +46,54 @@
   .dialog-box-history:hover {
     cursor: pointer;
   }
+
+  .ff7cursor {
+    position: fixed;
+    width: 30px;
+    height: 15px;
+    top: 24px;
+    left: 40px;
+    z-index: 9999999;
+    background-image: url('../images/FF7Cursor.png');
+    background-size:cover;
+  }
+
+  .dialog-box-next {
+    background: linear-gradient(to bottom, #070B43, #0A4AA9);
+    border: 4px solid #fff;
+    border-radius: 10px;
+    padding: 14px;
+    opacity: 1;
+    position: fixed;
+    width: 40px;
+    height: 15px;
+    left: 700px;
+    top: 530px;    
+    z-index: 10000;
+  }
+
+  .dialog-content.div {
+    position: fixed;
+    color: #fff;
+    font: bold 10px arial;
+    margin-top: -18px;
+    line-height: 1.5; /* ajusta el espaciado entre líneas */
+    font-weight: bold;
+    user-select: none;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;    
+    font-size:30px;
+  }
+
+  .dialog-content.div {
+    position: fixed;
+    color: #fff;
+    font: bold 10px arial;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;    
+    font-size:30px;
+  }

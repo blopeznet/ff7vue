@@ -5,7 +5,9 @@
         <p>{{ message }}</p>
       </div>
     </div>
-    <div class="background" ref="Background">
+    <div class="background" ref="Background">    
+      <customButton :buttonText="useLocalizeText('map')" :onClick="appStore.navMap" >        
+      </customButton>
       <img src="/images/menu.jpg" style="opacity: 0.7;">
       <div class="final-box final-box-characters-info" :style="{ top: (TopChars) + 'px' }">
         <div class="tabla">
@@ -51,11 +53,23 @@
 
         </div>
       </div>
-      <div class="final-box final-box-menu-info" :style="{ top: (TopMenu) + 'px' }">
-        <div class="grid-menu-item1" style="color:gray">{{ useLocalizeText('items') }}</div>
-        <div class="grid-menu-item2" @click="restorePG">{{ useLocalizeText('restore_pg') }}</div>
-        <div class="grid-menu-item2" @click="restorePM">{{ useLocalizeText('restore_pm') }}</div>
-        <div class="grid-menu-item2" @click="navMap">{{ useLocalizeText('leave') }}</div>
+      <div class="final-box final-box-menu-info" :style="{ top: (TopMenu) + 'px' }">   
+        <div class="grid-menu-item2" @mouseover="overOption(1)" :class="{ 'selected': selectedOption === 1 }" @click="selectOption(1)">
+          <img v-if="selectedOption === 1" class="img-selector" src="/images/FF7Cursor.png" />
+          {{ useLocalizeText('restore_pg') }}
+        </div>
+        <div class="grid-menu-item2" @mouseover="overOption(2)" :class="{ 'selected': selectedOption === 2 }" @click="selectOption(2)">
+          <img v-if="selectedOption === 2" class="img-selector" src="/images/FF7Cursor.png" />
+          {{ useLocalizeText('restore_pm') }}
+        </div>
+        <div class="grid-menu-item2" @mouseover="overOption(3)" :class="{ 'selected': selectedOption === 3 }" @click="selectOption(3)">
+          <img v-if="selectedOption === 3" class="img-selector" src="/images/FF7Cursor.png" />
+          {{ useLocalizeText('leave') }}
+        </div>
+        <div class="grid-menu-item2" @mouseover="overOption(4)" :class="{ 'selected': selectedOption === 4 }" @click="selectOption(4)">
+          <img v-if="selectedOption === 4" class="img-selector" src="/images/FF7Cursor.png" />
+          {{ useLocalizeText('reset') }}
+        </div>
       </div>
       <div class="final-box final-box-time-info" :style="{ bottom: (BottomTime) + 'px' }">
         <div class="grid-container">
@@ -67,10 +81,7 @@
       </div>
       <div class="final-box final-box-place-info" :style="{ bottom: (BottomPlace) + 'px' }">
         <p class="info-text-place">{{ useLocalizeText('gaia_area') }}</p>
-      </div>
-      <div @click="navMap" class="final-box-aux">
-        <p class="info-text">{{ useLocalizeText('map').toUpperCase() }}</p>
-      </div>
+      </div>    
     </div>
   </div>
 </template>
@@ -78,6 +89,7 @@
 <script setup>
 //Import and vars
 import { ref, onMounted, onUnmounted, onBeforeMount } from 'vue';
+import customButton from '../components/customButton.vue'
 import { useLocalizeText } from '../composables/localization'
 import { useRouter } from 'vue-router';
 import { useAppStore } from '../stores/app'
@@ -93,6 +105,7 @@ const TopMenu = ref(-500);
 const BottomTime = ref(-100);
 const BottomPlace = ref(-200);
 let moveElementInterval; // Animation interval
+const selectedOption = ref(-1);
 
 /**
  * Set current page
@@ -117,14 +130,6 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('keydown', handleMenuKeyDown);
 });
-
-/**
- * Navigation to map
- */
-const navMap = () => {
-  appStore.playMenu();
-  router.push({ path: "Map" });
-};
 
 /**
  * Real time
@@ -185,8 +190,8 @@ const moveElement = () => {
  */
 const handleMenuKeyDown = async (event) => {
   appStore.playMenu();
-  if (event.key === 'Escape') {
-    router.push({ path: "Map" });
+   if (event.key === 'Escape') {
+  appStore.navMap();
   }
 };
 
@@ -199,7 +204,7 @@ const restorePG = async () => {
   fightStore.resetPG();
   await showDialog("pg_restored");
   appStore.playRestore();
-
+  selectOption.value = -1;
 };
 
 
@@ -211,7 +216,7 @@ const restorePM = async () => {
   fightStore.resetPM();
   await showDialog("pm_restored");
   appStore.playRestore();
-
+  selectOption.value = -1;
 };
 
 /**
@@ -231,6 +236,37 @@ const showDialog = async (key = "begin_fight") => {
  const getImageUrl = (characterName) => {
   return `/ff7vue/images/${characterName.toLowerCase()}.png`;
 }
+
+
+/**
+ * Function to execute menu option
+ * */
+const selectOption = (option) => {
+  selectedOption.value = option;
+  switch (option) {
+    case 1:
+      restorePG();
+      break;
+    case 2:
+      restorePM();
+      break;
+    case 3:
+      appStore.navMap();
+      break;
+    case 4:
+      appStore.navHome();
+      break;
+    default:
+      break;
+  }
+};
+
+/**
+ * Function to show image over menu option
+ * */
+ const overOption = (option) => {
+  selectedOption.value = option;
+};
 
 </script>
 

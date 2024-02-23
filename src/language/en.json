@@ -2,6 +2,7 @@
     "play": "Play",
     "english": "English",
     "spanish": "Spanish",
+    "settings": "Settings",
     "history_intro": "10 years ago...",
     "history": "I wanted to join Shinra's Elite Corps, to become a SOLDIER. The final test was to accompany Sephiroth to Gaia on a reconnaissance mission. We found a lost young girl, Ifalna. Sephiroth decided to take her to the nearest doctor. I finally remembered!!",
     "map":"Map",
@@ -13,10 +14,11 @@
         "05": "..."
     },
     "items":"Items",
-    "leave":"Quit",
+    "leave":"Exit",
     "gaia_area":"Gaia's Area",
     "play_again":"Congratulations, you have pass game. Do you want to play again?",
     "yes":"Yes",
+    "no":"No",
     "no_items_message":"There is no items to collect.",
     "tmp":"Tmp",
     "gil":"Gil",
@@ -29,6 +31,7 @@
     "attack":"Attack",
     "magic":"Magic",
     "summon":"Summon",
+    "exit":"Exit",
     "aqua":"Aqua",
     "fire":"Fire",
     "ice":"Ice",
@@ -36,6 +39,7 @@
     "ko_fight":"Sephirot ...",    
     "win_fight":"Aeris: Fight win, Congratulations!",
     "begin_fight":"Cloud: Quick, let's finish him off!!",
+    "skip_fight":"Cloud: Quick, let's run away!",
     "sephirot":"Sephiroth",
     "cloud":"Cloud",
     "aeris":"Aeris",
@@ -79,5 +83,7 @@
         "mouse": "Mouse/Touch: You can use mouse to click elements",
         "keyboard": "Keyboard: You can use direction keyboard on MAP, and ESC to access to menu",
         "pad": ""        
-    }      
+    },
+    "code":"Repository",
+    "mail":"Mail"      
 }

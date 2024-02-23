@@ -2,6 +2,7 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Settings from '../views/Settings.vue'
 import History from '../views/History.vue'
 import Map from '../views/Map.vue'
 import Menu from '../views/Menu.vue'
@@ -14,6 +15,7 @@ import Help from '../views/Help.vue'
 
 const routes = [
   { path: '/', component: Home },
+  { path: '/settings', component: Settings },
   { path: '/history', component: History },
   { path: '/map', component: Map },
   { path: '/menu', component: Menu },

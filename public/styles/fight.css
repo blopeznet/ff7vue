@@ -2,7 +2,7 @@
 
 .top-hero {
   position: fixed;
-  top: 150px;
+  top: 180px;
   left: 100px;
   z-index: 2;
   opacity: 1;
@@ -31,6 +31,36 @@
 /**Hero MAGIC effects**/
 
 .hero-magic {
+  position: fixed;
+  bottom: 0px;
+  left: 0%;
+  z-index: 5;
+  visibility: collapse;
+  width: 110px;
+  height: 120px;
+}
+
+.hero-magic-ring-green {
+  position: fixed;
+  bottom: 0px;
+  left: 0%;
+  z-index: 5;
+  visibility: collapse;
+  width: 110px;
+  height: 120px;
+}
+
+.hero-magic-ring-red {
+  position: fixed;
+  bottom: 0px;
+  left: 0%;
+  z-index: 5;
+  visibility: collapse;
+  width: 110px;
+  height: 120px;
+}
+
+.hero-magic-ring-yellow {
   position: fixed;
   bottom: 0px;
   left: 0%;
@@ -173,7 +203,7 @@
 
 .final-box {
   position: absolute;
-  border: 2px solid #fff;
+  border: 4px solid #fff;
   background: linear-gradient(to bottom, #070b43, #0a4aa9);
   color: #ffffff;
   padding: 0px;
@@ -387,3 +417,47 @@ progress{
   background-image: url('../images/FF7Cursor.png');
   background-size:cover;
 }
+
+.dialog-box-fight {
+  background: linear-gradient(to bottom, #070B43, #0A4AA9);
+  border: 4px solid #fff;
+  border-radius: 10px;
+  padding: 14px;
+  opacity: 0;
+  position: fixed;
+  width: 760px;
+  height: 20px;
+  left: 2px;
+  top: 2px;
+  z-index: 1000;
+  transition: opacity 1s ease-in-out;
+}
+.dialog-content{
+  margin-top: -20px;
+}
+
+.dialog-box-fight.open {
+  opacity: 1; /* Opacidad aumentada cuando la clase 'show' está presente */
+}
+
+
+  /* Agrega estas clases de animación */
+  @keyframes flipToLeft {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(-50px);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+  }
+
+  /* Aplica la animación a los elementos que desees */
+  .flip-left {
+    animation: flipToLeft 1s forwards;
+  }

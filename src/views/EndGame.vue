@@ -1,6 +1,8 @@
 <template>
   <div>
     <div class="background" ref="Background">
+      <customButton :buttonText="useLocalizeText('play')" :onClick="appStore.navHome" >        
+      </customButton>
       <img src="/images/end.jpg">
       <div class="logo">
         <img src="/images/logo.png" width="400" height="130">
@@ -8,7 +10,6 @@
       <ul class="menu">
         <p>{{ useLocalizeText('play_again') }}</p>
       </ul>
-      <li @click="navRoot">{{ useLocalizeText('yes') }}</li>
     </div>
   </div>
 </template>
@@ -16,29 +17,17 @@
 <script setup>
 //Import and vars
 import { onBeforeMount } from 'vue'
-import { useRouter } from 'vue-router'
 import { useLocalizeText } from '../composables/localization'
-import { useFightStore } from '../stores/fight'
-const fightStore = useFightStore();
+import customButton from '../components/customButton.vue'
 import { useAppStore } from '../stores/app'
 const appStore = useAppStore();
-const router = useRouter();
 
 /**
  * Set current page
  */
 onBeforeMount(() => {
   appStore.setPageName("EndGame");
-  
 });
-
-/**
- * Navigate to start page
- */
-const navRoot = () => {
-  appStore.playSelect();
-  router.push({ path: "/" });
-};
 
 </script>
 

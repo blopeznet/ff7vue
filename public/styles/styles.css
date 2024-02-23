@@ -143,3 +143,49 @@ a:hover {
   cursor: pointer;
   /* Ensure bold weight is applied */
 }
+
+.dialog-box-button {
+  background: linear-gradient(to bottom, #070B43, #0A4AA9);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 20px;
+  opacity: 1;
+  position: fixed;
+  min-width: 120px;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10000;
+  transition: opacity 0.3s ease-in-out;
+  display: flex;
+  align-items: center; /* Centra el contenido verticalmente */
+  justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.dialog-box-button:hover {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.dialog-box-button-content {
+  display: flex;
+  align-items: center;
+}
+
+.dialog-box-button-content p {
+  margin: 0; /* Eliminar el margen alrededor del texto */
+  font-size: 30px;
+  text-align: center; /* Centra el texto dentro del botón */
+}
+
+.dialog-box-button-content img {
+  width: 30px;
+  height: 20px;
+  background-image: url('../images/FF7Cursor.png');
+  background-size: cover;
+  visibility: hidden; /* Oculta la imagen por defecto */
+}
+
+.dialog-box-button:hover img {
+  visibility: visible; /* Hace visible la imagen al pasar sobre el botón */
+}
+
+

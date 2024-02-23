@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="dialog-box custom-cursor" :class="{ 'open': isOpen }">
-      <div class="dialog-content">
-        <p>{{ message }}</p>
-      </div>
-    </div>
     <div class="background" ref="Background">
+      <div class="dialog-box-fight" :class="{ 'open': isOpen }">
+        <div class="dialog-content">
+          <p>{{ message }}</p>
+        </div>
+      </div>
       <img :src="backImage">
       <!--Summon-->
       <img ref="summon" id="summon" src="/images/bahamut.png" class="summon">
@@ -36,6 +36,15 @@
       <div class="hero-magic" ref="hero-magic" id="hero-magic">
         <img src="/images/magic.gif">
       </div>
+      <div class="hero-magic-ring-green" ref="hero-magic-ring-green" id="hero-magic-ring-green">
+        <img src="/images/green_ring_summon.png">
+      </div>
+      <div class="hero-magic-ring-red" ref="hero-magic-ring-red" id="hero-magic-ring-red">
+        <img src="/images/red_ring_summon.png">
+      </div>
+      <div class="hero-magic-ring-yellow" ref="hero-magic-ring-yellow" id="hero-magic-ring-yellow">
+        <img src="/images/yellow_ring_summon.png">
+      </div>
       <!--Magic ring END-->
       <!--Top enemy-->
       <div class="top-enemy" ref="top-enemy" id="top-enemy"
@@ -59,9 +68,9 @@
         <span style="font-size: 24px;">{{ lastDamage }}</span>
       </div>
       <div class="debug" ref="debug" id="debug" v-if="debug">
-        <span style="font-size: 24px;">{{ enemies[0].fileName + ": " + enemies[0].pg + "/" + enemies[0].pgMax + " : "+enemies[0].damage }}</span>
-        <span style="font-size: 24px;">{{ enemies[1].fileName + ": " + enemies[1].pg + "/" + enemies[1].pgMax + " : "+enemies[1].damage}}</span>
-        <span style="font-size: 24px;">{{ enemies[2].fileName + ": " + enemies[2].pg + "/" + enemies[2].pgMax + " : "+enemies[2].damage}}</span>
+        <span v-for="(enemy, index) in enemies" :key="index" style="font-size: 24px;">
+          {{ enemy.fileName + ": " + enemy.pg + "/" + enemy.pgMax + " : " + enemy.damage }}
+        </span>
       </div>
       <!--Attacks-->
       <div class="enemy-magic-receive" ref="enemy-magic-receive" id="enemy-magic-receive" style="visibility: collapse;">
@@ -125,13 +134,15 @@
                         :style="{ display: 'flex', justifyContent: 'space-between', color: hero.isDead ? 'red' : 'initial' }">
                         <!-- Column PG -->
                         <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
-                          <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pg }}/{{ hero.pgMax }}</span>
+                          <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pg
+                          }}/{{ hero.pgMax }}</span>
                           <progress :max="hero.pgMax" :value="hero.pg" :class="'pg'"></progress>
                         </div>
                         <!-- Column PM -->
                         <div style="flex: 1;margin-left: 48px;">
                           <div style="display: flex; flex-direction: column; align-items: center;width:100px;">
-                            <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pm }}/{{ hero.pmMax }}</span>
+                            <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pm
+                            }}/{{ hero.pmMax }}</span>
                             <progress :max="hero.pmMax" :value="hero.pm" :class="'pm'"></progress>
                           </div>
                         </div>
@@ -200,7 +211,8 @@
           </tr>
         </table>
       </div>
-      <div ref="menuTargets" class="final-box final-box-menuone-info" :style="calculateStyleTargets(sourceMenu)" v-if="showMenuTargets">
+      <div ref="menuTargets" class="final-box final-box-menuone-info" :style="calculateStyleTargets(sourceMenu)"
+        v-if="showMenuTargets">
         <table class="custom-table" v-if="!selectedCharacter.isEnemy">
           <tr v-for="(enemy, index) in enemies" :key="index">
             <td>
@@ -208,6 +220,7 @@
                 <thead>
                   <tr>
                     <td>
+                      <image id="ff7cursor" class="ff7cursor" v-if="enemy.fileName === targetCharacter.fileName" />
                       <span @click="damageExecute(enemy)"
                         :style="{ cursor: !enemy.isDead ? 'pointer' : 'default', color: (!enemy.isDead) ? 'white' : 'gray' }">
                         {{ useLocalizeText(enemy.name) }}
@@ -238,10 +251,6 @@
           </tr>
         </table>
       </div>
-      <!--End menus-->
-      <div @click="navMap" class="final-box-aux">
-        <p class="info-text">{{ useLocalizeText('map').toUpperCase() }}</p>
-      </div>
     </div>
   </div>
 </template>
@@ -256,7 +265,8 @@ import {
   calculateStyleTargets,
   calculateStyleMagics,
   hideArrow,
-  showArrow
+  showArrow,
+  applyFlipToLeft
 } from './uxFightHelper'
 
 import { ref, onBeforeMount, onMounted, watch } from 'vue'
@@ -305,6 +315,7 @@ onBeforeMount(async () => {
 
 /** Begin combat **/
 onMounted(async () => {
+  await showDialog();
   goTurn();
 });
 
@@ -321,15 +332,17 @@ const goTurn = async () => {
  * @param {*} newChar 
  */
 const changeSelectedChar = async (newChar) => {
-  hideAllMenus();
-  selectedCharacter.value = newChar;
-  selectedActions.value = selectedCharacter.value.actions;
-  if (!selectedCharacter.value.isEnemy) {
-    updateArrowPosition(selectedCharacter.value);
-    showMenuBasic.value = true;
-    showArrow();
+  if (newChar) {
+    hideAllMenus();
+    selectedCharacter.value = newChar;
+    selectedActions.value = selectedCharacter.value.actions;
+    if (!selectedCharacter.value.isEnemy) {
+      updateArrowPosition(selectedCharacter.value);
+      showMenuBasic.value = true;
+      showArrow();
+    }
+    selectedAction.value = {};
   }
-  selectedAction.value = {}; // Reset selected action
 };
 
 /**
@@ -344,6 +357,7 @@ const actionExecute = async (action) => {
   const actionName = action.fileName;
   switch (actionName) {
     case 'attack':
+      appStore.playSelect();
       sourceMenu.value = "menuBasic";
       selectedAction.value = action;
       showMenuTargets.value = true;
@@ -351,6 +365,7 @@ const actionExecute = async (action) => {
       selectedMagic.value = {};
       break;
     case 'magic':
+      appStore.playSelect();
       sourceMenu.value = "menuMagic";
       selectedAction.value = action;
       showMenuTargets.value = false;
@@ -358,12 +373,27 @@ const actionExecute = async (action) => {
       selectedMagic.value = {};
       break;
     case 'summon':
+      appStore.playSelect();
       selectedMagic.value = {};
       showMenuMagic.value = false;
       showMenuTargets.value = false;
       selectedAction.value = action;
       appStore.playSummon();
       await summonExecute();
+      break;
+    case 'exit':
+      hideArrow();
+      applyFlipToLeft();
+      showMenuBasic.value = false;
+      selectedMagic.value = {};
+      showMenuMagic.value = false;
+      showMenuTargets.value = false;
+      selectedAction.value = action;
+      appStore.playSelect();
+      let msg = "skip_fight";
+      fightStore.lastCombatStatus = 2;
+      await showDialog(msg);
+      navEndFight();
       break;
   }
 };
@@ -373,11 +403,15 @@ const actionExecute = async (action) => {
  * @param {*} enemy obj 
  */
 const damageExecute = async (enemy) => {
-  hideAllMenus();
+  targetCharacter.value = enemy;
   switch (selectedAction.value.fileName) {
     case 'attack':
+      hideAllMenus();
+      if (!selectedCharacter.value.isEnemy){
+        appStore.playSelect();
+      }
       markSelectedCharacterAsAttacked();
-      targetCharacter.value = enemy;
+      appStore.playAttackLaunch();
       appStore.playAttack();
       if (showAttack(selectedCharacter, targetCharacter)) {
         if (await ApplyDamage()) {
@@ -386,6 +420,11 @@ const damageExecute = async (enemy) => {
       }
       break;
     case 'magic':
+      if (!selectedCharacter.value.isEnemy){
+        appStore.playSelect();
+      }
+      hideAllMenus();
+      appStore.playMagicLaunch();
       markSelectedCharacterAsAttacked();
       targetCharacter.value = enemy;
       appStore.playMagic(selectedMagic.value.fileName);
@@ -405,6 +444,7 @@ const damageExecute = async (enemy) => {
 const magicExecute = async (magic) => {
   showMenuTargets.value = true;
   selectedMagic.value = magic;
+  appStore.playSelect();
 };
 
 /**
@@ -413,6 +453,7 @@ const magicExecute = async (magic) => {
 const summonExecute = async () => {
   hideAllMenus();
   if (selectedCharacter.value) {
+    appStore.playSummonLaunch();
     if (await showSummon(selectedCharacter)) {
       if (await ApplyDamage()) {
         markSelectedCharacterAsAttacked();
@@ -530,7 +571,7 @@ const checkContinue = async () => {
  * Show dialog with message
  */
 const showDialog = async (key = "begin_fight") => {
-  await new Promise(resolve => setTimeout(resolve, 500));
+  await new Promise(resolve => setTimeout(resolve, 1000));
   message.value = useLocalizeText(key);
   isOpen.value = true;
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -744,4 +785,6 @@ const hideAllMenus = () => {
 }
 
 </script>
-<style scoped>@import '../../public/styles/fight.css'</style>
+<style scoped>
+@import '../../public/styles/fight.css'
+</style>

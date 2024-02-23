@@ -1,6 +1,8 @@
 <template>
   <div>
     <div class="background" ref="Background">
+      <customButton :buttonText="useLocalizeText('next')" :onClick="appStore.navMap" >        
+      </customButton>
       <img src="/images/history.jpg">
       <div class="dialog-box-history" :style="{ opacity: opacity }">
         <div class="dialog-content" @click="navMap">
@@ -14,11 +16,8 @@
         </div>
         <div class="history-aeris" ref="Aeris" :style="{ opacity: aerisOpacity }">
           <img src="/images/aeris.gif" width="37" height="94">
-        </div>
-        <div @click="navMap" class="final-box-aux">
-          <p class="info-text">{{ useLocalizeText('next').toUpperCase() }}</p>
-        </div>
-      </div>
+        </div>          
+      </div>       
     </div>   
   </div>
 </template>
@@ -26,6 +25,7 @@
 <script setup>
 //Import and vars
 import { ref, onMounted, onBeforeMount } from 'vue';
+import customButton from '../components/customButton.vue'
 import { useRouter } from 'vue-router';
 import { useLocalizeText } from '../composables/localization'
 import { useAppStore } from '../stores/app'
@@ -103,14 +103,6 @@ function writeText() {
   }, writingSpeed);
 }
 
-/**
- * Navigate to map
- */
-const navMap = () => {
-  appStore.playSelect();
-  appStore.setPageName("Map");
-  router.push({ path: "Map" });
-};
 
 </script>
 

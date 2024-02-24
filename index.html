@@ -16,10 +16,15 @@
             overflow: hidden; /* Prevent scrolling */
         }
 
-        /* Adjust zoom according to screen height */
+        /* Adjust zoom according to screen width and height */
         #app {
-            width: 100%;
-            height: 100%;
+            display: flex;
+            justify-content: center; /* Center the child horizontally */
+            align-items: center; /* Center the child vertically */
+            max-width: 800px; /* Maximum width for the app */
+            width: 100%; /* Take up full width of the parent */
+            max-height: calc(800px * 1.5); /* Maximum height based on maximum width and aspect ratio */
+            height: 100%; /* Take up full height of the parent */
         }
 
         /* Style for the warning message */
@@ -47,34 +52,23 @@
     </div>
 
     <!-- Main app container -->
-    <div id="app"></div>
+    <div id="app">
+        <!-- Content of your app goes here -->
+    </div>
 
     <script type="module" src="/src/main.js"></script>
     <script>
-        // Function to adjust zoom according to screen height
+        // Function to adjust zoom according to screen width
         function adjustZoom() {
-            const windowHeight = window.innerHeight;
             const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
 
-            // Calculate the base aspect ratio (height / width)
-            const baseAspectRatio = 600 / 800; // Base resolution is 800x600
-
-            // Calculate the current aspect ratio
-            const currentAspectRatio = windowHeight / screenWidth;
-
-            // Calculate the zoom level based on the aspect ratio
-            let zoom;
-
-            if (currentAspectRatio > baseAspectRatio) {
-                // If the current aspect ratio is taller than the base, adjust zoom based on height
-                zoom = (baseAspectRatio / currentAspectRatio) * 100;
-            } else {
-                // If the current aspect ratio is wider than the base, adjust zoom based on width
-                zoom = (currentAspectRatio / baseAspectRatio) * 100;
-            }
+            // Calculate the zoom level based on the screen width
+            const zoomWidth = Math.min(1, screenWidth / 800); // Maximum width is 800px
+            const zoomHeight = Math.min(1, screenHeight / 600); // Maximum height is 600px
 
             // Apply the zoom to the app container
-            document.querySelector('#app').style.zoom = `${zoom+30}%`;
+            document.querySelector('#app').style.transform = `scale(${Math.min(zoomWidth, zoomHeight)})`;
         }
 
         // Call the function when the page loads and when the window is resized

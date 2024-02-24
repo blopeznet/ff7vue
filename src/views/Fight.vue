@@ -47,19 +47,19 @@
       </div>
       <!--Magic ring END-->
       <!--Top enemy-->
-      <div class="top-enemy" ref="top-enemy" id="top-enemy"
+      <div class="top-enemy" ref="top-enemy" id="top-enemy" v-if="enemies[0]"
         :style="{ opacity: enemies[0].isDead ? '0.1' : '1', filter: enemies[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/enemy-1.gif" width="140" height="80">
       </div>
       <!--Top enemy END-->
       <!--Middle enemy-->
-      <div class="middle-enemy" ref="middle-enemy" id="middle-enemy"
+      <div class="middle-enemy" ref="middle-enemy" id="middle-enemy" v-if="enemies[1]"
         :style="{ opacity: enemies[1].isDead ? '0.1' : '1', filter: enemies[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/enemy-2.gif" width="140" height="140">
       </div>
       <!--Middle enemy END-->
       <!--Bottom enemy-->
-      <div class="bottom-enemy" ref="bottom-enemy" id="bottom-enemy"
+      <div class="bottom-enemy" ref="bottom-enemy" id="bottom-enemy"  v-if="enemies[2]"
         :style="{ opacity: enemies[2].isDead ? '0.1' : '1', filter: enemies[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/enemy-3.gif" width="140" height="140">
       </div>

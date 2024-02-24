@@ -233,6 +233,7 @@ const handleMapClick = (event) => {
   margin-left: auto;
   margin-right: auto;
   height: 20px;
+  visibility: collapse;
 }
 
 </style>

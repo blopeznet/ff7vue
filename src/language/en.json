@@ -87,5 +87,10 @@
         "pad": ""        
     },
     "code":"Repository",
-    "mail":"Mail"      
+    "mail":"Mail",
+    "levrikon":"Levrikon",
+    "bandersnatch":"Bandersnatch",
+    "deenglow":"Deenglow",
+    "mandragora":"Mandragora",
+    "begin_map": "Remember, you must go to the town. But you can travel a little more before."
 }

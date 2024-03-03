@@ -64,18 +64,21 @@ const isOpen = ref(false);
 onBeforeMount(() => {
   appStore.setPageName("EndFight");
   //If win combat, reset Enemy live, if loose, reset our lives before add gil
-  if (fightStore.lastCombatStatus == 0){
+  if (fightStore.lastCombatStatus == 0){ //KO
     fightStore.resetChars();
     fightStore.resetEnemy();
-    fightStore.lastCombatStatus = null;
-  }else if (fightStore.lastCombatStatus == 1){
+    fightStore.lastCombatStatus = -1;
+  }else if (fightStore.lastCombatStatus == 1){ //Win
     fightStore.resetEnemy();
-    fightStore.lastCombatStatus = null;
+    fightStore.resetHeroes();
+    fightStore.lastCombatStatus = -1;
     fightStore.setGainedGil();
-  }else if (fightStore.lastCombatStatus == 2){
+  }else if (fightStore.lastCombatStatus == 2){ //Escape
     fightStore.resetEnemy();
-    fightStore.lastCombatStatus = null;
+    fightStore.resetHeroes();
+    fightStore.lastCombatStatus = -1;
   }
+
 });
 
 /**

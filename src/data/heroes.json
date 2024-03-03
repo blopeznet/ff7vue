@@ -1,0 +1,180 @@
+[
+    {
+      "name": "sephirot",
+      "level": 99,
+      "pg": 9999,
+      "pgMax": 9999,
+      "pm": 9999,
+      "pmMax": 9999,
+      "type": "god",
+      "damage": 1,
+      "isAvailable": true,
+      "isDead": false,
+      "isEnemy": false,
+      "hasAttacked": false,
+      "fileName": "top-hero",
+      "actions": [
+        {
+          "name": "attack",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "attack"
+        },
+        {
+          "name": "magic",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "magic",
+          "magics": [
+            {
+              "name": "aqua",
+              "enabled": true,
+              "fileName": "aqua"
+            },
+            {
+              "name": "fire",
+              "enabled": true,
+              "fileName": "fire"
+            },
+            {
+              "name": "ice",
+              "enabled": true,
+              "fileName": "ice"
+            },
+            {
+              "name": "thunder",
+              "enabled": true,
+              "fileName": "thunder"
+            }
+          ]
+        },
+        {
+          "name": "summon",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "summon"
+        },
+        {
+          "name": "leave",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "exit"
+        }
+      ]
+    },
+    {
+      "name": "cloud",
+      "level": 82,
+      "pg": 1000,
+      "pgMax": 1000,
+      "pm": 30,
+      "pmMax": 30,
+      "type": "warrior",
+      "damage": 2,
+      "isAvailable": true,
+      "isDead": false,
+      "isEnemy": false,
+      "hasAttacked": false,
+      "fileName": "middle-hero",
+      "actions": [
+        {
+          "name": "attack",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "attack"
+        },
+        {
+          "name": "magic",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "magic",
+          "magics": [
+            {
+              "name": "aqua",
+              "enabled": true,
+              "fileName": "aqua"
+            },
+            {
+              "name": "fire",
+              "enabled": true,
+              "fileName": "fire"
+            },
+            {
+              "name": "ice",
+              "enabled": true,
+              "fileName": "ice"
+            },
+            {
+              "name": "thunder",
+              "enabled": true,
+              "fileName": "thunder"
+            }
+          ]
+        },
+        {
+          "name": "leave",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "exit"
+        }
+      ]
+    },
+    {
+      "name": "aeris",
+      "level": 70,
+      "pg": 300,
+      "pgMax": 300,
+      "pm": 50,
+      "pmMax": 50,
+      "type": "magician",
+      "damage": 3,
+      "isAvailable": true,
+      "isDead": false,
+      "isEnemy": false,
+      "hasAttacked": false,
+      "fileName": "bottom-hero",
+      "actions": [
+        {
+          "name": "attack",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "attack"
+        },
+        {
+          "name": "magic",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "magic",
+          "magics": [
+            {
+              "name": "aqua",
+              "enabled": true,
+              "fileName": "aqua"
+            },
+            {
+              "name": "fire",
+              "enabled": true,
+              "fileName": "fire"
+            },
+            {
+              "name": "ice",
+              "enabled": true,
+              "fileName": "ice"
+            },
+            {
+              "name": "thunder",
+              "enabled": true,
+              "fileName": "thunder"
+            }
+          ]
+        },
+        {
+          "name": "leave",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "exit"
+        }
+      ]
+    }
+  ]
+  

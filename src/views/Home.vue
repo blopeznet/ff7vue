@@ -9,7 +9,7 @@
       <div class="home-logo">
         <img src="/images/logo.png" width="400" height="130">
       </div>
-      <span class="version"> {{ "Demo Ver. 0.60"  }} </span>     
+      <span class="version"> {{ "Demo Ver. 0.75"  }} </span>     
     </div>
   </div>
 </template>

@@ -397,13 +397,13 @@ progress::-webkit-progress-bar {
     transform: translateX(0);
   }
   25% {
-    transform: translateX(-5px) rotate(-1deg);
+    transform: translateX(-10px) rotate(-1deg);
   }
   50% {
-    transform: translateX(5px) rotate(1deg);
+    transform: translateX(10px) rotate(1deg);
   }
   75% {
-    transform: translateX(-5px) rotate(-1deg);
+    transform: translateX(-10px) rotate(-1deg);
   }
   100% {
     transform: translateX(0);

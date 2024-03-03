@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div class="dialog-box custom-cursor" :class="{ 'open': isOpen }">
-      <div class="dialog-content">
-        <p>{{ message }}</p>
-      </div>
-    </div>
+  <div>    
     <div class="background" ref="Background" style="cursor: pointer;" @click="handleMapClick">    
+      <div class="dialog-box-info" :class="{ 'open': isOpen }">
+        <div class="dialog-content">
+          <p>{{ message }}</p>
+        </div>
+      </div>
       <customButton :buttonText="useLocalizeText('menu')" :onClick="appStore.navMenu" >        
       </customButton>
       <img src="/images/map.jpg">
@@ -153,7 +153,7 @@ onMounted(async () => {
   // Interval start after first launch
   const firstTime = mapStore.fightFrecuencyMs;
   intervalBattle = setTimeout(makeEnemyAttackInterval, firstTime);
-
+ await showDialog()
 });
 
 /**
@@ -229,6 +229,17 @@ const handleMapClick = (event) => {
   }
 };
 
+/**
+ * Show dialog with message
+ */
+ const showDialog = async (key="begin_map") => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  message.value = useLocalizeText(key);
+  isOpen.value = true;
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  isOpen.value = false;
+};
+
 </script>
 <style scoped>
 
@@ -239,6 +250,30 @@ const handleMapClick = (event) => {
   height: 20px;
   visibility: collapse;
 }
+
+
+.dialog-box-info {
+  background: linear-gradient(to bottom, #070B43, #0A4AA9);
+  border: 4px solid #fff;
+  border-radius: 10px;
+  padding: 14px;
+  opacity: 0;
+  position: fixed;
+  width: 760px;
+  left: 2px;
+  top: 2px;
+  z-index: 1000;
+  transition: opacity 1s ease-in-out;
+}
+
+.dialog-box-info.open {
+  opacity: 1;
+}
+
+.dialog-content{
+  margin-top: -10px;
+}
+
 
 </style>
 

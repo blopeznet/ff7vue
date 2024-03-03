@@ -216,6 +216,10 @@ export function showMagicAttack(
         elementMagic.classList.remove("animate-show");
         elementMagic.style.visibility = "hidden";
       }, 1000);
+      elementEnemy.classList.add("vibrate");
+      setTimeout(() => {
+        elementEnemy.classList.remove("vibrate");
+      }, 500);
     }
   }, 500);
 

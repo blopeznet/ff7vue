@@ -27,7 +27,7 @@
       </div>
       <!--Middle hero END-->
       <!--Bottom hero-->
-      <div class="bottom-hero" ref="bottom-hero" id="bottom-hero"
+      <div class="bottom-hero"  ref="bottom-hero" id="bottom-hero"
         :style="{ opacity: fightStore.heroes[2].isDead ? '0.1' : '1', filter: fightStore.heroes[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/bat_aeris.gif" width="110" height="100">
       </div>
@@ -92,6 +92,7 @@
           <tbody>
             <tr v-for="(hero, index) in fightStore.heroes" :key="index">
               <td class="hero-name-container">
+                <image id="ff7cursor" class="ff7cursor" v-if="hero.fileName === fightStore.selectedCharacter.fileName" />
                 <span v-if="hero.isAvailable && !hero.hasAttacked && !hero.isDead" @click="changeSelectedChar(hero)"
                   :class="{ 'animated-text': hero.fileName === fightStore.selectedCharacter.fileName && !hero.isDead, 'dead-character': hero.isDead }"
                   :style="{ cursor: hero.isAvaliable && !hero.isDead ? 'pointer' : 'default', color: hero.isDead ? 'red' : 'white' }">
@@ -477,7 +478,6 @@ const ApplyDamage = async () => {
   if (!isSummon) {
     const damage = Math.floor(Math.random() * (maxDamage - minDamage + 1)) + minDamage;
     updateLastDamagePosition(fightStore.targetCharacter);
-    lastDamage.value = damage;
     fightStore.targetCharacter.damage = damage;
     fightStore.targetCharacter.pg -= damage;
     if (fightStore.targetCharacter.pg < 0) {
@@ -489,7 +489,8 @@ const ApplyDamage = async () => {
        fightStore.selectedCharacter.pm = 0;
       }
     }
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    lastDamage.value = damage;
+    await new Promise(resolve => setTimeout(resolve, 1500));
     lastDamage.value = 0;
     if (fightStore.targetCharacter.pg == 0) {
       fightStore.targetCharacter.isDead = true;

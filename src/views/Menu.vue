@@ -5,17 +5,17 @@
         <p>{{ message }}</p>
       </div>
     </div>
-    <div class="background" ref="Background">    
+    <div class="background" ref="Background">  
       <customButton :buttonText="useLocalizeText('map')" :onClick="appStore.navMap" >        
       </customButton>
       <img src="/images/menu.jpg" style="opacity: 0.7;">
       <div class="final-box final-box-characters-info" :style="{ top: (TopChars) + 'px' }">
         <div class="tabla">
           <table style="margin-top: 24px;margin-left: 24px;">
-            <tr v-for="(character, index) in fightStore.characters" :key="index">
-              <td v-if="character.isAvaliable"><img :src="getImageUrl(character.name)" width="98" height="110"></td>             
+            <tr v-for="(character, index) in fightStore.heroes" :key="index">
+              <td v-if="character"><img :src="getImageUrl(character.name)" width="98" height="110"></td>             
               <td style="width:200px">
-                <table style="width:200px;margin-left: 24px;" v-if="character.isAvaliable">
+                <table style="width:200px;margin-left: 24px;" v-if="character">
                   <thead>
                     <tr>
                       <th>{{ useLocalizeText(character.name) }}</th>

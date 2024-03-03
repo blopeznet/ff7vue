@@ -37,7 +37,7 @@ export function updateArrowPosition(selectedCharacter) {
       elementArrow.style.zIndex = 100;
       elementArrow.style.left = `${targetLeft + 40}px`;
       elementArrow.style.top = `${targetTop - 25}px`;
-      elementArrow.style.visibility = "visible"; // Agregar una clase para mostrar el anillo mágico
+      elementArrow.style.visibility = "visible";
     }
   }
 }
@@ -48,7 +48,7 @@ export function updateArrowPosition(selectedCharacter) {
 export function updateRingMagicPosition(selectedCharacter) {
   const elementRing = document.querySelector("#hero-magic");
   const elementCharacter = document.querySelector(
-    "#" + selectedCharacter.value.fileName
+    "#" + selectedCharacter.fileName
   );
 
   if (elementRing && elementCharacter) {
@@ -71,7 +71,7 @@ export function updateRingMagicPosition(selectedCharacter) {
     elementRing.style.bottom = `${targetBottom}px`;
     elementRing.style.right = `${targetRight}px`;
 
-    elementRing.classList.add("visible"); // Agregar una clase para mostrar el anillo mágico
+    elementRing.classList.add("visible");
   }
 }
 
@@ -85,7 +85,7 @@ export function updateSummonBubblesPosition(selectedCharacter) {
 
 
   const elementCharacter = document.querySelector(
-    "#" + selectedCharacter.value.fileName
+    "#" + selectedCharacter.fileName
   );
 
   if (elementCharacter) {
@@ -120,7 +120,7 @@ export function updateSummonBubblesPosition(selectedCharacter) {
     elementR.style.bottom = `${targetBottom}px`;
     elementR.style.right = `${targetRight}px`;
 
-    elementY.classList.add("visible"); // Agregar una clase para mostrar el anillo mágico
+    elementY.classList.add("visible"); 
   }
 }
 
@@ -136,12 +136,9 @@ export function showAndHideSummonBubbles() {
 
 
   if (elementY && elementR && elementG) {
-    // Hacer visible el elemento antes de la animación
     elementY.style.visibility = "visible";
     elementR.style.visibility = "visible";
     elementG.style.visibility = "visible";
-
-    // Agregar clase para animar la visibilidad del elemento
     elementY.classList.add("animate-show");
     elementR.classList.add("animate-show");
     elementG.classList.add("animate-show");
@@ -150,8 +147,6 @@ export function showAndHideSummonBubbles() {
       elementY.classList.remove("animate-show");
       elementR.classList.remove("animate-show");
       elementG.classList.remove("animate-show");
-
-      // Después de la animación, ocultar el elemento nuevamente
       elementY.style.visibility = "hidden";
       elementR.style.visibility = "hidden";
       elementG.style.visibility = "hidden";
@@ -166,15 +161,10 @@ export function showAndHideRingMagic() {
   const name = "#hero-magic";
   const elementMagic = document.querySelector(name);
   if (elementMagic) {
-    // Hacer visible el elemento antes de la animación
     elementMagic.style.visibility = "visible";
-
-    // Agregar clase para animar la visibilidad del elemento
     elementMagic.classList.add("animate-show");
     setTimeout(() => {
       elementMagic.classList.remove("animate-show");
-
-      // Después de la animación, ocultar el elemento nuevamente
       elementMagic.style.visibility = "hidden";
     }, 1000);
   }
@@ -192,19 +182,17 @@ export function showMagicAttack(
   const imageMagic = document.querySelector("#magic");
   if (imageMagic) {
     imageMagic.src =
-      getImageUrl(selectedMagic.value.fileName, "gif") + "?t=" + timestamp;
+      getImageUrl(selectedMagic.fileName, "gif") + "?t=" + timestamp;
   }      
   hideArrow();
   updateRingMagicPosition(selectedCharacter);
   showAndHideRingMagic();
-  // Esperar 500 milisegundos antes de mostrar y animar la imagen
   setTimeout(() => {
     const name = "#enemy-magic-receive";
     const elementMagic = document.querySelector(name);
     const elementEnemy = document.querySelector(
-      "#" + targetCharacter.value.fileName
+      "#" + targetCharacter.fileName
     );
-    // Obtener las coordenadas del elemento de destino
     const targetLeft = parseFloat(
       window.getComputedStyle(elementEnemy).getPropertyValue("left")
     );
@@ -218,18 +206,14 @@ export function showMagicAttack(
       window.getComputedStyle(elementEnemy).getPropertyValue("right")
     );
     if (elementMagic) {
-      // Hacer visible el elemento antes de la animación
       elementMagic.style.visibility = "visible";
       elementMagic.style.left = `${targetLeft}px`;
       elementMagic.style.top = `${targetTop}px`;
       elementMagic.style.right = `${targetRight}px`;
       elementMagic.style.bottom = `${targetBottom}px`;
-      // Agregar clase para animar la visibilidad del elemento
       elementMagic.classList.add("animate-show");
       setTimeout(() => {
         elementMagic.classList.remove("animate-show");
-
-        // Después de la animación, ocultar el elemento nuevamente
         elementMagic.style.visibility = "hidden";
       }, 1000);
     }
@@ -244,7 +228,7 @@ export function showMagicAttack(
 export function updateAttackPosition(targetCharacter) {
   const elementAttack = document.querySelector("#attack");
   const elementCharacter = document.querySelector(
-    "#" + targetCharacter.value.fileName
+    "#" + targetCharacter.fileName
   );
   if (elementAttack && elementCharacter) {
     const targetLeft = parseFloat(
@@ -264,7 +248,7 @@ export function updateAttackPosition(targetCharacter) {
     elementAttack.style.top = `${targetTop}px`;
     elementAttack.style.right = `${targetRight}px`;
     elementAttack.style.bottom = `${targetBotom}px`;
-    elementAttack.classList.add("collapse"); // Agregar una clase para mostrar el anillo mágico
+    elementAttack.classList.add("collapse"); 
   }
 }
 
@@ -276,30 +260,21 @@ export function showAttack(selectedCharacter, targetCharacter) {
   if (elementArrow){
   elementArrow.style.visibility = "hidden";
   const elementEnemy = document.querySelector(
-    "#" + targetCharacter.value.fileName
+    "#" + targetCharacter.fileName
   );
-
-  // Actualizar la posición de la flecha y mover el personaje al objetivo
   updateAttackPosition(targetCharacter);
   if (moveCharacterToTarget(selectedCharacter, targetCharacter)) {
-    // Esperar un breve momento antes de mostrar el ataque
     setTimeout(() => {
       const elementAttack = document.querySelector("#attack");
       if (elementAttack) {
-        // Aplicar la clase de vibración al enemigo
         elementEnemy.classList.add("vibrate");
-        // Quitar la clase de vibración después de 0.5 segundos
         setTimeout(() => {
           elementEnemy.classList.remove("vibrate");
         }, 500);
-
-        // Mostrar el ataque
         elementAttack.style.visibility = "visible";
-        // Agregar clase para animar la visibilidad del elemento
         elementAttack.classList.add("animate-show");
         setTimeout(() => {
           elementAttack.classList.remove("animate-show");
-          // Después de la animación, ocultar el elemento nuevamente
           elementAttack.style.visibility = "hidden";
         }, 1000);
       }
@@ -316,21 +291,14 @@ export function showAttack(selectedCharacter, targetCharacter) {
 /**
  * Move character to position under attack (Animation)
  * */
-/**
- * Move character to position under attack (Animation)
- * */
-/**
- * Move character to position under attack (Animation)
- * */
 export function moveCharacterToTarget(selectedCharacter, targetCharacter) {
   const elementCharacter = document.querySelector(
-    "#" + selectedCharacter.value.fileName
+    "#" + selectedCharacter.fileName
   );
   const elementEnemy = document.querySelector(
-    "#" + targetCharacter.value.fileName
+    "#" + targetCharacter.fileName
   );
 
-  // Obtener las coordenadas del elemento de destino y origen
   var targetLeft = parseFloat(
     window.getComputedStyle(elementEnemy).getPropertyValue("left")
   );
@@ -344,11 +312,7 @@ export function moveCharacterToTarget(selectedCharacter, targetCharacter) {
     window.getComputedStyle(elementCharacter).getPropertyValue("top")
   );
 
-  // Determinar la dirección del movimiento (izquierda o derecha)
-  const direction = originalLeft < targetLeft ? "right" : "left";
-  var distance = Math.abs(originalLeft - targetLeft);
-
-
+  const direction = originalLeft < targetLeft ? "right" : "left";  
   if (direction == "left") {
     targetLeft += 100;
   }
@@ -356,20 +320,18 @@ export function moveCharacterToTarget(selectedCharacter, targetCharacter) {
   if (direction == "right") {
     targetLeft -= 100;
   }
-  // Establecer las coordenadas del elemento de origen a las del elemento de destino
+
   elementCharacter.style.transition = "left 1s linear, top 1s linear";
   elementCharacter.style.left = `${targetLeft}px`;
   elementCharacter.style.top = `${targetTop}px`;
 
-  // Después de que el personaje llegue al objetivo
   setTimeout(() => {
-    // Esperar un segundo antes de regresar a su posición original
     setTimeout(() => {
       elementCharacter.style.transition = "left 1s linear, top 1s linear";
       elementCharacter.style.left = `${originalLeft}px`;
       elementCharacter.style.top = `${originalTop}px`;
     }, 1000);
-  }, 1000); // Esperar un segundo antes de comenzar a retroceder
+  }, 1000); 
 
   return true;
 }
@@ -397,30 +359,26 @@ export function hideCharsForSummon() {
   characterIds.forEach((characterId) => {
     const element = document.querySelector(`#${characterId}`);
     if (element) {
-      // Ocultar el elemento gradualmente cambiando la opacidad
       let opacity = 1;
       const intervalId = setInterval(() => {
-        opacity -= 0.1; // Disminuir la opacidad en cada intervalo
+        opacity -= 0.1;
         element.style.opacity = opacity;
         if (opacity <= 0) {
-          // Cuando la opacidad llega a cero, detener el temporizador y mostrar el elemento
           clearInterval(intervalId);
           element.style.display = "none";
           setTimeout(() => {
             element.style.display = "block";
-            // Mostrar el elemento gradualmente restaurando la opacidad
             let opacity = 0;
             const intervalId2 = setInterval(() => {
-              opacity += 0.1; // Aumentar la opacidad en cada intervalo
+              opacity += 0.1;
               element.style.opacity = opacity;
               if (opacity >= 1) {
-                // Cuando la opacidad vuelve a 1, detener el temporizador
                 clearInterval(intervalId2);
               }
-            }, 80); // Intervalo de 80 milisegundos para una transición suave
-          }, 8000); // Mostrar el elemento oculto después de 8000 milisegundos
+            }, 80);
+          }, 8000);
         }
-      }, 80); // Intervalo de 80 milisegundos para una transición suave
+      }, 80);
     } else {
       console.error("Elemento no encontrado:", characterId);
     }
@@ -436,16 +394,14 @@ export function showHiddenCharsAfterSummon() {
   elementIds.forEach((elementId) => {
     const element = document.querySelector(`#${elementId}`);
     if (element) {
-      // Mostrar el elemento gradualmente cambiando la opacidad
       let opacity = 0;
       const intervalId = setInterval(() => {
-        opacity += 0.1; // Aumentar la opacidad en cada intervalo
+        opacity += 0.1;
         element.style.opacity = opacity;
         if (opacity >= 1) {
-          // Cuando la opacidad llega a 1, detener el temporizador
           clearInterval(intervalId);
         }
-      }, 80); // Intervalo de 80 milisegundos para una transición suave
+      }, 80);
     } else {
       console.error("Elemento no encontrado:", elementId);
     }
@@ -461,68 +417,49 @@ export function animateSummon() {
 
   if (elementSummon) {
     let opacity = 0;
-    let posX = -100; // Posición inicial en X
-    let posY = -100; // Posición inicial en Y
-
-    // Función para animar el elemento
+    let posX = -100; 
+    let posY = -100;
     const animationInterval = setInterval(() => {
-      opacity += 0.01; // Aumentar la opacidad gradualmente
-      posX += 1; // Mover gradualmente hacia la derecha
-      posY += 1; // Mover gradualmente hacia abajo
-
+      opacity += 0.01; 
+      posX += 1; 
+      posY += 1; 
       elementSummon.style.opacity = opacity;
       elementSummon.style.transform = `translate(${posX}px, ${posY}px)`;
-
-      // Cuando llegue al centro de la pantalla
       if (posX >= 0 && posY >= 0) {
-        clearInterval(animationInterval); // Detener la animación
-
-        // Después de un tiempo, volver a la esquina y hacer que desaparezca
+        clearInterval(animationInterval); 
         setTimeout(() => {
           let opacity = 1;
-          let posX = 0; // Posición inicial en X
-          let posY = 0; // Posición inicial en Y
-
+          let posX = 0;
+          let posY = 0;
           const animationInterval = setInterval(() => {
-            opacity -= 0.01; // Disminuir la opacidad gradualmente
-            posX -= 1; // Mover gradualmente hacia la izquierda
-            posY -= 1; // Mover gradualmente hacia arriba
-
+            opacity -= 0.01;
+            posX -= 1;
+            posY -= 1;
             elementSummon.style.opacity = opacity;
             elementSummon.style.transform = `translate(${posX}px, ${posY}px)`;
-
-            // Cuando vuelva a la esquina y la opacidad sea 0
             if (opacity <= 0) {
-              clearInterval(animationInterval); // Detener la animación
+              clearInterval(animationInterval);
             }
-          }, 10); // Intervalo de animación (10ms)
-        }, 2000); // Tiempo antes de iniciar la segunda animación (2000ms)
+          }, 10);
+        }, 2000);
       }
-    }, 10); // Intervalo de animación (10ms)
+    }, 10);
   } else {
     console.error("Elemento no encontrado: summon");
   }
 
-  // Después de 3 segundos, mostrar la explosión
   setTimeout(() => {
     if (elementExplosion) {
-      // Hacer visible el elemento explosión antes de la animación
       elementExplosion.style.visibility = "visible";
-
-      // Agregar clase para animar la visibilidad del elemento explosión
       elementExplosion.classList.add("animate-show");
-
-      // Después de 1 segundo, quitar la clase de animación de la explosión
       setTimeout(() => {
         elementExplosion.classList.remove("animate-show");
-
-        // Después de la animación, ocultar la explosión
         setTimeout(() => {
           elementExplosion.style.visibility = "hidden";
-        }, 1000); // Espera 1 segundo para ocultar la explosión
-      }, 1000); // Espera 1 segundo para quitar la clase de animación de la explosión
+        }, 1000); 
+      }, 1000);
     }
-  }, 3000); // Espera 3 segundos para mostrar la explosión
+  }, 3000);
 }
 
 /**
@@ -531,7 +468,7 @@ export function animateSummon() {
 export function updateLastDamagePosition(targetCharacter) {
   const elementDamage = document.querySelector("#damage");
   const elementCharacter = document.querySelector(
-    "#" + targetCharacter.value.fileName
+    "#" + targetCharacter.fileName
   );
 
   if (elementDamage && elementCharacter) {
@@ -547,7 +484,9 @@ export function updateLastDamagePosition(targetCharacter) {
   }
 }
 
-
+/**
+ * Left battle animation
+ */
 export function applyFlipToLeft() {
   const element1 = document.querySelector("#top-hero");
   const element2 = document.querySelector("#middle-hero");
@@ -567,25 +506,31 @@ export function applyFlipToLeft() {
 /**
  * Calculate image
  */
-export function getImageUrl(fileName, extension) {
+export function getImageUrl(fileName, extension="") {
+  if (extension){
   return `/ff7vue/images/${fileName}.${extension}`;
+  }else{
+    return `/ff7vue/images/${fileName}`;
+  }
 }
 
-// Exportar el método randomBackgroundImage
+/**
+ * Get random back image battle
+ * @returns 
+ */
 export function getRandomBackgroundImage() {
-  // Función para generar un número aleatorio entre min (incluido) y max (excluido)
   const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
-
-  // Generar un número aleatorio entre 1 y 2 (excluyendo 2)
   const randomNumber = getRandomInt(1, 3);
-
-  // Generar la URL de la imagen de fondo utilizando el número aleatorio
   return getImageUrl(`back_${randomNumber}`, "jpg");
 }
 
-// Método para actualizar los estilos
+/**
+ * Update style targets menu
+ * @param {*} sourceMenu 
+ * @returns 
+ */
 export function calculateStyleTargets(sourceMenu) {
   let left = 0;
   let bottom = 0;
@@ -595,12 +540,12 @@ export function calculateStyleTargets(sourceMenu) {
   let opacity = 1;
 
   if (sourceMenu == "menuBasic") {
-    left = 290;
+    left = 320;
     bottom = 0;
   }
 
   if (sourceMenu == "menuMagic") {
-    left += 470;
+    left += 500;
     bottom = 0;
   }
 
@@ -623,9 +568,12 @@ export function calculateStyleTargets(sourceMenu) {
   };
 }
 
-// Método para actualizar los estilos
+/**
+ * Update style magics menu
+ * @returns 
+ */
 export function calculateStyleMagics() {
-  const left = 290;
+  const left = 320;
   const bottom = 0;
   const width = 210;
   const height = 160;

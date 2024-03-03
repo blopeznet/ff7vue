@@ -1,0 +1,95 @@
+[
+    {
+      "name": "levrikon",
+      "level": 20,
+      "pg": 200,
+      "pgMax": 400,
+      "pm": 50,
+      "pmMax": 50,
+      "type": "enemy",
+      "damage": 4,
+      "isAvailable": false,
+      "isDead": false,
+      "isEnemy": true,
+      "hasAttacked": false,
+      "enemyImage": "enemy-0.gif",
+      "actions": [
+        {
+          "name": "attack",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "attack"
+        }
+      ]
+    },
+    {
+      "name": "bandersnatch",
+      "level": 20,
+      "pg": 200,
+      "pgMax": 400,
+      "pm": 50,
+      "pmMax": 50,
+      "type": "enemy",
+      "damage": 5,
+      "isAvailable": false,
+      "isDead": false,
+      "isEnemy": true,
+      "hasAttacked": false,
+      "enemyImage": "enemy-1.gif",
+      "actions": [
+        {
+          "name": "attack",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "attack"
+        }
+      ]
+    },
+    {
+      "name": "deenglow",
+      "level": 20,
+      "pg": 200,
+      "pgMax": 400,
+      "pm": 50,
+      "pmMax": 50,
+      "type": "enemy",
+      "damage": 6,
+      "isAvailable": false,
+      "isDead": false,
+      "isEnemy": true,
+      "hasAttacked": false,
+      "enemyImage": "enemy-2.gif",
+      "actions": [
+        {
+          "name": "attack",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "attack"
+        }
+      ]
+    },
+    {
+      "name": "mandragora",
+      "level": 20,
+      "pg": 200,
+      "pgMax": 400,
+      "pm": 50,
+      "pmMax": 50,
+      "type": "enemy",
+      "damage": 6,
+      "isAvailable": false,
+      "isDead": false,
+      "isEnemy": true,
+      "hasAttacked": false,
+      "enemyImage": "enemy-3.gif",
+      "actions": [
+        {
+          "name": "attack",
+          "enabled": true,
+          "pmPrice": 0,
+          "fileName": "attack"
+        }
+      ]
+    }
+  ]
+  

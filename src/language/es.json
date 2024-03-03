@@ -85,5 +85,11 @@
         "mouse": "Ratón: Puedes utilizar el ratón para hacer clic en los elementos",
         "keyboard": "Teclado: Puedes utilizar el teclado direccional en el MAPA, y ESC para acceder al menú",
         "pad": "Pad: Puedes utilizar el pad en la pantalla para hacer clic en botones para algunas acciones"
-    }
+    },
+    "code":"Repositorio",
+    "mail":"Mail",
+    "levrikon":"Levrikon",
+    "bandersnatch":"Bandersnatch",
+    "deenglow":"Deenglow",
+    "mandragora":"Mandragora"
 }

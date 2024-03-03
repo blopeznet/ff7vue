@@ -1,12 +1,34 @@
 import { defineStore } from "pinia";
 import { useLocalizeText } from "../composables/localization";
+import heroesData from "../data/heroes.json";
+import enemiesData from "../data/enemies.json";
 
 const initialState = {
   loading: false,
-  characters: [],
+  heroes: [],
+  enemies: [],
   gil: 1000,
   gainedGil: 0,
-  levelGame: 0, //Level 0 Easy, 1 Normal, 2 Hard
+  lastCombatStatus: 0,
+  targetCharacter: {
+    isEnemy: false,
+    actions: [],
+    damage: 0,
+    pg: 0,
+    pm: 0,
+    isDead: false,
+    fileName: "",
+  },
+  selectedCharacter: {
+    isEnemy: false,
+    actions: [],
+    damage: 0,
+    pg: 0,
+    pm: 0,
+    isDead: false,
+    fileName: "",
+  },
+  alliesAttackedCount: 0
 };
 
 /**
@@ -15,146 +37,146 @@ const initialState = {
 export const useFightStore = defineStore({
   id: "fight",
   state: () => ({
-    loading: false,
-    characters: [],
-    gil: 1000,
-    gainedGil: 0,
-    levelGame: 0, //Level 0 Easy, 1 Normal, 2 Hard
+    ...initialState, // Use spread operator to avoid repeating state properties
   }),
   actions: {
-    initCharacters() {
-      // Define los personajes
-      const characters = [
-        {
-          name: "sephirot",
-          level: 99,
-          pg: 9999,
-          pgMax: 9999,
-          pm: 9999,
-          pmMax: 9999,
-          type: "god",
-          damage: 1,
-          isAvaliable: true,
-          isDead: false,
-          isEnemy: false,
-          hasAttacked: false,
-          fileName: "top-hero",
-        },
-        {
-          name: "cloud",
-          level: 82,
-          pg: 1000,
-          pgMax: 1000,
-          pm: 30,
-          pmMax: 30,
-          type: "warrior",
-          damage: 2,
-          isAvaliable: true,
-          isDead: false,
-          isEnemy: false,
-          hasAttacked: false,
-          fileName: "middle-hero",
-        },
-        {
-          name: "aeris",
-          level: 70,
-          pg: 300,
-          pgMax: 300,
-          pm: 50,
-          pmMax: 50,
-          type: "magician",
-          damage: 3,
-          isAvaliable: true,
-          isDead: false,
-          isEnemy: false,
-          hasAttacked: false,
-          fileName: "bottom-hero",
-        },
-        {
-          name: "enemy",
-         level: 20,
-          pg: 200,
-          pgMax: 400,
-          pm: 50,
-          pmMax: 50,
-          type: "enemy",
-          damage: 4,
-          isAvaliable: false,
-          isDead: false,
-          isEnemy: true,
-          hasAttacked: false,
-          fileName: "top-enemy",
-        },
-        {
-          name: "enemy",
-          level: 20,
-          pg: 200,
-          pgMax: 400,
-          pm: 50,
-          pmMax: 50,
-          type: "enemy",
-          damage: 5,
-          isAvaliable: false,
-          isDead: false,
-          isEnemy: true,
-          hasAttacked: false,
-          fileName: "middle-enemy",
-        },
-        {
-          name: "enemy",
-          level: 20,
-          pg: 200,
-          pgMax: 400,
-          pm: 50,
-          pmMax: 50,
-          type: "enemy",
-          damage: 6,
-          isAvaliable: false,
-          isDead: false,
-          isEnemy: true,
-          hasAttacked: false,
-          fileName: "bottom-enemy",
-        }
-      ];
-
-      // Asigna el daño calculado a las acciones de ataque y magia para cada personaje
-      characters.forEach((character) => {
-        character.actions = [];
-        character.actions = this.setActionCharacters(character);
-      });
-
-      // Establece la propiedad de personajes
-      this.characters = characters;
+    // Init chars heroes and enemies
+    async initCharacters() {
+      if (this.heroes.length === 3) {
+        return false;
+      }
+      this.heroes = heroesData;
+      const numEnemies = Math.floor(Math.random() * 3) + 1;
+      const enemies = [];
+      for (let i = 0; i < numEnemies; i++) {
+        const randomIndex = Math.floor(Math.random() * enemiesData.length);
+        enemies.push({ ...enemiesData[randomIndex] });
+      }
+      this.enemies = enemies;
+      this.assignActionsValuesToHeroes();
+      this.assignActionsValuesToEnemies();
+      this.setEnemiesFileNames();
     },
+    // Reset enemies values
+    resetEnemy() {
+      this.enemies = [];
+      const enemiesAvailable = [...enemiesData];
+      let numEnemies = Math.floor(Math.random() * 3) + 1;
+      const newEnemies = [];
+      for (let i = 0; i < numEnemies; i++) {
+        const randomIndex = Math.floor(Math.random() * enemiesAvailable.length);
+        const selectedEnemy = { ...enemiesAvailable[randomIndex] };
+        selectedEnemy.fileName =
+          numEnemies === 1
+            ? "top-enemy"
+            : numEnemies === 2
+            ? i === 0
+              ? "top-enemy"
+              : "middle-enemy"
+            : i === 0
+            ? "top-enemy"
+            : i === 1
+            ? "middle-enemy"
+            : "bottom-enemy";
+        newEnemies.push({
+          ...selectedEnemy,
+          damage: 0,
+          isAvaliable: true,
+          isDead: false,
+          pg: selectedEnemy.pgMax,
+          hasAttacked: false,
+        });
+        enemiesAvailable.splice(randomIndex, 1);
+      }
+      if (newEnemies.length === 0) {
+        const randomIndex = Math.floor(Math.random() * enemiesAvailable.length);
+        const randomEnemy = { ...enemiesAvailable[randomIndex] };
+        randomEnemy.fileName = "middle-enemy";
+        enemiesAvailable.splice(randomIndex, 1);
+        newEnemies.push(randomEnemy);
+      }
+      this.enemies = newEnemies;
+      this.assignActionsValuesToEnemies();
+    },
+    // Set loading
+    setLoading(loading) {
+      this.loading = loading;
+    },
+    // Set gainedGil random
+    setGainedGil() {
+      this.gainedGil = Math.floor(Math.random() * 101);
+    },
+    // Update gil async
+    updateGil() {
+      return new Promise((resolve, reject) => {
+        const intervalId = setInterval(() => {
+          if (this.gainedGil > 0) {
+            this.gainedGil--;
+            this.gil++;
+          } else {
+            clearInterval(intervalId); 
+            resolve(null);
+          }
+        }, 50);
+      });
+    },
+    // Reset state and init characters
+    resetState() {
+      Object.assign(this.$state, initialState);
+      this.initCharacters();
+    },
+    // Reset damage, dead and pg from heroes
+    resetChars() {
+      this.heroes.forEach((character) => {
+        character.damage = 0;
+        if (character.isDead) {
+          character.isDead = false;
+          character.pg = 100;
+        }
+        character.hasAttacked = false;
+      });
+    },
+    // Reset pg from heroes to max
+    resetPG() {
+      const updatedCharacters = this.heroes.map((character) => {
+        const updatedCharacter = { ...character };
+        updatedCharacter.pg = updatedCharacter.pgMax;
+        return updatedCharacter;
+      });
+      this.heroes = updatedCharacters;
+    },
+    // Reset pm from heroes to max
+    resetPM() {
+      const updatedCharacters = this.heroes.map((character) => {
+        const updatedCharacter = { ...character };
+        updatedCharacter.pm = updatedCharacter.pmMax;
+        return updatedCharacter;
+      });
+      this.heroes = updatedCharacters;
+    },
+    // Set actions for characters
     setActionCharacters(character) {
       const calculateDamage = (level) => {
-        // Calcula el daño mínimo y máximo en función del nivel del personaje
         const minDamageAttack = Math.floor(level * 0.5);
         const maxDamageAttack = Math.floor(level * 1.5);
         return { minDamageAttack, maxDamageAttack };
       };
 
       const calculateDamageAndPMPrice = (level) => {
-        // Calcula el daño mínimo y máximo en función del nivel del personaje
         const minDamage = Math.floor(level * 0.5);
         const maxDamage = Math.floor(level * 1.5);
-        // Calcula el PMPrice en función del nivel del personaje
-        const pmPrice = Math.floor(level * 0.1); // Por ejemplo, 10% del nivel del personaje
+        const pmPrice = Math.floor(level * 0.1);
         return { minDamage, maxDamage, pmPrice };
       };
 
       const calculateDamageAndPMPriceSummon = (level) => {
-        // Calcula el daño mínimo y máximo en función del nivel del personaje
         const minDamageSummon = Math.floor(level * 5);
         const maxDamageSummon = Math.floor(level * 10);
-        // Calcula el PMPrice en función del nivel del personaje
-        const pmPriceSummon = Math.floor(level * 2); // Por ejemplo, 10% del nivel del personaje
+        const pmPriceSummon = Math.floor(level * 2);
         return { minDamageSummon, maxDamageSummon, pmPriceSummon };
       };
 
       let actions = [];
-
-      // Define las acciones de ataque, magia, summon
       const actionAttack = {
         name: useLocalizeText("attack"),
         enabled: true,
@@ -173,15 +195,12 @@ export const useFightStore = defineStore({
         pmPrice: 0,
         fileName: "summon",
       };
-
       const actionExit = {
         name: useLocalizeText("leave"),
         enabled: true,
         pmPrice: 0,
         fileName: "exit",
       };
-
-      // Define las magias disponibles
       const magicAqua = {
         name: useLocalizeText("aqua"),
         enabled: true,
@@ -204,25 +223,22 @@ export const useFightStore = defineStore({
       };
 
       actionMagic.magics = [];
-      // Calcula el daño y el PMPrice para cada magia
       [magicAqua, magicFire, magicIce, magicThunder].forEach((magic) => {
         const { minDamage, maxDamage, pmPrice } = calculateDamageAndPMPrice(
           character.level
-        ); // Nivel predeterminado para los personajes
+        ); 
         magic.minDamage = minDamage;
         magic.maxDamage = maxDamage;
         magic.pmPrice = pmPrice;
         actionMagic.magics.push(magic);
       });
 
-      // Calcula el PMPrice para la acción de invocación
       const { minDamageSummon, maxDamageSummon, pmPriceSummon } =
         calculateDamageAndPMPriceSummon(character.level);
       actionSummon.minDamage = minDamageSummon;
       actionSummon.maxDamage = maxDamageSummon;
       actionSummon.pmPrice = pmPriceSummon;
 
-      // Calcula el Damage y PMPPrice para la acción de ataque
       const { minDamageAttack, maxDamageAttack } = calculateDamage(
         character.level
       );
@@ -254,101 +270,210 @@ export const useFightStore = defineStore({
       }
       return actions;
     },
-    setLoading(loading) {
-      this.loading = loading;
-    },
-    setGainedGil() {
-      this.gainedGil = Math.floor(Math.random() * 101);
-    },
-    updateGil() {
-      return new Promise((resolve, reject) => {
-        const intervalId = setInterval(() => {
-          if (this.gainedGil > 0) {
-            this.gainedGil--; // Reduce gainedGil en 1
-            this.gil++;
-          } else {
-            clearInterval(intervalId); // Detiene el intervalo cuando gainedGil llega a 0
-            resolve(); // Resuelve la promesa cuando la actualización está completa
-          }
-        }, 50); // Intervalo de 50 milisegundos (0.1 segundo)
-      });
-    },
-    resetState() {
-      Object.assign(this.$state, initialState);
-      this.initCharacters();
-    },
-   
-    resetEnemy() {
-      const updatedCharacters = this.characters.map(character => {
-        if (character.isEnemy) {
-          const updatedCharacter = { ...character }; // Crear una copia del personaje para evitar mutar el estado directamente
-          updatedCharacter.hasAttacked = false;
-          updatedCharacter.isDead = false;
-          updatedCharacter.damage = 0;
-          switch (this.levelGame) {
-            case 0: // Easy
-              updatedCharacter.pg = Math.floor(updatedCharacter.pgMax * 0.8);
-              updatedCharacter.pgMax = Math.floor(updatedCharacter.pgMax * 0.8);
-              updatedCharacter.level = Math.floor(Math.random() * 5) + 5;
+    // Set action values to heroes
+    assignActionsValuesToHeroes() {
+      this.heroes.forEach((hero) => {
+        hero.actions.forEach((action) => {
+          switch (action.name) {
+            case "attack":
+              const { minDamageAttack, maxDamageAttack } = this.calculateDamage(
+                hero.level
+              );
+              action.minDamage = minDamageAttack;
+              action.maxDamage = maxDamageAttack;
               break;
-            case 1: // Normal
-              const minPG = updatedCharacter.pgMax * 0.5;
-              const maxPG = updatedCharacter.pgMax;
-              updatedCharacter.pg = Math.floor(Math.random() * (maxPG - minPG + 1) + minPG);
-              updatedCharacter.pgMax = Math.floor(Math.random() * (maxPG - minPG + 1) + minPG);
-              updatedCharacter.level = Math.floor(Math.random() * 10) + 10;
+            case "magic":
+              action.magics.forEach((magic) => {
+                const { minDamage, maxDamage, pmPrice } =
+                  this.calculateDamageAndPMPrice(hero.level);
+                magic.minDamage = minDamage;
+                magic.maxDamage = maxDamage;
+                magic.pmPrice = pmPrice;
+              });
               break;
-            case 2: // Hard
-              updatedCharacter.pg = Math.floor(updatedCharacter.pgMax * 1.2);
-              updatedCharacter.pgMax = Math.floor(updatedCharacter.pgMax * 1.2);
-              updatedCharacter.level = Math.floor(Math.random() * 5) + 15;
+            case "summon":
+              const { minDamageSummon, maxDamageSummon, pmPriceSummon } =
+                this.calculateDamageAndPMPriceSummon(hero.level);
+              action.minDamage = minDamageSummon;
+              action.maxDamage = maxDamageSummon;
+              action.pmPrice = pmPriceSummon;
               break;
             default:
               break;
           }
-          return updatedCharacter;
-        } else {
-          const updatedCharacter = { ...character }; // Crear una copia del personaje para evitar mutar el estado directamente
-          updatedCharacter.hasAttacked = false;
-          return updatedCharacter; // Devuelve el personaje sin cambios si no es un enemigo
+        });
+      });
+    },
+    // Set action values to enemies
+    assignActionsValuesToEnemies() {
+      this.enemies.forEach((enemy) => {
+        enemy.actions.forEach((action) => {
+          switch (action.name) {
+            case "attack":
+              const { minDamageAttack, maxDamageAttack } = this.calculateDamage(
+                enemy.level
+              );
+              action.minDamage = minDamageAttack;
+              action.maxDamage = maxDamageAttack;
+              break;
+            case "magic":
+              action.magics.forEach((magic) => {
+                const { minDamage, maxDamage, pmPrice } =
+                  this.calculateDamageAndPMPrice(enemy.level);
+                magic.minDamage = minDamage;
+                magic.maxDamage = maxDamage;
+                magic.pmPrice = pmPrice;
+              });
+              break;
+            case "summon":
+              const { minDamageSummon, maxDamageSummon, pmPriceSummon } =
+                this.calculateDamageAndPMPriceSummon(enemy.level);
+              action.minDamage = minDamageSummon;
+              action.maxDamage = maxDamageSummon;
+              action.pmPrice = pmPriceSummon;
+              break;
+            default:
+              break;
+          }
+        });
+      });
+    },
+    // Calc damage attack
+    calculateDamage(level) {
+      const minDamageAttack = Math.floor(level * 0.5);
+      const maxDamageAttack = Math.floor(level * 1.5);
+      return { minDamageAttack, maxDamageAttack };
+    },
+    // Calc damage and pm price magic
+    calculateDamageAndPMPrice(level) {
+      const minDamage = Math.floor(level * 0.5);
+      const maxDamage = Math.floor(level * 1.5);
+      const pmPrice = Math.floor(level * 0.1);
+      return { minDamage, maxDamage, pmPrice };
+    },
+    // Calc damage and pm price summon
+    calculateDamageAndPMPriceSummon(level) {
+      const minDamageSummon = Math.floor(level * 5);
+      const maxDamageSummon = Math.floor(level * 10);
+      const pmPriceSummon = Math.floor(level * 2);
+      return { minDamageSummon, maxDamageSummon, pmPriceSummon };
+    },
+    // Set fileNames to enemies after start
+    setEnemiesFileNames() {
+      const numEnemies = this.enemies.length;
+      this.enemies.forEach((enemy, i) => {
+        switch (numEnemies) {
+          case 1:
+            enemy.fileName = "top-enemy";
+            break;
+          case 2:
+            enemy.fileName = i === 0 ? "top-enemy" : "middle-enemy";
+            break;
+          default:
+            enemy.fileName =
+              i === 0 ? "top-enemy" : i === 1 ? "middle-enemy" : "bottom-enemy";
+            break;
         }
       });
-      
-      this.characters = updatedCharacters; // Asigna la nueva colección de personajes al estado characters del store
-      
     },
-    resetChars() {
-      const updatedCharacters = this.characters.map(character => {
-        if (!character.isEnemy) {
-          const updatedCharacter = { ...character };
-          updatedCharacter.pg = updatedCharacter.pgMax;
-          updatedCharacter.damage = 0;
-          updatedCharacter.isDead = false;
-          updatedCharacter.hasAttacked = false;
-          return updatedCharacter;
+    // Reset damage and has attacked from heroes
+    resetHeroes() {
+      for (let i = 0; i < this.heroes.length; i++) {
+        const hero = this.heroes[i];
+        this.heroes[i].damage = 0;
+        hero.hasAttacked = false;
+      }
+    },
+    // Get random hero not attacked and not dead
+    getRandomAvailableHeroAlive() {
+      const availableHeroes = this.heroes.filter(
+        (h) => !h.isDead && !h.hasAttacked
+      );
+      if (availableHeroes.length > 0) {
+        if (availableHeroes.length === 1) {
+          return availableHeroes[0];
         } else {
-          return character;
+          const randomIndex = Math.floor(
+            Math.random() * availableHeroes.length
+          );
+          return availableHeroes[randomIndex];
+        }
+      } else {
+        return null;
+      }
+    },
+    //Mark selected char as attack
+    markSelectedCharacterAsAttacked() {
+      if (this.selectedCharacter) {
+        if (!this.selectedCharacter.isEnemy) {
+          const hero = this.heroes.find(
+            (char) => char.fileName === this.selectedCharacter.fileName
+          );
+          if (hero) {
+            hero.hasAttacked = true;
+          }
+        }
+        this.alliesAttackedCount = this.heroes.filter(
+          (h) => h.hasAttacked && h.isDead == false
+        ).length;
+      }
+    },
+    //Reset has attacked for all heroes
+    resetHeroesAttacked() {
+      this.heroes.forEach((hero) => {
+        if (!hero.isDead) {
+          hero.hasAttacked = false;
         }
       });
-      this.characters = updatedCharacters;
     },
-    resetPG() {
-      const updatedCharacters = this.characters.map(character => {
-        const updatedCharacter = { ...character };
-        updatedCharacter.pg = updatedCharacter.pgMax;
-        return updatedCharacter;
-      });
-      this.characters = updatedCharacters;
+    //Get hero not dead random
+    getRandomAvailableHeroAliveForTarget() {
+      const availableHeroes = this.heroes.filter((h) => !h.isDead);
+      if (availableHeroes.length > 0) {
+        if (availableHeroes.length === 1) {
+          return availableHeroes[0];
+        } else {
+          const randomIndex = Math.floor(
+            Math.random() * availableHeroes.length
+          );
+          return availableHeroes[randomIndex];
+        }
+      } else {
+        return null;
+      }
     },
-    
-    resetPM() {
-      const updatedCharacters = this.characters.map(character => {
-        const updatedCharacter = { ...character };
-        updatedCharacter.pm = updatedCharacter.pmMax;
-        return updatedCharacter;
-      });
-      this.characters = updatedCharacters;
+    //Get enemy not dead random
+    getRandomAvailableEnemyAlive() {
+      const availableEnemies = this.enemies.filter(
+        (e) => !e.isDead 
+      );
+      if (availableEnemies.length > 0) {
+        if (availableEnemies.length === 1) {
+          return availableEnemies[0];
+        } else {
+          const randomIndex = Math.floor(
+            Math.random() * availableEnemies.length
+          );
+          return availableEnemies[randomIndex];
+        }
+      } else {
+        return null;
+      }
     },
-    
+    //Count heroes allive
+    countAliveAllies() {
+      return this.heroes.filter((h) => !h.isDead).length;
+    },
+    //Count enemies allive
+    countAliveEnemies() {
+      return this.enemies.filter((e) => !e.isDead).length;
+    },
+    //Verify all heroes has attacked
+    allHeroesAttacked() {
+      const heroesAttacked = this.heroes
+        .filter((hero) => !hero.isDead)
+        .every((hero) => hero.hasAttacked);
+      return heroesAttacked;
+    },
   },
 });

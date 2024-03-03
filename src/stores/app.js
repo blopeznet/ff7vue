@@ -37,14 +37,13 @@ export const useAppStore = defineStore({
 
       switch (pageName) {
         case "Home":
-          fightStore.resetState();
           mapStore.resetState();
           break;
         case "History":
-          fightStore.resetState();
           mapStore.resetState();
           break;
         case "Map":
+          fightStore.resetState();
           break;
         case "Menu":
           break;
@@ -53,13 +52,13 @@ export const useAppStore = defineStore({
         case "EndFight":
           break;
         case "EndGame":
-          fightStore.resetState();
           mapStore.resetState();
           break;
         default:
           break;
       }
     },
+    /**Play sound effects */
     playSelect() {
       if (!this.soundEffects) return;
       const audio = new Audio(this.calculateAudio("select.mp3"));
@@ -149,6 +148,7 @@ export const useAppStore = defineStore({
     calculateAudio(fileName) {
       return `/ff7vue/effects/${fileName}`;
     },
+    /**Navigation actions */
     navHome() {
       this.playSelect();
       this.router.push({ path: "/" });
@@ -177,6 +177,8 @@ export const useAppStore = defineStore({
       this.playSelect();
       this.router.push({ path: "menu" });
     },
-    
+    navEndFight() {
+      this.router.push({ path: "endfight" });
+    },
   },
 });

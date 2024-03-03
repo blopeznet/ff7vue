@@ -68,6 +68,7 @@ let intervalBattle = null; // Intervar var for battle
 const mapBackground = ref(null);
 const positionLeft = ref(mapStore.map_Left); 
 const positionTop = ref(mapStore.map_Top);
+const battleInProgress = ref(false);
 
 /**
  * Handle keyboard press key down
@@ -169,7 +170,10 @@ onUnmounted(() => {
  * Go to Figth
  */
 const goToFight = async () => {
-  router.push({ path: "fight" });
+  if (!battleInProgress.value){
+   battleInProgress.value = true;
+   router.push({ path: "fight" });
+  }
 };
 
 /**

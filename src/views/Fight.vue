@@ -15,20 +15,20 @@
       <img class="arrow" ref="arrow" id="arrow" src="/images/arrow.gif">
       <!--Arrow char selection END-->
       <!--Top hero-->
-      <div class="top-hero" ref="top-hero" id="top-hero"
-        :style="{ opacity: heroes[0].isDead ? '0.1' : '1', filter: heroes[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+      <div class="top-hero" ref="top-hero" id="top-hero" v-if="fightStore.heroes[0]"
+        :style="{ opacity: fightStore.heroes[0].isDead ? '0.1' : '1', filter: fightStore.heroes[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/bat_sephi.gif" width="110" height="120">
       </div>
       <!--Top hero END-->
       <!--Middle hero-->
       <div class="middle-hero" ref="middle-hero" id="middle-hero"
-        :style="{ opacity: heroes[1].isDead ? '0.1' : '1', filter: heroes[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        :style="{ opacity: fightStore.heroes[1].isDead ? '0.1' : '1', filter: fightStore.heroes[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/bat_cloud.gif" width="140" height="100">
       </div>
       <!--Middle hero END-->
       <!--Bottom hero-->
       <div class="bottom-hero" ref="bottom-hero" id="bottom-hero"
-        :style="{ opacity: heroes[2].isDead ? '0.1' : '1', filter: heroes[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        :style="{ opacity: fightStore.heroes[2].isDead ? '0.1' : '1', filter: fightStore.heroes[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
         <img src="/images/bat_aeris.gif" width="110" height="100">
       </div>
       <!--Bottom hero END-->
@@ -47,28 +47,28 @@
       </div>
       <!--Magic ring END-->
       <!--Top enemy-->
-      <div class="top-enemy" ref="top-enemy" id="top-enemy" v-if="enemies[0]"
-        :style="{ opacity: enemies[0].isDead ? '0.1' : '1', filter: enemies[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/enemy-1.gif" width="140" height="80">
+      <div class="top-enemy" ref="top-enemy" id="top-enemy" v-if="fightStore.enemies[0]"
+        :style="{ opacity: fightStore.enemies[0].isDead ? '0.1' : '1', filter: fightStore.enemies[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        <img :src="getImageUrl(fightStore.enemies[0].enemyImage)" width="140" height="140">
       </div>
       <!--Top enemy END-->
       <!--Middle enemy-->
-      <div class="middle-enemy" ref="middle-enemy" id="middle-enemy" v-if="enemies[1]"
-        :style="{ opacity: enemies[1].isDead ? '0.1' : '1', filter: enemies[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/enemy-2.gif" width="140" height="140">
+      <div class="middle-enemy" ref="middle-enemy" id="middle-enemy" v-if="fightStore.enemies[1]"
+        :style="{ opacity: fightStore.enemies[1].isDead ? '0.1' : '1', filter: fightStore.enemies[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        <img :src="getImageUrl(fightStore.enemies[1].enemyImage)" width="140" height="140">
       </div>
       <!--Middle enemy END-->
       <!--Bottom enemy-->
-      <div class="bottom-enemy" ref="bottom-enemy" id="bottom-enemy"  v-if="enemies[2]"
-        :style="{ opacity: enemies[2].isDead ? '0.1' : '1', filter: enemies[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/enemy-3.gif" width="140" height="140">
+      <div class="bottom-enemy" ref="bottom-enemy" id="bottom-enemy" v-if="fightStore.enemies[2]"
+        :style="{ opacity: fightStore.enemies[2].isDead ? '0.1' : '1', filter: fightStore.enemies[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+        <img :src="getImageUrl(fightStore.enemies[2].enemyImage)" width="140" height="140">
       </div>
       <!--Bottom enemy END-->
       <div class="damage" ref="damage" id="damage" :style="{ opacity: lastDamage == 0 ? '0' : '1' }">
         <span style="font-size: 24px;">{{ lastDamage }}</span>
       </div>
       <div class="debug" ref="debug" id="debug" v-if="debug">
-        <span v-for="(enemy, index) in enemies" :key="index" style="font-size: 24px;">
+        <span v-for="(enemy, index) in fightStore.enemies" :key="index" style="font-size: 24px;">
           {{ enemy.fileName + ": " + enemy.pg + "/" + enemy.pgMax + " : " + enemy.damage }}
         </span>
       </div>
@@ -86,30 +86,28 @@
       <!--menus-->
       <div class="final-box final-box-chars-info">
         <table class="custom-table">
-          <th><span class="header">NAME</span></th>
-          <tr v-for="(hero, index) in heroes" :key="index">
-            <td>
-              <table style="margin-top:8px;">
-                <thead>
-                  <tr>
-                    <span v-if="hero.isAvaliable && !hero.hasAttacked && !hero.isDead" @click="changeSelectedChar(hero)"
-                      :class="{ 'animated-text': hero.fileName === selectedCharacter.fileName && !hero.isDead, 'dead-character': hero.isDead }"
-                      :style="{ cursor: hero.isAvaliable && !hero.isDead ? 'pointer' : 'default', color: hero.isDead ? 'red' : 'white' }">
-                      {{ useLocalizeText(hero.name) }}
-                    </span>
-                    <span v-if="hero.isAvaliable && hero.hasAttacked && !hero.isDead"
-                      :style="{ cursor: hero.isAvaliable && !hero.isDead ? 'pointer' : 'default', color: hero.isDead ? 'red' : 'gray' }">
-                      {{ useLocalizeText(hero.name) }}
-                    </span>
-                    <span v-if="hero.isAvaliable && hero.isDead"
-                      :style="{ cursor: hero.isAvaliable && !hero.isDead ? 'pointer' : 'default', color: hero.isDead ? 'red' : 'gray' }">
-                      {{ useLocalizeText(hero.name) }}
-                    </span>
-                  </tr>
-                </thead>
-              </table>
-            </td>
-          </tr>
+          <thead>
+            <th><span class="header">NAME</span></th>
+          </thead>
+          <tbody>
+            <tr v-for="(hero, index) in fightStore.heroes" :key="index">
+              <td class="hero-name-container">
+                <span v-if="hero.isAvailable && !hero.hasAttacked && !hero.isDead" @click="changeSelectedChar(hero)"
+                  :class="{ 'animated-text': hero.fileName === fightStore.selectedCharacter.fileName && !hero.isDead, 'dead-character': hero.isDead }"
+                  :style="{ cursor: hero.isAvaliable && !hero.isDead ? 'pointer' : 'default', color: hero.isDead ? 'red' : 'white' }">
+                  {{ useLocalizeText(hero.name) }}
+                </span>
+                <span class="hero-name" v-else-if="hero.isAvailable && hero.hasAttacked && !hero.isDead"
+                  :style="{ cursor: hero.isAvaliable && !hero.isDead ? 'pointer' : 'default', color: hero.isDead ? 'red' : 'gray' }">
+                  {{ useLocalizeText(hero.name) }}
+                </span>
+                <span class="hero-name" v-else-if="hero.isAvailable && hero.isDead"
+                  :style="{ cursor: hero.isAvaliable && !hero.isDead ? 'pointer' : 'default', color: hero.isDead ? 'red' : 'gray' }">
+                  {{ useLocalizeText(hero.name) }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div class="final-box final-box-stats-info">
@@ -124,13 +122,13 @@
               </div>
             </div>
           </div>
-          <tr v-for="(hero, index) in heroes" :key="index">
+          <tr v-for="(hero, index) in fightStore.heroes" :key="index">
             <td>
               <table>
                 <thead>
                   <tr>
                     <td>
-                      <div v-if="hero.isAvaliable"
+                      <div v-if="hero.isAvailable"
                         :style="{ display: 'flex', justifyContent: 'space-between', color: hero.isDead ? 'red' : 'initial' }">
                         <!-- Column PG -->
                         <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
@@ -167,7 +165,7 @@
           </div>
         </table>
       </div>
-      <div ref="menuBasic" class="final-box final-box-menuone-info" v-if="showMenuBasic && !selectedCharacter.isEnemy">
+      <div ref="menuBasic" class="final-box final-box-menuone-info" v-if="showMenuBasic && ! fightStore.selectedCharacter.isEnemy">
         <table class="custom-table">
           <tr v-for="(action, index) in selectedActions" :key="index">
             <td>
@@ -177,8 +175,8 @@
                     <td>
                       <image id="ff7cursor" class="ff7cursor" v-if="action.fileName === selectedAction.fileName" />
                       <span
-                        @click="(action.enabled && (action.pmPrice === 0 || (action.pmPrice > 0 && action.pmPrice <= selectedCharacter.pm))) ? actionExecute(action, action.name) : null"
-                        :style="{ cursor: action.enabled ? 'pointer' : 'default', color: (action.enabled && (action.pmPrice === 0 || (action.pmPrice > 0 && action.pmPrice <= selectedCharacter.pm))) ? 'white' : 'gray' }">
+                        @click="(action.enabled && (action.pmPrice === 0 || (action.pmPrice > 0 && action.pmPrice <= fightStore.selectedCharacter.pm))) ? actionExecute(action, action.name) : null"
+                        :style="{ cursor: action.enabled ? 'pointer' : 'default', color: (action.enabled && (action.pmPrice === 0 || (action.pmPrice > 0 && action.pmPrice <= fightStore.selectedCharacter.pm))) ? 'white' : 'gray' }">
                         {{ useLocalizeText(action.fileName) }}
                       </span>
                     </td>
@@ -199,8 +197,8 @@
                     <td>
                       <image class="ff7cursor" v-if="magic.fileName === selectedMagic.fileName" />
                       <span
-                        @click="(magic.enabled && (magic.pmPrice === 0 || (magic.pmPrice > 0 && magic.pmPrice <= selectedCharacter.pm))) ? magicExecute(magic) : null"
-                        :style="{ cursor: magic.enabled ? 'pointer' : 'default', color: (magic.enabled && (magic.pmPrice === 0 || (magic.pmPrice > 0 && magic.pmPrice <= selectedCharacter.pm))) ? 'white' : 'gray' }">
+                        @click="(magic.enabled && (magic.pmPrice === 0 || (magic.pmPrice > 0 && magic.pmPrice <= fightStore.selectedCharacter.pm))) ? magicExecute(magic) : null"
+                        :style="{ cursor: magic.enabled ? 'pointer' : 'default', color: (magic.enabled && (magic.pmPrice === 0 || (magic.pmPrice > 0 && magic.pmPrice <= fightStore.selectedCharacter.pm))) ? 'white' : 'gray' }">
                         {{ useLocalizeText(magic.fileName) }}
                       </span>
                     </td>
@@ -213,14 +211,14 @@
       </div>
       <div ref="menuTargets" class="final-box final-box-menuone-info" :style="calculateStyleTargets(sourceMenu)"
         v-if="showMenuTargets">
-        <table class="custom-table" v-if="!selectedCharacter.isEnemy">
-          <tr v-for="(enemy, index) in enemies" :key="index">
+        <table class="custom-table" v-if="! fightStore.selectedCharacter.isEnemy">
+          <tr v-for="(enemy, index) in fightStore.enemies" :key="index">
             <td>
               <table>
                 <thead>
                   <tr>
                     <td>
-                      <image id="ff7cursor" class="ff7cursor" v-if="enemy.fileName === targetCharacter.fileName" />
+                      <image id="ff7cursor" class="ff7cursor" v-if="enemy.fileName === fightStore.targetCharacter.fileName" />
                       <span @click="damageExecute(enemy)"
                         :style="{ cursor: !enemy.isDead ? 'pointer' : 'default', color: (!enemy.isDead) ? 'white' : 'gray' }">
                         {{ useLocalizeText(enemy.name) }}
@@ -232,8 +230,8 @@
             </td>
           </tr>
         </table>
-        <table class="custom-table" v-if="selectedCharacter.isEnemy">
-          <tr v-for="(hero, index) in heroes" :key="index">
+        <table class="custom-table" v-if=" fightStore.selectedCharacter.isEnemy">
+          <tr v-for="(hero, index) in fightStore.heroes" :key="index">
             <td>
               <table>
                 <thead>
@@ -254,8 +252,11 @@
     </div>
   </div>
 </template>
+
 <script setup>
+
 import {
+  getImageUrl,
   getRandomBackgroundImage,
   updateArrowPosition,
   showAttack,
@@ -280,36 +281,27 @@ const appStore = useAppStore();
 const router = useRouter();
 const debug = ref(false);
 
-const backImage = ref(getRandomBackgroundImage()); // Imagen de fondo aleatoria
-const message = ref(''); // Para el mensaje del diálogo general
-const isOpen = ref(false); // Para abrir el diálogo general
-const sourceMenu = ref(''); // Para saber desde dónde se abre el menú de objetivos
+const backImage = ref(getRandomBackgroundImage()); // Background random image
+const message = ref(''); // Upper dialog
+const isOpen = ref(false); // Open up dialog
+const sourceMenu = ref(''); // From where menu targets is opened
 
-const selectedCharacter = ref({}); // Personaje seleccionado
-const targetCharacter = ref({}); // Personaje objetivo de ataque
-const heroes = ref([]); // Héroes
-const enemies = ref([]); // Enemigos
+const lastDamage = ref(0); // Last damage received and show
+const selectedActions = ref([]); // Selected actions
+const selectedAction = ref({ fileName: "", minDamage: 0, maxDamage: 0, pmPrice: 0 }); // Selected action
+const selectedMagic = ref({ fileName: "", minDamage: 0, maxDamage: 0, pmPrice: 0 }); // Selected magic from magics
 
-const lastDamage = ref(0); // Último ataque recibido
-const selectedActions = ref([]); // Acciones seleccionadas
-const selectedAction = ref({}); // Acción seleccionada
-const selectedMagic = ref({}); // Magia seleccionada dentro de Acción magia
+const showMenuBasic = ref(false); // Show attacks menu
+const showMenuMagic = ref(false); // Show magics menu
+const showMenuTargets = ref(false); // Show enemies menu
 
-const showMenuBasic = ref(false); // Mostrar menú de ataques
-const showMenuMagic = ref(false); // Mostrar menú de magias
-const showMenuTargets = ref(false); // Mostrar menú de enemigos
-
-const alliesAttackedCount = ref(0); // Héroes que han atacado por turno
-const enemiesAttackedCount = ref(0); // Enemigos que han atacado por turno
-const turnCount = ref(1); // Número de turno
+const turnCount = ref(1); // Turn number
 
 /**
  * Set current page
  */
 onBeforeMount(async () => {
   appStore.setPageName("Fight");
-  heroes.value = fightStore.characters.filter(character => !character.isDead && !character.isEnemy && !character.hasAttacked);
-  enemies.value = fightStore.characters.filter(character => !character.isDead && character.isEnemy && !character.hasAttacked);
   turnCount.value = 0;
 });
 
@@ -320,10 +312,10 @@ onMounted(async () => {
 });
 
 /**
- * Set current hero, heroes, and enemies
+ * Set current hero, fightStore.heroes, and fightStore.enemies
  */
 const goTurn = async () => {
-  let char = getRandomAvailableHeroAlive();
+  let char = fightStore.getRandomAvailableHeroAlive();
   await changeSelectedChar(char);
 }
 
@@ -334,14 +326,14 @@ const goTurn = async () => {
 const changeSelectedChar = async (newChar) => {
   if (newChar) {
     hideAllMenus();
-    selectedCharacter.value = newChar;
-    selectedActions.value = selectedCharacter.value.actions;
-    if (!selectedCharacter.value.isEnemy) {
-      updateArrowPosition(selectedCharacter.value);
+   fightStore.selectedCharacter = newChar;
+    selectedActions.value = fightStore.selectedCharacter.actions;
+    if (! fightStore.selectedCharacter.isEnemy) {
+      updateArrowPosition(fightStore.selectedCharacter);
       showMenuBasic.value = true;
       showArrow();
     }
-    selectedAction.value = {};
+    selectedAction.value = { fileName: "", minDamage: 0, maxDamage: 0, pmPrice: 0 };
   }
 };
 
@@ -350,10 +342,10 @@ const changeSelectedChar = async (newChar) => {
  * @param {*} action action obj 
  */
 const actionExecute = async (action) => {
-  if (!selectedCharacter.value) {
+  if (!fightStore.selectedCharacter) {
     console.error('No character selected');
     return;
-  }
+  } 
   const actionName = action.fileName;
   switch (actionName) {
     case 'attack':
@@ -362,7 +354,7 @@ const actionExecute = async (action) => {
       selectedAction.value = action;
       showMenuTargets.value = true;
       showMenuMagic.value = false;
-      selectedMagic.value = {};
+      selectedMagic.value = { fileName: "", minDamage: 0, maxDamage: 0, pmPrice: 0 };
       break;
     case 'magic':
       appStore.playSelect();
@@ -370,11 +362,11 @@ const actionExecute = async (action) => {
       selectedAction.value = action;
       showMenuTargets.value = false;
       showMenuMagic.value = true;
-      selectedMagic.value = {};
+      selectedMagic.value = { fileName: "", minDamage: 0, maxDamage: 0, pmPrice: 0 };
       break;
     case 'summon':
       appStore.playSelect();
-      selectedMagic.value = {};
+      selectedMagic.value = { fileName: "", minDamage: 0, maxDamage: 0, pmPrice: 0 };
       showMenuMagic.value = false;
       showMenuTargets.value = false;
       selectedAction.value = action;
@@ -385,7 +377,7 @@ const actionExecute = async (action) => {
       hideArrow();
       applyFlipToLeft();
       showMenuBasic.value = false;
-      selectedMagic.value = {};
+      selectedMagic.value = { fileName: "", minDamage: 0, maxDamage: 0, pmPrice: 0 };
       showMenuMagic.value = false;
       showMenuTargets.value = false;
       selectedAction.value = action;
@@ -403,32 +395,32 @@ const actionExecute = async (action) => {
  * @param {*} enemy obj 
  */
 const damageExecute = async (enemy) => {
-  targetCharacter.value = enemy;
+  fightStore.targetCharacter = enemy;
   switch (selectedAction.value.fileName) {
     case 'attack':
       hideAllMenus();
-      if (!selectedCharacter.value.isEnemy){
+      if (!fightStore.selectedCharacter.isEnemy) {
         appStore.playSelect();
       }
-      markSelectedCharacterAsAttacked();
+      fightStore.markSelectedCharacterAsAttacked();
       appStore.playAttackLaunch();
       appStore.playAttack();
-      if (showAttack(selectedCharacter, targetCharacter)) {
+      if (await showAttack(fightStore.selectedCharacter, fightStore.targetCharacter)) {
         if (await ApplyDamage()) {
           await executeEnemyResponse();
         }
       }
       break;
     case 'magic':
-      if (!selectedCharacter.value.isEnemy){
+      if (!fightStore.selectedCharacter.isEnemy) {
         appStore.playSelect();
       }
       hideAllMenus();
       appStore.playMagicLaunch();
-      markSelectedCharacterAsAttacked();
-      targetCharacter.value = enemy;
+      fightStore.markSelectedCharacterAsAttacked();
+      fightStore.targetCharacter = enemy;
       appStore.playMagic(selectedMagic.value.fileName);
-      if (showMagicAttack(selectedCharacter, targetCharacter, selectedMagic)) {
+      if (showMagicAttack(fightStore.selectedCharacter, fightStore.targetCharacter, selectedMagic.value)) {
         if (await ApplyDamage()) {
           await executeEnemyResponse();
         }
@@ -452,11 +444,11 @@ const magicExecute = async (magic) => {
  */
 const summonExecute = async () => {
   hideAllMenus();
-  if (selectedCharacter.value) {
+  if (fightStore.selectedCharacter) {
     appStore.playSummonLaunch();
-    if (await showSummon(selectedCharacter)) {
+    if (await showSummon(fightStore.selectedCharacter)) {
       if (await ApplyDamage()) {
-        markSelectedCharacterAsAttacked();
+        fightStore.markSelectedCharacterAsAttacked();
         setTimeout(async () => {
           await executeEnemyResponse();
         }, 6500);
@@ -464,7 +456,6 @@ const summonExecute = async () => {
     }
   }
 };
-
 
 /**
  * Apply damage
@@ -485,40 +476,31 @@ const ApplyDamage = async () => {
 
   if (!isSummon) {
     const damage = Math.floor(Math.random() * (maxDamage - minDamage + 1)) + minDamage;
-    updateLastDamagePosition(targetCharacter);
+    updateLastDamagePosition(fightStore.targetCharacter);
     lastDamage.value = damage;
-    targetCharacter.value.damage = damage;
-
-
-    targetCharacter.value.pg -= damage;
-    if (targetCharacter.value.pg < 0) {
-      targetCharacter.value.pg = 0;
+    fightStore.targetCharacter.damage = damage;
+    fightStore.targetCharacter.pg -= damage;
+    if (fightStore.targetCharacter.pg < 0) {
+      fightStore.targetCharacter.pg = 0;
     }
-
     if (pmPrice > 0) {
-      selectedCharacter.value.pm -= pmPrice;
-      if (selectedCharacter.value.pm < 0) {
-        selectedCharacter.value.pm = 0;
+     fightStore.selectedCharacter.pm -= pmPrice;
+      if (fightStore.selectedCharacter.pm < 0) {
+       fightStore.selectedCharacter.pm = 0;
       }
     }
-
     await new Promise(resolve => setTimeout(resolve, 1000));
     lastDamage.value = 0;
-
-    if (targetCharacter.value.pg == 0) {
-      targetCharacter.value.isDead = true;
+    if (fightStore.targetCharacter.pg == 0) {
+      fightStore.targetCharacter.isDead = true;
       appStore.playDead();
       await checkContinue();
     }
-
     await new Promise(resolve => setTimeout(resolve, 3000));
-
   } else {
 
     await new Promise(resolve => setTimeout(resolve, 6000));
-
-
-    const enemiesToDamage = enemies.value.filter(e => !e.isDead);
+    const enemiesToDamage = fightStore.enemies.filter(e => !e.isDead);
     const damage = Math.floor(Math.random() * (maxDamage - minDamage + 1)) + minDamage;
     for (const enemy of enemiesToDamage) {
       enemy.damage = damage;
@@ -527,8 +509,6 @@ const ApplyDamage = async () => {
         enemy.pg = 0;
       }
     }
-
-
     for (const enemy of enemiesToDamage) {
       if (enemy.pg == 0) {
         appStore.playDead();
@@ -547,8 +527,8 @@ const ApplyDamage = async () => {
  * Check Continue or ends fight
  */
 const checkContinue = async () => {
-  const aliveAllies = countAliveAllies();
-  const aliveEnemies = countAliveEnemies();
+  const aliveAllies = fightStore.countAliveAllies();
+  const aliveEnemies = fightStore.countAliveEnemies();
   let msg = "";
 
   if (aliveEnemies > 0) {
@@ -585,95 +565,23 @@ const navEndFight = () => {
   router.push({ path: "endfight" });
 };
 
-
-/**
- * Count the number of alive allies
- */
-const countAliveAllies = () => {
-  return heroes.value.filter(h => !h.isDead).length;
-};
-
-/**
- * Count the number of alive enemies
- */
-const countAliveEnemies = () => {
-  return enemies.value.filter(e => !e.isDead).length;
-};
-
-
-/**
- * Mark selected character has attacked and counters
- * @param {*} characterName 
- */
-const markSelectedCharacterAsAttacked = () => {
-  if (selectedCharacter.value) {
-    if (!selectedCharacter.value.isEnemy) {
-      const hero = heroes.value.find(char => char.fileName === selectedCharacter.value.fileName);
-      if (hero) {
-        hero.hasAttacked = true;
-      }
-    } else {
-      const enemy = enemies.value.find(char => char.fileName === selectedCharacter.value.fileName);
-      if (enemy) {
-        enemy.hasAttacked = true;
-      }
-    }
-    alliesAttackedCount.value = heroes.value.filter(h => h.hasAttacked).length;
-    enemiesAttackedCount.value = enemies.value.filter(e => e.hasAttacked).length;
-  }
-};
-
-/**
- * Verify if all characters (heroes and enemies) have attacked
- */
-const allCharactersAttacked = () => {
-  const allHeroesAttacked = heroes.value
-    .filter(hero => !hero.isDead)
-    .every(hero => hero.hasAttacked);
-
-  const allEnemiesAttacked = enemies.value
-    .filter(enemy => !enemy.isDead)
-    .every(enemy => enemy.hasAttacked);
-
-  return allHeroesAttacked && allEnemiesAttacked;
-};
-
-/**
- * Reset has attacked heroes and enemies
- */
-const resetCharactersAttacked = async () => {
-  heroes.value.forEach(hero => {
-    if (!hero.isDead) {
-      hero.hasAttacked = false; // Corrección aquí
-    }
-  });
-  enemies.value.forEach(e => {
-    if (!e.isDead) {
-      e.hasAttacked = false; // Corrección aquí
-    }
-  });
-};
-
 /**
  * Execute enemy reponse after allied attack
  */
 const executeEnemyResponse = async () => {
-  if (!selectedCharacter.value.isEnemy) {
-    if (alliesAttackedCount.value > enemiesAttackedCount.value) {
       hideArrow();
-      const e = getRandomAvailableEnemyAlive();
+      const e = fightStore.getRandomAvailableEnemyAlive();
       changeSelectedChar(e);
       selectedAction.value = selectedActions.value[0];
-      targetCharacter.value = getRandomAvailableHeroAliveForTarget();
-      markSelectedCharacterAsAttacked();
+      fightStore.targetCharacter = fightStore.getRandomAvailableHeroAliveForTarget();
       appStore.playAttack();
-      if (showAttack(selectedCharacter, targetCharacter)) {
+      if (showAttack(fightStore.selectedCharacter, fightStore.targetCharacter)) {
         if (await ApplyDamage()) {
-          if (allCharactersAttacked()) {
-            await resetCharactersAttacked();
+          if (fightStore.allHeroesAttacked()) {
+            await fightStore.resetHeroesAttacked();
           }
-          const h = getRandomAvailableHeroAlive();
-          if (h) { // Verificar que hay un héroe disponible antes de cambiar el personaje seleccionado
+          const h = fightStore.getRandomAvailableHeroAlive();
+          if (h) {
             await changeSelectedChar(h);
           } else {
             await checkContinue();
@@ -681,102 +589,34 @@ const executeEnemyResponse = async () => {
           }
         }
       }
-    }
-  }
 };
 
+/**
+ * Reset turn, counters and values...
+ * */
 const resetTurn = async () => {
-  // Reiniciar contadores de personajes que han atacado
-  alliesAttackedCount.value = 0;
-  enemiesAttackedCount.value = 0;
-
-  // Reiniciar el contador de turno
+  fightStore.alliesAttackedCount = 0;
+  fightStore.enemiesAttackedCount = 0;
   turnCount.value += 1;
-
-  await resetCharactersAttacked();
-
-  // Cambiar al primer personaje disponible para actuar
-  const firstAvailableHero = getRandomAvailableHeroAlive();
+  await fightStore.resetCharactersAttacked();
+  const firstAvailableHero = fightStore.getRandomAvailableHeroAlive();
   if (firstAvailableHero) {
     await changeSelectedChar(firstAvailableHero);
   } else {
-    // Si no hay héroes disponibles, cambia al primer enemigo disponible
-    const firstAvailableEnemy = getRandomAvailableEnemyAlive();
+    const firstAvailableEnemy = fightStore.getRandomAvailableEnemyAlive();
     if (firstAvailableEnemy) {
       await changeSelectedChar(firstAvailableEnemy);
     } else {
-      // Si no hay héroes ni enemigos disponibles, el combate ha terminado
       navEndFight();
     }
   }
 };
 
-/**
- * Obtener uno de los supervivientes heroes que no hayan atacado
- */
-const getRandomAvailableHeroAlive = () => {
-  const availableHeroes = heroes.value.filter(h => !h.isDead && !h.hasAttacked);
-  if (availableHeroes.length > 0) {
-    if (availableHeroes.length === 1) {
-      return availableHeroes[0]; // Si solo queda un héroe, devuélvelo
-    } else {
-      const randomIndex = Math.floor(Math.random() * availableHeroes.length);
-      return availableHeroes[randomIndex];
-    }
-  } else {
-    return null;
-  }
-};
-
-/**
- * Obtener uno de los supervivientes heroes que no hayan atacado
- */
-const getRandomAvailableHeroAliveForTarget = () => {
-  const availableHeroes = heroes.value.filter(h => !h.isDead);
-  if (availableHeroes.length > 0) {
-    if (availableHeroes.length === 1) {
-      return availableHeroes[0]; // Si solo queda un héroe, devuélvelo
-    } else {
-      const randomIndex = Math.floor(Math.random() * availableHeroes.length);
-      return availableHeroes[randomIndex];
-    }
-  } else {
-    return null;
-  }
-};
-
-
-/**
- * Obtener uno de los supervivientes enemigos que no hayan atacado
- */
-const getRandomAvailableEnemyAlive = () => {
-  const availableEnemies = enemies.value.filter(e => !e.isDead && !e.hasAttacked);
-  if (availableEnemies.length > 0) {
-    if (availableEnemies.length === 1) {
-      return availableEnemies[0]; // Si solo queda un enemigo, devuélvelo
-    } else {
-      const randomIndex = Math.floor(Math.random() * availableEnemies.length);
-      return availableEnemies[randomIndex];
-    }
-  } else {
-    return null;
-  }
-};
-
-
-/**
- * Navigate to map
- */
-const navMap = () => {
-  appStore.playSelect();
-  appStore.setPageName("Map");
-  router.push({ path: "Map" });
-};
 
 /** BOTTOM MENUS **/
 
 /**
- * Ocultar todos los menús
+ * Hide all menu
  */
 const hideAllMenus = () => {
   showMenuBasic.value = false;
@@ -784,7 +624,7 @@ const hideAllMenus = () => {
   showMenuTargets.value = false;
 }
 
-</script>
+</script setup>
 <style scoped>
 @import '../../public/styles/fight.css'
 </style>

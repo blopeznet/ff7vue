@@ -80,22 +80,36 @@
   visibility: collapse;
 }
 
+/* Animación de oscilación */
+@keyframes moveEnemy {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px); /* Mueve hacia adelante 10px */
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 /**Enemy Top**/
 
 .top-enemy {
   position: fixed;
-  top: 190px;
+  top: 120px;
   left: 620px;
   z-index: 5;
+  animation: moveEnemy 1s infinite;
 }
 
 .top-enemy::after {
   content: '';
   position: absolute;
-  top: 60px; /* Coloca la sombra debajo de la imagen */
+  top: 130px; /* Coloca la sombra debajo de la imagen */
   left: -16px;
   width: 145px;
-  height: 27px; /* Altura de la sombra */
+  height: 20px; /* Altura de la sombra */
   z-index: 4; /* Coloca la sombra detrás de la imagen */
   background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
   background-size: cover; /* Ajusta el tamaño de la imagen */
@@ -105,9 +119,10 @@
 
 .middle-enemy {
   position: fixed;
-  top: 240px;
+  top: 200px;
   left: 500px;
   z-index: 6;
+  animation: moveEnemy 2s infinite;
 }
 
 .middle-enemy::after {
@@ -116,28 +131,29 @@
   top: 130px; /* Coloca la sombra debajo de la imagen */
   left: -16px;
   width: 145px;
-  height: 27px; /* Altura de la sombra */
+  height: 20px; /* Altura de la sombra */
   z-index: 4; /* Coloca la sombra detrás de la imagen */
   background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
   background-size: cover; /* Ajusta el tamaño de la imagen */
 }
 
-/**Enemy Top**/
+/**Enemy Bottom**/
 
 .bottom-enemy {
   position: fixed;
-  top: 300px;
+  top: 250px;
   left: 650px;
   z-index: 7;
+  animation: moveEnemy 3s infinite;
 }
 
 .bottom-enemy::after {
   content: '';
   position: absolute;
-  top: 117px; /* Coloca la sombra debajo de la imagen */
-  left: 0px;
+  top: 130px; /* Coloca la sombra debajo de la imagen */
+  left: -16px;
   width: 145px;
-  height: 27px; /* Altura de la sombra */
+  height: 20px; /* Altura de la sombra */
   z-index: 6; /* Coloca la sombra detrás de la imagen */
   background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
   background-size: cover; /* Ajusta el tamaño de la imagen */
@@ -242,7 +258,7 @@
 
 /* Estilo personalizado para eliminar espacios entre filas */
 .custom-table {
-  border-collapse: collapse;
+  border-collapse: collapse;  
   /* Colapsar los bordes de la tabla */
 }
 
@@ -252,6 +268,12 @@
   /* Añadir relleno opcional para celdas */
   padding-left: 12px;
   font-size: 24px;  
+}
+
+.hero-name-container {
+  text-align: left;
+  border-bottom: 0px solid #ccc; /* Línea separadora entre filas */
+  padding-top:8px!important;
 }
 
 /* Style for the progress bar container */

@@ -424,7 +424,7 @@ export function animateSummon() {
     let posX = -100; 
     let posY = -100;
     const animationInterval = setInterval(() => {
-      opacity += 0.01; 
+      opacity += 0.05; 
       posX += 1; 
       posY += 1; 
       elementSummon.style.opacity = opacity;

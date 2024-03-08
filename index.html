@@ -1,79 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/final_fantasy_7.svg" />
     <!-- Set the viewport width to device width and initial scale to 1.0 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/styles.css" />
     <title>FFVII vue3</title>
     <style>
-        /* Set body and html to 100% height */
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Prevent scrolling */
-        }
+      /* Set body and html to 100% height */
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevent scrolling */
+      }
 
-        /* Adjust zoom according to screen width and height */
-        #app {
-            display: flex;
-            justify-content: center; /* Center the child horizontally */
-            align-items: center; /* Center the child vertically */
-            max-width: 800px; /* Maximum width for the app */
-            width: 100%; /* Take up full width of the parent */
-            max-height: calc(800px * 1.5); /* Maximum height based on maximum width and aspect ratio */
-            height: 100%; /* Take up full height of the parent */
-        }
+      /* Adjust zoom according to screen width and height */
+      #app {
+        display: flex;
+        justify-content: center; /* Center the child horizontally */
+        align-items: center; /* Center the child vertically */
+        max-width: 800px; /* Maximum width for the app */
+        width: 100%; /* Take up full width of the parent */
+        max-height: calc(
+          800px * 1.5
+        ); /* Maximum height based on maximum width and aspect ratio */
+        height: 100%; /* Take up full height of the parent */
+      }
 
-        /* Style for the warning message */
-        #resolution-warning {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 187, 0, 0.7);
-            color: white;
-            padding: 12px;
-            font-size: 18px;
-            border-radius: 10px;
-            display: none;
-            z-index: 9999999;
-            max-width: 300px;  
-            width: 800px;          
-        }
+      /* Style for the warning message */
+      #resolution-warning {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 187, 0, 0.7);
+        color: white;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+        display: none;
+        z-index: 9999999;
+        max-width: 300px;
+        width: 800px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Warning message for low screen resolution -->
     <div id="resolution-warning">
-        <p>Please use a screen resolution of at least 800x600.</p>
+      <p>Please use a screen resolution of at least 800x600.</p>
     </div>
 
     <!-- Main app container -->
     <div id="app">
-        <!-- Content of your app goes here -->
+      <!-- Content of your app goes here -->
     </div>
 
     <script type="module" src="/src/main.js"></script>
     <script>
-        // Function to adjust zoom according to screen width
-        function adjustZoom() {
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-
-            // Calculate the zoom level based on the screen width
-            const zoomWidth = Math.min(1, screenWidth / 800); // Maximum width is 800px
-            const zoomHeight = Math.min(1, screenHeight / 600); // Maximum height is 600px
-
-            // Apply the zoom to the app container
-            document.querySelector('#app').style.transform = `scale(${Math.min(zoomWidth, zoomHeight)})`;
-        }
-
-        // Call the function when the page loads and when the window is resized
-        window.onload = adjustZoom;
-        window.onresize = adjustZoom;
+      // Function to adjust zoom according to screen width
+      function adjustZoom() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const zoom = Math.min(screenWidth / 800, screenHeight / 600);        
+        document.querySelector("#app").style.transform = `scale(${zoom})`;
+      }
+      window.onload = adjustZoom;
+      window.onresize = adjustZoom;
     </script>
-</body>
+  </body>
 </html>

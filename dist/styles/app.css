@@ -133,3 +133,28 @@
     font-size: 16px; /* Opcional: ajusta el tamaño de la fuente según sea necesario */
     /* Otras propiedades de estilo según tu diseño */
   }
+
+  .dialog-box-screen {
+    background-image: url('../images/rotate.png');
+    background-size: cover;
+    padding: 20px;
+    opacity: 1; 
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    z-index: 10000;
+    animation: opacityAnimation 2s infinite alternate;
+
+  }
+
+  @keyframes opacityAnimation {
+    0% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

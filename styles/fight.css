@@ -212,8 +212,6 @@
   top: 50%;
   left: 50%;
   z-index: 0;
-  border: 2px solid darkgray;
-  border-radius: 3px;
   height: 600px;
 }
 
@@ -372,8 +370,8 @@ progress::-webkit-progress-bar {
 .summon {
   position: fixed;
   width: 600px;
-  top: -320px;
-  left: -320px;
+  top: -250px;
+  left: -250px;
   z-index: 100;
   visibility: visible;
   opacity: 0;

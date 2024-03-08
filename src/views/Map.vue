@@ -1,12 +1,12 @@
 <template>
-  <div>    
-    <div class="background" ref="Background" style="cursor: pointer;" @click="handleMapClick">    
+  <div>
+    <div class="background" ref="Background" style="cursor: pointer;" @click="handleMapClick">
       <div class="dialog-box-info" :class="{ 'open': isOpen }">
         <div class="dialog-content">
           <p>{{ message }}</p>
         </div>
       </div>
-      <customButton :buttonText="useLocalizeText('menu')" :onClick="appStore.navMenu" >        
+      <customButton :buttonText="useLocalizeText('menu')" :onClick="appStore.navMenu">
       </customButton>
       <img src="/images/map.jpg">
       <div id="arrow_up"
@@ -34,7 +34,7 @@
         <img src="/images/shadow.gif" width="33" height="47">
       </div>
       <img ref="cloudElement" :src="mapStore.map_src" width="30" height="44"
-        :style="{ position: 'absolute', left: mapStore.map_Left + 'px', top: mapStore.map_Top + 'px', zIndex: mapStore.map_zIndex }">     
+        :style="{ position: 'absolute', left: mapStore.map_Left + 'px', top: mapStore.map_Top + 'px', zIndex: mapStore.map_zIndex }">
       <!-- Position element -->
       <div id="position"
         :style="{ position: 'absolute', left: positionLeft + 'px', top: positionTop + 'px', zIndex: 999 }">
@@ -66,7 +66,7 @@ messages.push(useLocalizeText('map_messages.05'));
 const isOpen = ref(false);
 let intervalBattle = null; // Intervar var for battle
 const mapBackground = ref(null);
-const positionLeft = ref(mapStore.map_Left); 
+const positionLeft = ref(mapStore.map_Left);
 const positionTop = ref(mapStore.map_Top);
 const battleInProgress = ref(false);
 
@@ -153,7 +153,7 @@ onMounted(async () => {
   // Interval start after first launch
   const firstTime = mapStore.fightFrecuencyMs;
   intervalBattle = setTimeout(makeEnemyAttackInterval, firstTime);
- await showDialog()
+  await showDialog()
 });
 
 /**
@@ -170,9 +170,9 @@ onUnmounted(() => {
  * Go to Figth
  */
 const goToFight = async () => {
-  if (!battleInProgress.value){
-   battleInProgress.value = true;
-   router.push({ path: "fight" });
+  if (!battleInProgress.value) {
+    battleInProgress.value = true;
+    router.push({ path: "fight" });
   }
 };
 
@@ -193,7 +193,7 @@ const handleMapClick = (event) => {
   const offsetY = (containerHeight - backgroundHeight) / 2;
   const relativeX = absoluteX - containerRect.left - offsetX;
   const relativeY = absoluteY - containerRect.top - offsetY;
-  const zoom = parseFloat(appContainer.style.zoom || '100') / 100;
+  const zoom = calculateZoom();
   const adjustedX = relativeX / zoom;
   const adjustedY = relativeY / zoom;
   positionLeft.value = adjustedX;
@@ -219,9 +219,9 @@ const handleMapClick = (event) => {
       mapStore.map_Left += moveDistanceX;
       mapStore.map_Top += moveDistanceY;
       if (++step >= totalSteps) {
-        clearInterval(moveInterval); 
-        if (document && document.style){
-         document.getElementById('position').style.display = 'visible'; 
+        clearInterval(moveInterval);
+        if (document && document.style) {
+          document.getElementById('position').style.display = 'visible';
         }
         mapStore.map_src = './images/stop_down.gif';
       }
@@ -230,9 +230,24 @@ const handleMapClick = (event) => {
 };
 
 /**
+ * Calculate applied zoom
+ */
+const calculateZoom = () => {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+
+  // Calcula el zoom basado en el alto de la pantalla para mantener la proporción
+  const zoom = Math.min(screenWidth / 800, screenHeight / 600);
+
+  // Aplica el zoom al contenedor de la aplicación
+  return zoom;
+}
+
+
+/**
  * Show dialog with message
  */
- const showDialog = async (key="begin_map") => {
+const showDialog = async (key = "begin_map") => {
   await new Promise(resolve => setTimeout(resolve, 1000));
   message.value = useLocalizeText(key);
   isOpen.value = true;
@@ -242,13 +257,12 @@ const handleMapClick = (event) => {
 
 </script>
 <style scoped>
-
 #position img {
   display: visible;
   margin-left: auto;
   margin-right: auto;
   height: 20px;
-  visibility: collapse;
+  visibility: visible;
 }
 
 
@@ -270,11 +284,26 @@ const handleMapClick = (event) => {
   opacity: 1;
 }
 
-.dialog-content{
+.dialog-content {
   margin-top: -10px;
 }
 
+.background {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* Deshabilitar el resaltado en Safari */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* Deshabilitar el resaltado en Chrome y otros navegadores basados en Webkit */
+  outline: none;
+  /* Eliminar cualquier contorno de enfoque */
+}
 
+
+.background:active,
+.background:focus {
+  outline: none;
+  /* Elimina cualquier contorno de enfoque */
+}
 </style>
 
    

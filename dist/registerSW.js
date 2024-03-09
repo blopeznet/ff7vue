@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/ff7vue/sw.js', { scope: '/ff7vue/' })})}

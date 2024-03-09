@@ -92,6 +92,6 @@
     "bandersnatch":"Bandersnatch",
     "deenglow":"Deenglow",
     "mandragora":"Mandragora",
-    "begin_map": "Recuerda, debes ir a la ciudad. But you can viajar un poco todavía."
-
+    "begin_map": "Recuerda, debes ir a la ciudad. But you can viajar un poco todavía.",
+    "add_start_page":"Instalar"
 }

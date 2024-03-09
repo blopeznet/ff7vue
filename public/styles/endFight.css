@@ -1,12 +1,18 @@
 .final-box {
     position: absolute;
-    border: 2px solid #fff;
-    background: linear-gradient(to bottom, #070B43, #0A4AA9);
+    border: 5px solid;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: var(--custom-radial-gradient--ff7);
     color: #FFFFFF;
     padding: 0px;
     margin: 0px;
     border-radius: 10px;
-    font: bold 10px arial; /* Establece la fuente para todo el texto */
+    font: bold 10px arial; 
     font-size: 18px;
     display: flex;
     flex-direction: column;
@@ -15,8 +21,7 @@
   
   .final-box span {
     align-self: flex-start;
-    /* Alinear cada span arriba a la izquierda */
-    margin-top: 32px;
+    margin-top: 28px;
     margin-left: 48px;
   }
   
@@ -24,18 +29,18 @@
     top: 2px;
     left: 0px;
     width: 795px;
-    height: 78px;
+    height: 86px;
   }
   
   .final-box-gil-info {
-    top: 86px;
-    right: 0px;
-    width: 390px;
+    top: 90px;
+    right: 4px;
+    width: 392px;
     height: 44px;
   }
   
   .final-box-gained-info {
-    top: 86px;
+    top: 90px;
     left: 0px;
     width: 400px;
     height: 44px;
@@ -45,23 +50,38 @@
     top: 138px;
     left: 0px;
     width: 795px;
-    height: 466px;
+    height: 460px;
   }
   
   table {
     width: 50%;
     border-collapse: separate;
-    /* Utilizar el modelo de caja de borde separado */
     border-spacing: 0px 0px;
-    /* Espacio horizontal y vertical entre las celdas */
   }
   
   th,
   td {
     padding: 0px;
-    padding-top: 8px;
+    padding-top: 4px;
     border: none;
     text-align: center;
     height: 0px;
-    /* Alto de las filas */
+  }
+
+  .dialog-box-message{
+    background: var(--custom-radial-gradient--ff7);
+    border: 5px solid;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 14px;
+    opacity: 0;
+    position: fixed;
+    width: 200px; 
+    z-index: 10000;
+    transition: opacity 0.5s ease-in-out;
+    transform: translate(-50%, -50%);
   }

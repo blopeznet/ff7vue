@@ -33,7 +33,7 @@ const handleOrientationChange = () => {
     <Suspense>
       <div class="container">
         <router-view v-slot="{ Component }">
-          <transition name="fade">
+          <transition name="fade" mode="out-in">
             <component :is="Component" />
           </transition>
         </router-view>
@@ -47,6 +47,5 @@ const handleOrientationChange = () => {
 </template>
 
 <style scoped>
-@import '../public/styles/app.css'
 </style>
 

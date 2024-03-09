@@ -9,7 +9,7 @@
       <customButton :buttonText="useLocalizeText('reset')" :onClick="appStore.navHome">
       </customButton>
       <img src="/images/menu.jpg" style="opacity: 0.7;">
-      <div class="final-box final-box-characters-info" :style="{ top: (TopChars) + 'px' }">
+      <div class="final-box final-box-big-info" :style="{ top: (TopChars) + 'px' }">
         <div class="tabla">
           <table style="margin-top: 24px; margin-left: 24px;width:500px">
             <tr>

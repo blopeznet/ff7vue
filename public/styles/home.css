@@ -1,10 +1,13 @@
-/** HOME SCREEN **/
-
 .home-logo {
     position: fixed;
     top: 200px;
     left: 200px;
     z-index: 1;
+    cursor: none;
+    user-select: none;
+    -webkit-user-select: none; 
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .home-menu {
@@ -12,6 +15,11 @@
     top: 510px;
     left: 300px;
     z-index: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none; 
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .version{
@@ -20,16 +28,12 @@
     left: 680px;
     font-size: 14px;
     z-index: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none; 
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
-.ff7cursor {
-    position: fixed;
-    width: 30px;
-    height: 15px;
-    top: 24px;
-    left: 40px;
-    z-index: 9999999;
-    background-image: url('../images/FF7Cursor.png');
-    background-size:cover;
-  }
+
 

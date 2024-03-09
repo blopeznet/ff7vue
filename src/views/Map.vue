@@ -257,53 +257,8 @@ const showDialog = async (key = "begin_map") => {
 
 </script>
 <style scoped>
-#position img {
-  display: visible;
-  margin-left: auto;
-  margin-right: auto;
-  height: 20px;
-  visibility: visible;
-}
+@import '../../public/styles/map.css'
 
-
-.dialog-box-info {
-  background: linear-gradient(to bottom, #070B43, #0A4AA9);
-  border: 4px solid #fff;
-  border-radius: 10px;
-  padding: 14px;
-  opacity: 0;
-  position: fixed;
-  width: 760px;
-  left: 2px;
-  top: 2px;
-  z-index: 1000;
-  transition: opacity 1s ease-in-out;
-}
-
-.dialog-box-info.open {
-  opacity: 1;
-}
-
-.dialog-content {
-  margin-top: -10px;
-}
-
-.background {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  /* Deshabilitar el resaltado en Safari */
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  /* Deshabilitar el resaltado en Chrome y otros navegadores basados en Webkit */
-  outline: none;
-  /* Eliminar cualquier contorno de enfoque */
-}
-
-
-.background:active,
-.background:focus {
-  outline: none;
-  /* Elimina cualquier contorno de enfoque */
-}
 </style>
 
    

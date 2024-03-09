@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="background" ref="Background">
-      <div class="dialog-box-fight" :class="{ 'open': isOpen }">
+      <div class="dialog-box-fight" :style="{ 'opacity': opacity }">
         <div class="dialog-content">
           <p>{{ message }}</p>
         </div>
@@ -297,7 +297,7 @@ const showMenuMagic = ref(false); // Show magics menu
 const showMenuTargets = ref(false); // Show enemies menu
 
 const turnCount = ref(1); // Turn number
-
+const opacity = ref(0);
 /**
  * Set current page
  */
@@ -554,9 +554,9 @@ const checkContinue = async () => {
 const showDialog = async (key = "begin_fight") => {
   await new Promise(resolve => setTimeout(resolve, 1000));
   message.value = useLocalizeText(key);
-  isOpen.value = true;
+  opacity.value = 1.0;
   await new Promise(resolve => setTimeout(resolve, 1000));
-  isOpen.value = false;
+  opacity.value = 0;
 };
 
 /**

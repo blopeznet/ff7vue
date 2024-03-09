@@ -133,7 +133,7 @@ onMounted(async () => {
       if (mutation.type === 'attributes' && (mutation.attributeName === 'style' && mutation.target.style.top || mutation.target.style.left)) {
 
         if (mapStore.map_Left >= 600 && mapStore.map_Top <= 120) {
-          router.push({ path: "EndGame" });
+          appStore.navEndGame();
         }
         if (!mapStore.checkCoords()) {
           return;
@@ -172,7 +172,7 @@ onUnmounted(() => {
 const goToFight = async () => {
   if (!battleInProgress.value) {
     battleInProgress.value = true;
-    router.push({ path: "fight" });
+    appStore.navFight();
   }
 };
 

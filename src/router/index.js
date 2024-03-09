@@ -11,19 +11,21 @@ import EndGame from '../views/EndGame.vue'
 import Fight from '../views/Fight.vue'
 import About from '../views/About.vue'
 import Help from '../views/Help.vue'
+import NotFoundComponent from '../views/NotFound.vue'
 
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/settings', component: Settings },
-  { path: '/history', component: History },
-  { path: '/map', component: Map },
-  { path: '/menu', component: Menu },
-  { path: '/endfight', component: EndFight },
-  { path: '/endgame', component: EndGame },
-  { path: '/fight', component: Fight },
-  { path: '/about', component: About },
-  { path: '/help', component: Help }
+  { name:"root", path: '/', component: Home },
+  { name: 'settings', path: '/', component: Settings },
+  { name: 'history', path: '/', component: History },
+  { name: 'map', path: '/', component: Map },
+  { name: 'menu', path: '/', component: Menu },
+  { name: 'endfight', path: '/', component: EndFight },
+  { name: 'endgame', path: '/', component: EndGame },
+  { name: 'fight', path: '/', component: Fight },
+  { name: 'about', path: '/', component: About },
+  { name: 'help', path: '/', component: Help },
+  { name: 'not-found', path: '/:pathMatch(.*)', component: NotFoundComponent }
 ];
 
 const router = createRouter({

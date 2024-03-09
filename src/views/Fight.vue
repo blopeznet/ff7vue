@@ -563,7 +563,7 @@ const showDialog = async (key = "begin_fight") => {
  * Navigate to endFight
  */
 const navEndFight = () => {
-  router.push({ path: "endfight" });
+  appStore.navEndFight();
 };
 
 /**

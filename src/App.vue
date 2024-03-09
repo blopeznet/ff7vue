@@ -1,12 +1,13 @@
 <script setup>
 //Import and vars
-import { onMounted, onUnmounted,ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import { useAppStore } from '../src/stores/app'
 const appStore = useAppStore();
 const router = useRouter();
 appStore.setRouter(router);
 const isOpen = ref(false);
+const audioPlayer = ref(null);
 
 onMounted(() => {
   window.addEventListener("resize", handleOrientationChange);
@@ -19,48 +20,24 @@ onUnmounted(() => {
 
 const handleOrientationChange = () => {
   if (window.innerWidth > window.innerHeight) {
-        isOpen.value = false;
-    } else {
-        isOpen.value = true;
-    }
-}
-
-
-/**
- * Function to calculate audio source
- * @param {*} path 
- */
-const calculateAudio = (path) => {
-
-  let fileName = "";
-
-  if (path === '/') {
-    fileName = 'home';
+    isOpen.value = false;
   } else {
-    fileName = path.replace('/', '').toLowerCase();
+    isOpen.value = true;
   }
-
-  return `/ff7vue/music/${fileName}.mp3`;
-
-};
-
+}
 
 </script>
 
 <template>
   <div>
     <Suspense>
-      <div class="container">     
+      <div class="container">
         <router-view v-slot="{ Component }">
           <transition name="fade">
             <component :is="Component" />
           </transition>
         </router-view>
-        <!-- Audio music player-->
-        <audio ref="audioPlayer" :src="calculateAudio(router.currentRoute.value.fullPath)" :volume="appStore.musicVolume"
-          autoplay loop>
-        </audio>
-        <div class="dialog-box-screen" v-if="isOpen">         
+        <div class="dialog-box-screen" v-if="isOpen">
         </div>
       </div>
       <template #fallback>

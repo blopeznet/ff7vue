@@ -13,7 +13,6 @@ import About from '../views/About.vue'
 import Help from '../views/Help.vue'
 import NotFoundComponent from '../views/NotFound.vue'
 
-
 const routes = [
   { name:"root", path: '/', component: Home },
   { name: 'settings', path: '/', component: Settings },
@@ -25,8 +24,10 @@ const routes = [
   { name: 'fight', path: '/', component: Fight },
   { name: 'about', path: '/', component: About },
   { name: 'help', path: '/', component: Help },
-  { name: 'not-found', path: '/:pathMatch(.*)', component: NotFoundComponent }
+  { name: 'not-found', path: '/:pathMatch(.*)', component: NotFoundComponent },
 ];
+
+
 
 const router = createRouter({
   history: createWebHistory(

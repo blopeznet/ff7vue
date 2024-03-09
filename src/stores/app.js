@@ -180,5 +180,11 @@ export const useAppStore = defineStore({
     navEndFight() {
       this.router.push({ path: "endfight" });
     },
+    navEndGame() {
+      this.router.push({ path: "endgame" });
+    },
+    navFight() {
+      this.router.push({ path: "fight" });
+    },
   },
 });

@@ -114,8 +114,7 @@ const navMap = async () => {
   appStore.playGil();
   await fightStore.updateGil(); // Wait gil is udpated
   appStore.playSelect();
-  router.push({ path: "Map" }); // Navigate to "Map"
-
+  appStore.navMap();
 };
 
 /**

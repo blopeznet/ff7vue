@@ -5,7 +5,7 @@
     "settings": "Settings",
     "history_intro": "10 years ago...",
     "history": "I wanted to join Shinra's Elite Corps, to become a SOLDIER. The final test was to accompany Sephiroth to Gaia on a reconnaissance mission. We found a lost young girl, Ifalna. Sephiroth decided to take her to the nearest doctor. I finally remembered!!",
-    "map":"Mapa",
+    "map":"Map",
     "map_messages": {
         "01": "You cannot go in that direction.",
         "02": "That's not the right direction.",
@@ -93,5 +93,6 @@
     "deenglow":"Deenglow",
     "mandragora":"Mandragora",
     "begin_map": "Remember, you must go to the town. But you can travel a little more before.",
-    "add_start_page":"Install"
+    "add_start_page":"Install",
+    "oops":"Page not found, back to game?"
 }

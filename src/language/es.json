@@ -93,5 +93,6 @@
     "deenglow":"Deenglow",
     "mandragora":"Mandragora",
     "begin_map": "Recuerda, debes ir a la ciudad. But you can viajar un poco todavía.",
-    "add_start_page":"Instalar"
+    "add_start_page":"Instalar",
+    "oops":"Página no encontrada, vuelves al juego?"
 }

@@ -15,7 +15,8 @@ export const useAppStore = defineStore({
     musicVolume: 1.0,
     soundEffects: true,
     showJoy: false,
-    router: {}
+    router: {},
+    audio: null,
   }),
   actions: {
     setLoading(loading) {
@@ -148,43 +149,65 @@ export const useAppStore = defineStore({
     calculateAudio(fileName) {
       return `/ff7vue/effects/${fileName}`;
     },
+    calculateMusic(fileName) {
+      return `/ff7vue/music/${fileName}`;
+    },
     /**Navigation actions */
     navHome() {
       this.playSelect();
-      this.router.push({ path: "/" });
+      this.playBackgroundAudio('root');
+      this.router.push({ name: 'root', params: { param: 'home' }});      
     },
     navHistory() {
       this.playSelect();
-      this.router.push({ path: "History" });
+      this.playBackgroundAudio('history');
+      this.router.push({ name: 'history', params: { param: 'root' }});
     },
     navSettings() {
       this.playSelect();
-      this.router.push({ path: "settings" });
+      this.playBackgroundAudio('settings');
+      this.router.push({ name: 'settings', params: { param: 'settings' }});
     },
     navAbout() {
       this.playSelect();
-      this.router.push({ path: "about" });
+      this.playBackgroundAudio('about');
+      this.router.push({ name: 'about', params: { param: 'about' }});
     },
     navHelp() {
       this.playSelect();
-      this.router.push({ path: "help" });
+      this.playBackgroundAudio('help');
+      this.router.push({ name: 'help', params: { param: 'help' }});
     },
     navMap() {
       this.playSelect();
-      this.router.push({ path: "map" });
+      this.playBackgroundAudio('map');
+      this.router.push({ name: 'map', params: { param: 'map' }});
+
     },
     navMenu() {
       this.playSelect();
-      this.router.push({ path: "menu" });
+      this.router.push({ name: 'menu', params: { param: 'menu' }});
+
     },
     navEndFight() {
-      this.router.push({ path: "endfight" });
+      this.playBackgroundAudio('endfight');
+      this.router.push({ name: 'endfight', params: { param: 'endfight' }});
     },
     navEndGame() {
-      this.router.push({ path: "endgame" });
+      this.playBackgroundAudio('endgame');
+      this.router.push({ name: 'endgame', params: { param: 'endgame' }});
     },
     navFight() {
-      this.router.push({ path: "fight" });
+      this.playBackgroundAudio('fight');
+      this.router.push({ name: 'fight', params: { param: 'fight' }});
+    },
+    playBackgroundAudio(name) {
+      if (this.audio){
+       this.audio.pause();
+      }
+      this.audio = new Audio(this.calculateMusic(`${name}.mp3`));
+      this.audio.volume = this.musicVolume;
+      this.audio.play();
     },
   },
 });

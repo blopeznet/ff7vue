@@ -1,61 +1,5 @@
 /** STYLES APP **/
 
-
-.controller-container {
-    position: fixed;
-    bottom: 0%;
-    right: 60%;
-    margin-bottom: 20px;
-    margin-right: 0px;
-    z-index: 99999;
-    transform: translate(150%, 50%);
-  }
-  
-  .help-container {
-    position: fixed;
-    background: radial-gradient(circle, #7475ea, #000021);
-    left: 0;
-    z-index: 99999;
-    width: 800px;
-    height: 600px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 2s ease;
-  }
-  
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
-  
-  .bottom-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px; /* Altura de la barra */
-    background: linear-gradient(to bottom, #d6d6d5, #cecfce);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .button-group {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .left-buttons,
-  .right-buttons {
-    display: flex;
-    align-items: end;
-  }
-  
   .round-button-container {
     margin-left: 4px;
     margin-right: 8px; /* Espacio entre los botones */
@@ -136,25 +80,21 @@
 
   .dialog-box-screen {
     background-image: url('../images/rotate.png');
-    background-size: cover;
-    padding: 20px;
+    background-size: cover;    
     opacity: 1; 
     position: fixed;
-    width: 100px;
-    height: 100px;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
+    width: 50px;
+    height: 50px;    
     z-index: 10000;
     animation: opacityAnimation 2s infinite alternate;
-
+    transform: translate(600%, 630%);
   }
 
   @keyframes opacityAnimation {
     0% {
-      opacity: 0.5;
+      opacity: 0.1;
     }
     100% {
-      opacity: 1;
+      opacity: 0.5;
     }
   }

@@ -6,7 +6,6 @@ import { useAppStore } from '../src/stores/app'
 const appStore = useAppStore();
 const router = useRouter();
 appStore.setRouter(router);
-
 const isOpen = ref(false);
 
 onMounted(() => {
@@ -19,9 +18,6 @@ onUnmounted(() => {
 });
 
 const handleOrientationChange = () => {
-  console.info("entra al evento?");
-  console.info("window.innerWidth",window.innerWidth);
-  console.info("window.innerHeight",window.innerHeight);
   if (window.innerWidth > window.innerHeight) {
         isOpen.value = false;
     } else {

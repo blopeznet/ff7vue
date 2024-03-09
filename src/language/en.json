@@ -92,5 +92,6 @@
     "bandersnatch":"Bandersnatch",
     "deenglow":"Deenglow",
     "mandragora":"Mandragora",
-    "begin_map": "Remember, you must go to the town. But you can travel a little more before."
+    "begin_map": "Remember, you must go to the town. But you can travel a little more before.",
+    "add_start_page":"Install"
 }

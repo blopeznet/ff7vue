@@ -28,7 +28,7 @@ const initialState = {
     isDead: false,
     fileName: "",
   },
-  alliesAttackedCount: 0
+  alliesAttackedCount: 0,
 };
 
 /**
@@ -114,7 +114,7 @@ export const useFightStore = defineStore({
             this.gainedGil--;
             this.gil++;
           } else {
-            clearInterval(intervalId); 
+            clearInterval(intervalId);
             resolve(null);
           }
         }, 50);
@@ -138,21 +138,21 @@ export const useFightStore = defineStore({
     },
     // Reset pg from heroes to max
     resetPG() {
-      const updatedCharacters = this.heroes.map((character) => {
-        const updatedCharacter = { ...character };
-        updatedCharacter.pg = updatedCharacter.pgMax;
-        return updatedCharacter;
+      this.heroes.forEach((character) => {
+        character.damage = 0;
+        character.isDead = false;
+        character.pg = character.pgMax;
+        character.hasAttacked = false;
       });
-      this.heroes = updatedCharacters;
     },
     // Reset pm from heroes to max
     resetPM() {
-      const updatedCharacters = this.heroes.map((character) => {
-        const updatedCharacter = { ...character };
-        updatedCharacter.pm = updatedCharacter.pmMax;
-        return updatedCharacter;
+      this.heroes.forEach((character) => {
+        character.damage = 0;
+        character.isDead = false;
+        character.pm = character.pmMax;
+        character.hasAttacked = false;
       });
-      this.heroes = updatedCharacters;
     },
     // Set actions for characters
     setActionCharacters(character) {
@@ -226,7 +226,7 @@ export const useFightStore = defineStore({
       [magicAqua, magicFire, magicIce, magicThunder].forEach((magic) => {
         const { minDamage, maxDamage, pmPrice } = calculateDamageAndPMPrice(
           character.level
-        ); 
+        );
         magic.minDamage = minDamage;
         magic.maxDamage = maxDamage;
         magic.pmPrice = pmPrice;
@@ -444,9 +444,7 @@ export const useFightStore = defineStore({
     },
     //Get enemy not dead random
     getRandomAvailableEnemyAlive() {
-      const availableEnemies = this.enemies.filter(
-        (e) => !e.isDead 
-      );
+      const availableEnemies = this.enemies.filter((e) => !e.isDead);
       if (availableEnemies.length > 0) {
         if (availableEnemies.length === 1) {
           return availableEnemies[0];

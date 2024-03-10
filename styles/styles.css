@@ -1,5 +1,6 @@
 :root {
   --custom-radial-gradient--ff7: -webkit-radial-gradient(-180px 0px, circle, #0053ad 100px, #001b85 350px, #000223);
+  --custom-radial-gradient--ff7--remake: -webkit-radial-gradient(-180px 0px, circle, #1172CC 100px, #0E7DE3 350px, #2DB4F4);
 }
 
 @font-face {
@@ -32,6 +33,7 @@ body {
 
 p{
   font-family: 'Reactor7', arial;
+  font-size: 20px!important;
 }
 
 div{

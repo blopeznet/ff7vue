@@ -118,11 +118,11 @@
         <table class="custom-table" style="margin-left: 24px;">
           <div style="display: flex; justify-content: space-between;">
             <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
-              <span class="header" style="margin-bottom: -6px;">{{ useLocalizeText('PG') }}</span>
+              <span class="header" style="margin-top: 4px;margin-bottom:0px;">{{ useLocalizeText('PG') }}</span>
             </div>
             <div style="flex: 1;margin-left: 48px;margin-bottom: 12px">
               <div style="display: flex; flex-direction: column; align-items: center;width:100px;">
-                <span class="header" style="margin-bottom: -6px;">{{ useLocalizeText('PM') }}</span>
+                <span class="header" style="margin-top: 4px;margin-bottom:0px;">{{ useLocalizeText('PM') }}</span>
               </div>
             </div>
           </div>
@@ -133,17 +133,17 @@
                   <tr>
                     <td>
                       <div v-if="hero.isAvailable"
-                        :style="{ display: 'flex', justifyContent: 'space-between', color: hero.isDead ? 'red' : 'initial' }">
+                        :style="{ display: 'flex', justifyContent: 'space-between', color: hero.isDead ? 'red' : 'initial','margin-top':'-12px' }">
                         <!-- Column PG -->
                         <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
-                          <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pg
+                          <span :style="{ 'margin-bottom': '-15px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pg
                           }}/{{ hero.pgMax }}</span>
                           <progress :max="hero.pgMax" :value="hero.pg" :class="'pg'"></progress>
                         </div>
                         <!-- Column PM -->
                         <div style="flex: 1;margin-left: 48px;">
                           <div style="display: flex; flex-direction: column; align-items: center;width:100px;">
-                            <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pm
+                            <span :style="{ 'margin-bottom': '-15px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pm
                             }}/{{ hero.pmMax }}</span>
                             <progress :max="hero.pmMax" :value="hero.pm" :class="'pm'"></progress>
                           </div>

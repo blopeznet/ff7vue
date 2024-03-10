@@ -241,7 +241,6 @@
   padding: 0px;
   margin: 0px;
   border-radius: 10px;
-  font-family: "cpm";
   font-size: 24px;
   z-index: 1;
 }
@@ -286,16 +285,17 @@
 .hero-name-container {
   text-align: left;
   border-bottom: 0px solid #ccc;
-  padding-top: 8px !important;
+  padding-top: 0px !important;
 }
 
 /* Style for the progress bar container */
 progress {
   width: 100%;
-  height: 6px;
+  height: 4px;
   border: 1px solid gray;
   border-radius: 0;
   overflow: hidden;
+  margin-bottom: 12px;
 }
 
 /* Style for the progress bar background */
@@ -425,7 +425,7 @@ progress::-webkit-progress-bar {
 }
 
 span {
-  font: bold 18px arial;
+  font: bold 18px;
 }
 
 progress {

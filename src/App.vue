@@ -28,7 +28,7 @@ const handleOrientationChange = () => {
 }
 
 const getTransitionName = () => {
-  return appStore.pageName === 'Map' ? 'blur-rotate-fight' : 'fade';
+  return appStore.applyFightAnimation ? 'blur-rotate-fight' : 'fade';
 };
 
 </script>

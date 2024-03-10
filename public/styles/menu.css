@@ -132,7 +132,7 @@ td {
 }
 
 .ff7-selector option {
-  background: linear-gradient(to bottom, #070b43, #0a4aa9);
+  background: var(--custom-radial-gradient--ff7);
   color: #fff;
 }
 

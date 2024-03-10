@@ -1,24 +1,26 @@
 <template>
   <div>
     <div class="background" ref="Background" @click="appStore.navMap">
-      <customButton :buttonText="useLocalizeText('next')" :onClick="appStore.navMap" >        
+      <customButton :buttonText="useLocalizeText('next')" :onClick="appStore.navMap">
       </customButton>
       <img src="/images/history.jpg">
-      <div class="dialog-box-history" :style="{ opacity: opacity }">
-        <div class="dialog-content" @click="appStore.navMap">
-          <p>{{ text }}</p>
+      <Transition name="bounce">
+        <div class="dialog-box-history" v-if="isOpen">
+          <div class="dialog-content" @click="appStore.navMap">
+            <p>{{ text }}</p>
+          </div>
         </div>
-        <div class="history-cloud" ref="Cloud">
-          <img src="/images/cloud.gif" width="48" height="102">
-        </div>
-        <div class="history-sephirot" ref="Sephirot" :style="{ opacity: sephirotOpacity }">
-          <img src="/images/sephirot.gif" width="57" height="120">
-        </div>
-        <div class="history-aeris" ref="Aeris" :style="{ opacity: aerisOpacity }">
-          <img src="/images/aeris.gif" width="37" height="94">
-        </div>          
-      </div>       
-    </div>   
+      </Transition>
+      <div class="history-cloud" ref="Cloud">
+        <img src="/images/cloud.gif" width="48" height="102">
+      </div>
+      <div class="history-sephirot" ref="Sephirot" :style="{ opacity: sephirotOpacity }">
+        <img src="/images/sephirot.gif" width="57" height="120">
+      </div>
+      <div class="history-aeris" ref="Aeris" :style="{ opacity: aerisOpacity }">
+        <img src="/images/aeris.gif" width="37" height="94">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -36,7 +38,7 @@ const router = useRouter();
 const text = ref(useLocalizeText('history_intro'));
 const textComplete = useLocalizeText('history');
 const writingSpeed = 50;
-const opacity = ref(0);
+const isOpen = ref(false);
 const sephirotOpacity = ref(0);
 const aerisOpacity = ref(0);
 
@@ -54,7 +56,7 @@ onMounted(async () => {
   await Promise.all([
     new Promise(resolve => {
       setTimeout(() => {
-        opacity.value = 1;
+        isOpen.value = true;
         resolve();
       }, 1000);
     }),
@@ -107,10 +109,5 @@ function writeText() {
 </script>
 
 <style scoped>
-
-
 @import '../../public/styles/history.css'
-
-
-
 </style>

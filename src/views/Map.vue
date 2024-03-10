@@ -1,11 +1,13 @@
 <template>
   <div>
     <div class="background" ref="Background" style="cursor: pointer;" @click="handleMapClick">
-      <div class="dialog-box-info" :class="{ 'open': isOpen }">
-        <div class="dialog-content">
-          <p>{{ message }}</p>
+      <Transition name="bounce">
+        <div class="dialog-box-info" v-if="isOpen">
+          <div class="dialog-content">
+            <p>{{ message }}</p>
+          </div>
         </div>
-      </div>
+      </Transition>
       <customButton :buttonText="useLocalizeText('menu')" :onClick="appStore.navMenu">
       </customButton>
       <img src="/images/map.jpg">
@@ -258,7 +260,6 @@ const showDialog = async (key = "begin_map") => {
 </script>
 <style scoped>
 @import '../../public/styles/map.css'
-
 </style>
 
    

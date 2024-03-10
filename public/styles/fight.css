@@ -80,6 +80,18 @@
   visibility: collapse;
 }
 
+.enemyCursor {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: 20;
+  width: 20x;
+  height: 20px;
+  visibility: collapse;
+}
+
+
+
 /* Move enemy animation */
 @keyframes moveEnemy {
   0% {
@@ -422,8 +434,8 @@ progress {
 
 .ff7cursor {
   position: fixed;
-  width: 30px;
-  height: 15px;
+  width: 34px;
+  height: 20px;
   margin-top: 16px;
   margin-left: -40px;
   z-index: 9999999;
@@ -431,12 +443,13 @@ progress {
   background-size: cover;
 }
 
+
 .dialog-box-fight {
-  background: linear-gradient(to bottom, #070b43, #0a4aa9);
+  background: var(--custom-radial-gradient--ff7);
   border: 4px solid #fff;
   border-radius: 10px;
   padding: 14px;
-  opacity: 0;
+  opacity: 1;
   position: fixed;
   width: 760px;
   height: 20px;

@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div class="dialog-box-restored" :style="{ opacity: opacity }">
+    <Transition name="bounce">
+    <div class="dialog-box-restored" v-if="isOpen">
       <div class="dialog-content">
         <p>{{ message }}</p>
       </div>
     </div>
+    </Transition>
     <div class="background" ref="Background">  
       <customButton :buttonText="useLocalizeText('map')" :onClick="appStore.navMap" >        
       </customButton>
@@ -98,7 +100,7 @@ import { useFightStore } from '../stores/fight'
 const fightStore = useFightStore();
 const router = useRouter();
 const message = ref('');
-const opacity = ref(0);
+const isOpen = ref(false);
 const time = ref('');
 const TopChars = ref(-600);
 const TopMenu = ref(-500);
@@ -225,9 +227,9 @@ const restorePM = async () => {
 const showDialog = async (key = "begin_fight") => {
   await new Promise(resolve => setTimeout(resolve, 500));
   message.value = useLocalizeText(key);
-  opacity.value = 1.0;
+  isOpen.value = true;
   await new Promise(resolve => setTimeout(resolve, 1000));
-  opacity.value = 0;
+  isOpen.value = false;
 };
 
 /**

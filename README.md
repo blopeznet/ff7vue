@@ -10,7 +10,8 @@ This project is a technical demo showcasing the capabilities of Vue 3 and Vite. 
 
 <img src="/public/snapshots/mobile_01.png" alt="Battle mobile device" width="150"/>
 <img src="/public/snapshots/mobile_02.png" alt="Map mobile device" width="300"/>
-
+<img src="/public/snapshots/pc_01.png" alt="PC device 01" width="150"/>
+<img src="/public/snapshots/pc_02.png" alt="PC device 02" width="150"/>
 
 
 ### Main Content

@@ -6,7 +6,7 @@ Welcome to FFVII for Vue 3, a project inspired by the classic game Final Fantasy
 
 ### Introduction
 
-This project is a technical demo showcasing the capabilities of Vue 3 and Vite. It's a multilingual application (English and Spanish) featuring audio and utilizing Pinia for state management and Vue Controller for navigation.
+This project is a technical demo showcasing the capabilities of Vue 3 and Vite. It's a multilingual application (English and Spanish) featuring audio and utilizing Pinia for state management and Vue Controller for navigation. Use of animation and css, and enabled for using as a PWA.
 
 ### Main Content
 

@@ -31,7 +31,7 @@ This project is a technical demo showcasing the capabilities of Vue 3 and Vite. 
 
 ### Main Content
 
-A few years ago when I started working as a programmer, my favorite game was Final Fantasy VII. Now, a long time later, I've written this code to adapt and utilize Vue 3 and bring this demo to completion. You can play a game if you want.
+A few years ago when I started working as a programmer, my favorite game was Final Fantasy VII. Now, a long time later, I've written this code to adapt and utilize Vue 3 and bring this mini-app to completion. You can play a game if you want.
 
 ### Disclaimer
 

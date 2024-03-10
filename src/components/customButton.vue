@@ -37,28 +37,26 @@ const props = defineProps({
 
 <style>
 .custom-button {
-  background: var(--custom-radial-gradient--ff7);
-  border: 5px solid;
+  background: var(--custom-radial-gradient--ff7--remake);
+  opacity: 0.7;
+  border: 2px solid;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
-  border-radius: 15px;
+  border-radius: 50%;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 20px;
-  opacity: 1;
   position: fixed;
-  min-width: fit-content;
-  /* Ancho ajustado al contenido */
+  width:100px;
+  height: 100px;
   bottom: 20px;
   left: 20px;
   z-index: 10000;
   transition: opacity 0.3s ease-in-out;
   display: flex;
   align-items: center;
-  /* Centra el contenido verticalmente */
-  justify-content: flex-start;
-  /* Alinea el contenido a la izquierda */
+  justify-content:center;
 }
 
 .custom-button:hover {
@@ -69,6 +67,7 @@ const props = defineProps({
 .custom-button-content {
   display: flex;
   align-items: center;
+  opacity: 1;
 }
 
 .custom-button-content p {
@@ -82,6 +81,7 @@ const props = defineProps({
 .img-selector {
   width: 30px;
   height: 20px;
+  opacity: 1.0;
   margin-left: -25px;
   background-size: cover;
   visibility: visible;

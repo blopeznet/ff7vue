@@ -4,13 +4,13 @@
     "spanish": "Spanish",
     "settings": "Settings",
     "history_intro": "10 years ago...",
-    "history": "I wanted to join Shinra's Elite Corps, to become a SOLDIER. The final test was to accompany Sephiroth to Gaia on a reconnaissance mission. We found a lost young girl, Ifalna. Sephiroth decided to take her to the nearest doctor. I finally remembered!!",
+    "history": "I wanted to join Shinra's Elite Corps, to become a SOLDIER. The final test was to accompany Sephiroth to Gaia on a reconnaissance mission. We found a lost young girl. Sephiroth decided to take her to the nearest doctor.",
     "map":"Map",
     "map_messages": {
         "01": "You cannot go in that direction.",
         "02": "That's not the right direction.",
         "03": "You should reconsider your direction.",
-        "04": "Remember you must take Ifalna to her destination.",
+        "04": "Remember you must take her to her destination.",
         "05": "..."
     },
     "items":"Items",
@@ -70,8 +70,8 @@
     "next":"Next",
     "content_about": {
         "title": "ABOUT",
-        "introduction": "Welcome to ffvii for Vue 3",
-        "mainContent": "A few years ago when I started working as a programmer, my favorite game was Final Fantasy VII. Now, a long time later, I've written this code to adapt and utilize Vue 3 and bring this demo to completion, you can play a game if you want.",
+        "introduction": "Welcome to ffvii Shinra's memories",
+        "mainContent": "A few years ago when I started working as a programmer, my favorite game was Final Fantasy VII. Now, a long time later, I've written this code to adapt and utilize Vue 3 and bring this demo to completion, you can play a game if you want ^_^.",
         "disclaimer": "Disclaimer: I've made this project without any economic interest and on a personal basis, as a technical demo of the capabilities of Vue 3 technology, and my small tribute to the ffvii world.",
         "repositoryLink": "https://github.com/your_username/ffvii-demo",
         "repositoryLinkText": "View the source code repository here",

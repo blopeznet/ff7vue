@@ -462,7 +462,7 @@ progress {
   transition: opacity 1s ease-in-out;
 }
 .dialog-content {
-  margin-top: -20px;
+  margin-top: -24px;
 }
 
 .dialog-box-fight.open {

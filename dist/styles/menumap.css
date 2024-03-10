@@ -12,7 +12,7 @@
   padding: 0px;
   margin: 0px;
   border-radius: 10px;
-  font: bold 10px arial;
+  font: bold 10px;
   font-size: 20px;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .info-text-place {
-  font: bold 10px arial;
+  font: bold 10px;
   font-size: 20px;
   margin-left: -200px;
   margin-top: 18px;
@@ -48,7 +48,7 @@
 
 .grid-item {
   font-size: 18px;
-  margin-top: 12px;
+  margin-top: 6px;
   padding-top: 8px;
 }
 
@@ -133,7 +133,7 @@ td {
 }
 
 .ff7-selector option {
-  background: linear-gradient(to bottom, #070b43, #0a4aa9);
+  background: var(--custom-radial-gradient--ff7);
   color: #fff;
 }
 
@@ -184,12 +184,13 @@ progress::-webkit-progress-bar {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 14px;
-  opacity: 0;
+  opacity: 1;
   position: fixed;
   width: 200px; 
   z-index: 10000;
   transition: opacity 0.5s ease-in-out;
-  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 40%;
 }
 
 

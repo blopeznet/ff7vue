@@ -8,9 +8,9 @@ Welcome to FFVII Shinra's memories, a project inspired by the classic game Final
 
 This project is a technical demo showcasing the capabilities of Vue 3 and Vite. It's a multilingual application (English and Spanish) featuring audio and utilizing Pinia for state management and Vue Controller for navigation. Use of animation and css, and enabled for using as a PWA.
 
-![Battle mobile device](https://raw.githubusercontent.com/blopeznet/ff7vue/main/public/snapshots/mobile_01.png=150x300)
+![Battle mobile device](https://raw.githubusercontent.com/blopeznet/ff7vue/main/public/snapshots/mobile_01.png =150x)
 
-![Map mobile device](https://raw.githubusercontent.com/blopeznet/ff7vue/main/public/snapshots/mobile_02.png=300x150)
+![Map mobile device](https://raw.githubusercontent.com/blopeznet/ff7vue/main/public/snapshots/mobile_02.png =300x)
 
 
 ### Main Content

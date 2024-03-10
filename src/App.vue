@@ -3,6 +3,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import { useAppStore } from '../src/stores/app'
+import Fight from './views/Fight.vue';
 const appStore = useAppStore();
 const router = useRouter();
 appStore.setRouter(router);
@@ -26,6 +27,10 @@ const handleOrientationChange = () => {
   }
 }
 
+const getTransitionName = () => {
+  return appStore.pageName === 'Map' ? 'blur-rotate-fight' : 'fade';
+};
+
 </script>
 
 <template>
@@ -33,7 +38,7 @@ const handleOrientationChange = () => {
     <Suspense>
       <div class="container">
         <router-view v-slot="{ Component }">
-          <transition name="fade" mode="out-in">
+          <transition :name="getTransitionName()" mode="out-in">
             <component :is="Component" />
           </transition>
         </router-view>
@@ -47,5 +52,6 @@ const handleOrientationChange = () => {
 </template>
 
 <style scoped>
+@import '../public/styles/app.css'
 </style>
 

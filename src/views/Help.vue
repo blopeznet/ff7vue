@@ -9,7 +9,7 @@
             <customButton :buttonText="useLocalizeText('reset')" :onClick="appStore.navHome">
             </customButton>
             <img src="/images/menu.jpg" style="opacity: 0.7;">
-            <div class="final-box final-box-characters-info" :style="{ top: (TopChars) + 'px' }">
+            <div class="final-box final-box-big-info" :style="{ top: (TopChars) + 'px' }">
                 <div class="tabla" style="max-width:500px">
                     <p>{{ useLocalizeText('content_help.introduction') }}</p>
                     <p>{{ useLocalizeText('content_help.mouse') }}</p>
@@ -20,11 +20,11 @@
             <div class="final-box final-box-menu-info" :style="{ top: TopMenu + 'px' }">
                 <div class="grid-menu-item2" @mouseover="overOption(1)" @click="selectOption(1)">
                     <img v-if="selectedOption === 1" class="img-selector" src="/images/FF7Cursor.png" />
-                    <a :href="useLocalizeText('content_about.link')">{{ useLocalizeText('code') }}</a>
+                    <a class="href" :href="useLocalizeText('content_about.link')">{{ useLocalizeText('code') }}</a>
                 </div>
                 <div class="grid-menu-item2" @mouseover="overOption(2)" @click="selectOption(2)">
                     <img v-if="selectedOption === 2" class="img-selector" src="/images/FF7Cursor.png" />
-                    <a href="mailto:borjalgarcia@hotmail.com">{{ useLocalizeText('mail') }}</a>
+                    <a class="href" href="mailto:borjalgarcia@hotmail.com">{{ useLocalizeText('mail') }}</a>
                 </div>
                 <div class="grid-menu-item2" @mouseover="overOption(0)" @click="selectOption(0)">
                     <img v-if="selectedOption === 0" class="img-selector" src="/images/FF7Cursor.png" />

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="background" ref="Background">
+    <div class="background" ref="Background" @click="appStore.navMap">
       <customButton :buttonText="useLocalizeText('next')" :onClick="appStore.navMap" >        
       </customButton>
       <img src="/images/history.jpg">
       <div class="dialog-box-history" :style="{ opacity: opacity }">
-        <div class="dialog-content" @click="navMap">
+        <div class="dialog-content" @click="appStore.navMap">
           <p>{{ text }}</p>
         </div>
         <div class="history-cloud" ref="Cloud">

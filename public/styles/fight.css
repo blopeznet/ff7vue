@@ -80,13 +80,13 @@
   visibility: collapse;
 }
 
-/* Animación de oscilación */
+/* Move enemy animation */
 @keyframes moveEnemy {
   0% {
     transform: translateX(0);
   }
   50% {
-    transform: translateX(10px); /* Mueve hacia adelante 10px */
+    transform: translateX(10px);
   }
   100% {
     transform: translateX(0);
@@ -104,15 +104,15 @@
 }
 
 .top-enemy::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: 130px; /* Coloca la sombra debajo de la imagen */
+  top: 130px;
   left: -16px;
   width: 145px;
-  height: 20px; /* Altura de la sombra */
-  z-index: 4; /* Coloca la sombra detrás de la imagen */
-  background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
-  background-size: cover; /* Ajusta el tamaño de la imagen */
+  height: 20px;
+  z-index: 4;
+  background-image: url("../images/shadow.png");
+  background-size: cover;
 }
 
 /**Enemy Middle**/
@@ -126,15 +126,15 @@
 }
 
 .middle-enemy::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: 130px; /* Coloca la sombra debajo de la imagen */
+  top: 130px;
   left: -16px;
   width: 145px;
-  height: 20px; /* Altura de la sombra */
-  z-index: 4; /* Coloca la sombra detrás de la imagen */
-  background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
-  background-size: cover; /* Ajusta el tamaño de la imagen */
+  height: 20px;
+  z-index: 4;
+  background-image: url("../images/shadow.png");
+  background-size: cover;
 }
 
 /**Enemy Bottom**/
@@ -148,15 +148,15 @@
 }
 
 .bottom-enemy::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: 130px; /* Coloca la sombra debajo de la imagen */
+  top: 130px;
   left: -16px;
   width: 145px;
-  height: 20px; /* Altura de la sombra */
-  z-index: 6; /* Coloca la sombra detrás de la imagen */
-  background-image: url('../images/shadow.png'); /* Ruta de la imagen de fondo */
-  background-size: cover; /* Ajusta el tamaño de la imagen */
+  height: 20px;
+  z-index: 6;
+  background-image: url("../images/shadow.png");
+  background-size: cover;
 }
 
 .damage {
@@ -217,8 +217,14 @@
 
 .final-box {
   position: absolute;
-  border: 4px solid #fff;
-  background: linear-gradient(to bottom, #070b43, #0a4aa9);
+  background: var(--custom-radial-gradient--ff7);
+  border: 5px solid;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   color: #ffffff;
   padding: 0px;
   margin: 0px;
@@ -254,24 +260,21 @@
   z-index: 10;
 }
 
-/* Estilo personalizado para eliminar espacios entre filas */
 .custom-table {
-  border-collapse: collapse;  
-  /* Colapsar los bordes de la tabla */
+  border-collapse: collapse;
 }
 
 .custom-table th,
 .custom-table td {
   padding: 0px;
-  /* Añadir relleno opcional para celdas */
   padding-left: 12px;
-  font-size: 24px;  
+  font-size: 24px;
 }
 
 .hero-name-container {
   text-align: left;
-  border-bottom: 0px solid #ccc; /* Línea separadora entre filas */
-  padding-top:8px!important;
+  border-bottom: 0px solid #ccc;
+  padding-top: 8px !important;
 }
 
 /* Style for the progress bar container */
@@ -306,29 +309,26 @@ progress::-webkit-progress-bar {
 .header {
   color: gray;
   font-weight: bold;
-  font-size: 20px; 
-  margin-top: 12px; 
+  font-size: 20px;
+  margin-top: 12px;
 }
 
+/*Animated selected text*/
 .animated-text {
   animation: changeColor 1s infinite alternate;
-  /* La animación dura 5 segundos, se repite infinitamente y alterna los estados */
 }
 
 @keyframes changeColor {
   0% {
     color: white;
-    /* Estado inicial, color blanco */
   }
 
   50% {
     color: gray;
-    /* Color gris a la mitad de la animación */
   }
 
   100% {
     color: white;
-    /* Color blanco al final de la animación */
   }
 }
 
@@ -340,31 +340,24 @@ progress::-webkit-progress-bar {
 .animate-show {
   opacity: 1;
   transition: opacity 2s;
-  /* Duración de la animación de 1 segundo */
 }
 
 .animate-move-bottom {
   top: -20%;
-  /* Establece la posición inicial del elemento */
   transition: top 7s;
-  /* Duración de la animación de 5 segundos */
 }
 
 .animate-move-bottom.animate {
   top: 0%;
-  /* Nueva posición "abajo" del elemento */
 }
 
 .animate-move-top {
   top: 50%;
-  /* Establece la posición inicial del elemento */
   transition: top 3s;
-  /* Duración de la animación de 5 segundos */
 }
 
 .animate-move-top.animate {
   top: -50%;
-  /* Nueva posición "abajo" del elemento */
 }
 
 .summon {
@@ -419,11 +412,11 @@ progress::-webkit-progress-bar {
   flex-direction: column;
 }
 
-span{
+span {
   font: bold 18px arial;
 }
 
-progress{
+progress {
   margin-top: 12px;
 }
 
@@ -434,12 +427,12 @@ progress{
   margin-top: 16px;
   margin-left: -40px;
   z-index: 9999999;
-  background-image: url('../images/FF7Cursor.png');
-  background-size:cover;
+  background-image: url("../images/FF7Cursor.png");
+  background-size: cover;
 }
 
 .dialog-box-fight {
-  background: linear-gradient(to bottom, #070B43, #0A4AA9);
+  background: linear-gradient(to bottom, #070b43, #0a4aa9);
   border: 4px solid #fff;
   border-radius: 10px;
   padding: 14px;
@@ -452,32 +445,29 @@ progress{
   z-index: 1000;
   transition: opacity 1s ease-in-out;
 }
-.dialog-content{
-  margin-top: -20px;
+.dialog-content {
+  margin-top: -12px;
 }
 
 .dialog-box-fight.open {
-  opacity: 1; /* Opacidad aumentada cuando la clase 'show' está presente */
+  opacity: 1;
 }
 
-
-  /* Agrega estas clases de animación */
-  @keyframes flipToLeft {
-    0% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    50% {
-      transform: translateX(-50px);
-      opacity: 0.5;
-    }
-    100% {
-      transform: translateX(-100px);
-      opacity: 0;
-    }
+@keyframes flipToLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
   }
-
-  /* Aplica la animación a los elementos que desees */
-  .flip-left {
-    animation: flipToLeft 1s forwards;
+  50% {
+    transform: translateX(-50px);
+    opacity: 0.5;
   }
+  100% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+}
+
+.flip-left {
+  animation: flipToLeft 1s forwards;
+}

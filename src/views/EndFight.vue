@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dialog-box custom-cursor" :class="{ 'open': isOpen }">
+    <div class="dialog-box-message" :style="{ 'opacity': opacity }">
       <div class="dialog-content">
         <p>{{ message }}</p>
       </div>
@@ -55,7 +55,7 @@ import { useFightStore } from '../stores/fight'
 const fightStore = useFightStore();
 const router = useRouter();
 const message = ref('');
-const isOpen = ref(false);
+const opacity = ref(0);
 
 
 /**
@@ -95,9 +95,9 @@ onMounted(async () => {
 const showDialog = async () => {
   await new Promise(resolve => setTimeout(resolve, 500));
   message.value = useLocalizeText("no_items_message");
-  isOpen.value = true;
+  opacity.value = 1;
   await new Promise(resolve => setTimeout(resolve, 1000));
-  isOpen.value = false;
+  opacity.value = 0;
 };
 
 /**

@@ -15,7 +15,7 @@ const isClicked = ref(false);
 
 let disableMouseout = false;
 
-const handleClick = () => {  
+const handleClick = () => {
   showImage();
   isClicked.value = true;
   props.onClick();
@@ -37,24 +37,33 @@ const props = defineProps({
 
 <style>
 .custom-button {
-  background: linear-gradient(to bottom, #070B43, #0A4AA9);
-  border: 4px solid #fff;
-  border-radius: 10px;
+  background: var(--custom-radial-gradient--ff7);
+  border: 5px solid;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   padding: 20px;
   opacity: 1;
   position: fixed;
-  min-width: fit-content; /* Ancho ajustado al contenido */
+  min-width: fit-content;
+  /* Ancho ajustado al contenido */
   bottom: 20px;
   left: 20px;
   z-index: 10000;
   transition: opacity 0.3s ease-in-out;
   display: flex;
-  align-items: center; /* Centra el contenido verticalmente */
-  justify-content: flex-start; /* Alinea el contenido a la izquierda */
+  align-items: center;
+  /* Centra el contenido verticalmente */
+  justify-content: flex-start;
+  /* Alinea el contenido a la izquierda */
 }
 
 .custom-button:hover {
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  cursor: pointer;
+  /* Cambia el cursor al pasar sobre el botón */
 }
 
 .custom-button-content {
@@ -63,16 +72,18 @@ const props = defineProps({
 }
 
 .custom-button-content p {
-  margin: 0; /* Eliminar el margen alrededor del texto */
+  margin: 0;
+  /* Eliminar el margen alrededor del texto */
   font-size: 20px;
-  text-align: center; /* Centra el texto dentro del botón */
+  text-align: center;
+  /* Centra el texto dentro del botón */
 }
 
 .img-selector {
   width: 30px;
   height: 20px;
   margin-left: -25px;
-  background-size: cover;  
+  background-size: cover;
   visibility: visible;
 }
 

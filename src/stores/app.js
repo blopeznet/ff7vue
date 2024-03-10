@@ -17,6 +17,7 @@ export const useAppStore = defineStore({
     showJoy: false,
     router: {},
     audio: null,
+    playing: false,
   }),
   actions: {
     setLoading(loading) {
@@ -155,59 +156,63 @@ export const useAppStore = defineStore({
     /**Navigation actions */
     navHome() {
       this.playSelect();
-      this.playBackgroundAudio('root');
-      this.router.push({ name: 'root', params: { param: 'home' }});      
+      this.playBackgroundAudio("root");
+      this.router.push({ name: "root", params: { param: "home" } });
     },
     navHistory() {
       this.playSelect();
-      this.playBackgroundAudio('history');
-      this.router.push({ name: 'history', params: { param: 'root' }});
+      this.playBackgroundAudio("history");
+      this.router.push({ name: "history", params: { param: "root" } });
     },
     navSettings() {
       this.playSelect();
-      this.playBackgroundAudio('settings');
-      this.router.push({ name: 'settings', params: { param: 'settings' }});
+      this.playBackgroundAudio("settings");
+      this.router.push({ name: "settings", params: { param: "settings" } });
     },
     navAbout() {
       this.playSelect();
-      this.playBackgroundAudio('about');
-      this.router.push({ name: 'about', params: { param: 'about' }});
+      this.playBackgroundAudio("about");
+      this.router.push({ name: "about", params: { param: "about" } });
     },
     navHelp() {
       this.playSelect();
-      this.playBackgroundAudio('help');
-      this.router.push({ name: 'help', params: { param: 'help' }});
+      this.playBackgroundAudio("help");
+      this.router.push({ name: "help", params: { param: "help" } });
     },
     navMap() {
       this.playSelect();
-      this.playBackgroundAudio('map');
-      this.router.push({ name: 'map', params: { param: 'map' }});
-
+      this.playBackgroundAudio("map");
+      this.router.push({ name: "map", params: { param: "map" } });
     },
     navMenu() {
       this.playSelect();
-      this.router.push({ name: 'menu', params: { param: 'menu' }});
-
+      this.router.push({ name: "menu", params: { param: "menu" } });
     },
     navEndFight() {
-      this.playBackgroundAudio('endfight');
-      this.router.push({ name: 'endfight', params: { param: 'endfight' }});
+      this.playBackgroundAudio("endfight");
+      this.router.push({ name: "endfight", params: { param: "endfight" } });
     },
     navEndGame() {
-      this.playBackgroundAudio('endgame');
-      this.router.push({ name: 'endgame', params: { param: 'endgame' }});
+      this.playBackgroundAudio("endgame");
+      this.router.push({ name: "endgame", params: { param: "endgame" } });
     },
     navFight() {
-      this.playBackgroundAudio('fight');
-      this.router.push({ name: 'fight', params: { param: 'fight' }});
+      this.playBackgroundAudio("fight");
+      this.router.push({ name: "fight", params: { param: "fight" } });
     },
-    playBackgroundAudio(name) {
-      if (this.audio){
-       this.audio.pause();
+    async playBackgroundAudio(name) {
+      try {
+        if (this.audio) {
+          this.audio.pause();
+          await new Promise(resolve => this.audio.onpause = resolve);
+        }
+        this.audio = new Audio(this.calculateMusic(`${name}.mp3`));
+        this.audio.volume = this.musicVolume;
+        this.audio.play();
+        this.playing = true;
+      } catch (error) {
+        console.error(error);
       }
-      this.audio = new Audio(this.calculateMusic(`${name}.mp3`));
-      this.audio.volume = this.musicVolume;
-      this.audio.play();
-    },
-  },
+    },    
+  }
 });

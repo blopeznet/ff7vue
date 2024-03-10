@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dialog-box custom-cursor" :class="{ 'open': isOpen }">
+    <div class="dialog-box-restored" :style="{ opacity: opacity }">
       <div class="dialog-content">
         <p>{{ message }}</p>
       </div>
@@ -9,7 +9,7 @@
       <customButton :buttonText="useLocalizeText('map')" :onClick="appStore.navMap" >        
       </customButton>
       <img src="/images/menu.jpg" style="opacity: 0.7;">
-      <div class="final-box final-box-characters-info" :style="{ top: (TopChars) + 'px' }">
+      <div class="final-box final-box-big-info" :style="{ top: (TopChars) + 'px' }">
         <div class="tabla">
           <table style="margin-top: 24px;margin-left: 24px;">
             <tr v-for="(character, index) in fightStore.heroes" :key="index">
@@ -98,7 +98,7 @@ import { useFightStore } from '../stores/fight'
 const fightStore = useFightStore();
 const router = useRouter();
 const message = ref('');
-const isOpen = ref(false);
+const opacity = ref(0);
 const time = ref('');
 const TopChars = ref(-600);
 const TopMenu = ref(-500);
@@ -225,9 +225,9 @@ const restorePM = async () => {
 const showDialog = async (key = "begin_fight") => {
   await new Promise(resolve => setTimeout(resolve, 500));
   message.value = useLocalizeText(key);
-  isOpen.value = true;
+  opacity.value = 1.0;
   await new Promise(resolve => setTimeout(resolve, 1000));
-  isOpen.value = false;
+  opacity.value = 0;
 };
 
 /**
@@ -271,5 +271,5 @@ const selectOption = (option) => {
 </script>
 
 <style scoped>
-@import '../../public/styles/menu.css'
+@import '../../public/styles/menumap.css'
 </style>

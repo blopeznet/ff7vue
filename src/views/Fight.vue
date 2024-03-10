@@ -1,76 +1,81 @@
 <template>
   <div>
     <div class="background" ref="Background">
-      <div class="dialog-box-fight" :style="{ 'opacity': opacity }">
-        <div class="dialog-content">
-          <p>{{ message }}</p>
+      <Transition name="bounce">
+        <div class="dialog-box-fight" v-if="isOpenDialog">
+          <div class="dialog-content">
+            <p>{{ message }}</p>
+          </div>
         </div>
-      </div>
+      </Transition>
       <img :src="backImage">
-      <!--Summon-->
-      <img ref="summon" id="summon" src="/images/bahamut.png" class="summon">
-      <img ref="explosion" id="explosion" src="/images/explosion.gif" class="explosion">
-      <!--Summon end-->
-      <!--Arrow char selection-->
-      <img class="arrow" ref="arrow" id="arrow" src="/images/arrow.gif">
-      <!--Arrow char selection END-->
-      <!--Top hero-->
-      <div class="top-hero" ref="top-hero" id="top-hero" v-if="fightStore.heroes[0]"
-        :style="{ opacity: fightStore.heroes[0].isDead ? '0.1' : '1', filter: fightStore.heroes[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/bat_sephi.gif" width="110" height="120">
-      </div>
-      <!--Top hero END-->
-      <!--Middle hero-->
-      <div class="middle-hero" ref="middle-hero" id="middle-hero"
-        :style="{ opacity: fightStore.heroes[1].isDead ? '0.1' : '1', filter: fightStore.heroes[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/bat_cloud.gif" width="140" height="100">
-      </div>
-      <!--Middle hero END-->
-      <!--Bottom hero-->
-      <div class="bottom-hero"  ref="bottom-hero" id="bottom-hero"
-        :style="{ opacity: fightStore.heroes[2].isDead ? '0.1' : '1', filter: fightStore.heroes[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img src="/images/bat_aeris.gif" width="110" height="100">
-      </div>
-      <!--Bottom hero END-->
-      <!--Magic ring-->
-      <div class="hero-magic" ref="hero-magic" id="hero-magic">
-        <img src="/images/magic.gif">
-      </div>
-      <div class="hero-magic-ring-green" ref="hero-magic-ring-green" id="hero-magic-ring-green">
-        <img src="/images/green_ring_summon.png">
-      </div>
-      <div class="hero-magic-ring-red" ref="hero-magic-ring-red" id="hero-magic-ring-red">
-        <img src="/images/red_ring_summon.png">
-      </div>
-      <div class="hero-magic-ring-yellow" ref="hero-magic-ring-yellow" id="hero-magic-ring-yellow">
-        <img src="/images/yellow_ring_summon.png">
-      </div>
-      <!--Magic ring END-->
-      <!--Top enemy-->
-      <div class="top-enemy" ref="top-enemy" id="top-enemy" v-if="fightStore.enemies[0]"
-        :style="{ opacity: fightStore.enemies[0].isDead ? '0.1' : '1', filter: fightStore.enemies[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img :src="getImageUrl(fightStore.enemies[0].enemyImage)" width="140" height="140">
-      </div>
-      <!--Top enemy END-->
-      <!--Middle enemy-->
-      <div class="middle-enemy" ref="middle-enemy" id="middle-enemy" v-if="fightStore.enemies[1]"
-        :style="{ opacity: fightStore.enemies[1].isDead ? '0.1' : '1', filter: fightStore.enemies[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img :src="getImageUrl(fightStore.enemies[1].enemyImage)" width="140" height="140">
-      </div>
-      <!--Middle enemy END-->
-      <!--Bottom enemy-->
-      <div class="bottom-enemy" ref="bottom-enemy" id="bottom-enemy" v-if="fightStore.enemies[2]"
-        :style="{ opacity: fightStore.enemies[2].isDead ? '0.1' : '1', filter: fightStore.enemies[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
-        <img :src="getImageUrl(fightStore.enemies[2].enemyImage)" width="140" height="140">
-      </div>
-      <!--Bottom enemy END-->
-      <div class="damage" ref="damage" id="damage" :style="{ opacity: lastDamage == 0 ? '0' : '1' }">
-        <span style="font-size: 24px;">{{ lastDamage }}</span>
-      </div>
-      <div class="debug" ref="debug" id="debug" v-if="debug">
-        <span v-for="(enemy, index) in fightStore.enemies" :key="index" style="font-size: 24px;">
-          {{ enemy.fileName + ": " + enemy.pg + "/" + enemy.pgMax + " : " + enemy.damage }}
-        </span>
+      <div v-if="showChars" class="fight-content">
+        <!--Summon-->
+        <img ref="summon" id="summon" src="/images/bahamut.png" class="summon">
+        <img ref="explosion" id="explosion" src="/images/explosion.gif" class="explosion">
+        <!--Summon end-->
+        <!--Arrow char selection-->
+        <img class="arrow" ref="arrow" id="arrow" src="/images/arrow.gif">
+        <img class="enemyCursor" ref="enemyCursor" id="enemyCursor" src="/images/FF7Cursor.png">
+        <!--Arrow char selection END-->
+        <!--Top hero-->
+        <div class="top-hero" ref="top-hero" id="top-hero" v-if="fightStore.heroes[0]"
+          :style="{ opacity: fightStore.heroes[0].isDead ? '0.01' : '1', filter: fightStore.heroes[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+          <img src="/images/bat_sephi.gif" width="110" height="120">
+        </div>
+        <!--Top hero END-->
+        <!--Middle hero-->
+        <div class="middle-hero" ref="middle-hero" id="middle-hero" v-if="fightStore.heroes[1]"
+          :style="{ opacity: fightStore.heroes[1].isDead ? '0.01' : '1', filter: fightStore.heroes[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+          <img src="/images/bat_cloud.gif" width="140" height="100">
+        </div>
+        <!--Middle hero END-->
+        <!--Bottom hero-->
+        <div class="bottom-hero" ref="bottom-hero" id="bottom-hero" v-if="fightStore.heroes[2]"
+          :style="{ opacity: fightStore.heroes[2].isDead ? '0.01' : '1', filter: fightStore.heroes[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+          <img src="/images/bat_aeris.gif" width="110" height="100">
+        </div>
+        <!--Bottom hero END-->
+        <!--Magic ring-->
+        <div class="hero-magic" ref="hero-magic" id="hero-magic">
+          <img src="/images/magic.gif">
+        </div>
+        <div class="hero-magic-ring-green" ref="hero-magic-ring-green" id="hero-magic-ring-green">
+          <img src="/images/green_ring_summon.png">
+        </div>
+        <div class="hero-magic-ring-red" ref="hero-magic-ring-red" id="hero-magic-ring-red">
+          <img src="/images/red_ring_summon.png">
+        </div>
+        <div class="hero-magic-ring-yellow" ref="hero-magic-ring-yellow" id="hero-magic-ring-yellow">
+          <img src="/images/yellow_ring_summon.png">
+        </div>
+        <!--Magic ring END-->
+        <!--Top enemy -->
+        <div class="top-enemy" ref="top-enemy" id="top-enemy" v-if="fightStore.enemies[0]"
+          :style="{ opacity: fightStore.enemies[0].isDead ? '0.01' : '1', filter: fightStore.enemies[0].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+          <img :src="getImageUrl(fightStore.enemies[0].enemyImage)" width="140" height="140">
+        </div>
+        <!--Top enemy END-->
+        <!--Middle enemy-->
+        <div class="middle-enemy" ref="middle-enemy" id="middle-enemy" v-if="fightStore.enemies[1]"
+          :style="{ opacity: fightStore.enemies[1].isDead ? '0.01' : '1', filter: fightStore.enemies[1].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+          <img :src="getImageUrl(fightStore.enemies[1].enemyImage)" width="140" height="140">
+        </div>
+        <!--Middle enemy END-->
+        <!--Bottom enemy-->
+        <div class="bottom-enemy" ref="bottom-enemy" id="bottom-enemy" v-if="fightStore.enemies[2]"
+          :style="{ opacity: fightStore.enemies[2].isDead ? '0.01' : '1', filter: fightStore.enemies[2].isDead ? 'saturate(100%) brightness(100%) hue-rotate(-410deg) contrast(100%)' : 'none' }">
+          <img :src="getImageUrl(fightStore.enemies[2].enemyImage)" width="140" height="140">
+        </div>
+        <!--Bottom enemy END-->
+        <div class="damage" ref="damage" id="damage" :style="{ opacity: lastDamage == 0 ? '0' : '1' }">
+          <span style="font-size: 24px;">{{ lastDamage }}</span>
+        </div>
+        <div class="debug" ref="debug" id="debug" v-if="debug">
+          <span v-for="(enemy, index) in fightStore.enemies" :key="index" style="font-size: 24px;">
+            {{ enemy.fileName + ": " + enemy.pg + "/" + enemy.pgMax + " : " + enemy.damage }}
+          </span>
+        </div>
       </div>
       <!--Attacks-->
       <div class="enemy-magic-receive" ref="enemy-magic-receive" id="enemy-magic-receive" style="visibility: collapse;">
@@ -115,11 +120,11 @@
         <table class="custom-table" style="margin-left: 24px;">
           <div style="display: flex; justify-content: space-between;">
             <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
-              <span class="header" style="margin-bottom: -6px;">{{ useLocalizeText('PG') }}</span>
+              <span class="header" style="margin-top: 4px;margin-bottom:0px;">{{ useLocalizeText('PG') }}</span>
             </div>
             <div style="flex: 1;margin-left: 48px;margin-bottom: 12px">
               <div style="display: flex; flex-direction: column; align-items: center;width:100px;">
-                <span class="header" style="margin-bottom: -6px;">{{ useLocalizeText('PM') }}</span>
+                <span class="header" style="margin-top: 4px;margin-bottom:0px;">{{ useLocalizeText('PM') }}</span>
               </div>
             </div>
           </div>
@@ -130,17 +135,17 @@
                   <tr>
                     <td>
                       <div v-if="hero.isAvailable"
-                        :style="{ display: 'flex', justifyContent: 'space-between', color: hero.isDead ? 'red' : 'initial' }">
+                        :style="{ display: 'flex', justifyContent: 'space-between', color: hero.isDead ? 'red' : 'initial', 'margin-top': '-12px' }">
                         <!-- Column PG -->
                         <div style="flex: 1; display: flex; flex-direction: column; align-items: center;width:200px;">
-                          <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pg
+                          <span :style="{ 'margin-bottom': '-15px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pg
                           }}/{{ hero.pgMax }}</span>
                           <progress :max="hero.pgMax" :value="hero.pg" :class="'pg'"></progress>
                         </div>
                         <!-- Column PM -->
                         <div style="flex: 1;margin-left: 48px;">
                           <div style="display: flex; flex-direction: column; align-items: center;width:100px;">
-                            <span :style="{ 'margin-bottom': '-6px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pm
+                            <span :style="{ 'margin-bottom': '-15px', color: hero.isDead ? 'red' : 'white' }">{{ hero.pm
                             }}/{{ hero.pmMax }}</span>
                             <progress :max="hero.pmMax" :value="hero.pm" :class="'pm'"></progress>
                           </div>
@@ -166,7 +171,8 @@
           </div>
         </table>
       </div>
-      <div ref="menuBasic" class="final-box final-box-menuone-info" v-if="showMenuBasic && ! fightStore.selectedCharacter.isEnemy">
+      <div ref="menuBasic" class="final-box final-box-menuone-info"
+        v-if="showMenuBasic && !fightStore.selectedCharacter.isEnemy">
         <table class="custom-table">
           <tr v-for="(action, index) in selectedActions" :key="index">
             <td>
@@ -212,14 +218,15 @@
       </div>
       <div ref="menuTargets" class="final-box final-box-menuone-info" :style="calculateStyleTargets(sourceMenu)"
         v-if="showMenuTargets">
-        <table class="custom-table" v-if="! fightStore.selectedCharacter.isEnemy">
+        <table class="custom-table" v-if="!fightStore.selectedCharacter.isEnemy">
           <tr v-for="(enemy, index) in fightStore.enemies" :key="index">
             <td>
               <table>
                 <thead>
                   <tr>
                     <td>
-                      <image id="ff7cursor" class="ff7cursor" v-if="enemy.fileName === fightStore.targetCharacter.fileName" />
+                      <image id="ff7cursor" class="ff7cursor"
+                        v-if="enemy.fileName === fightStore.targetCharacter.fileName" />
                       <span @click="damageExecute(enemy)"
                         :style="{ cursor: !enemy.isDead ? 'pointer' : 'default', color: (!enemy.isDead) ? 'white' : 'gray' }">
                         {{ useLocalizeText(enemy.name) }}
@@ -231,7 +238,7 @@
             </td>
           </tr>
         </table>
-        <table class="custom-table" v-if=" fightStore.selectedCharacter.isEnemy">
+        <table class="custom-table" v-if="fightStore.selectedCharacter.isEnemy">
           <tr v-for="(hero, index) in fightStore.heroes" :key="index">
             <td>
               <table>
@@ -268,6 +275,9 @@ import {
   calculateStyleMagics,
   hideArrow,
   showArrow,
+  updateEnemyCursorPosition,
+  hideEnemyCursor,
+  showEnemyCursor,
   applyFlipToLeft
 } from './uxFightHelper'
 
@@ -297,7 +307,8 @@ const showMenuMagic = ref(false); // Show magics menu
 const showMenuTargets = ref(false); // Show enemies menu
 
 const turnCount = ref(1); // Turn number
-const opacity = ref(0);
+const isOpenDialog = ref(false);
+const showChars = ref(false);
 /**
  * Set current page
  */
@@ -308,6 +319,7 @@ onBeforeMount(async () => {
 
 /** Begin combat **/
 onMounted(async () => {
+  showChars.value = true;
   await showDialog();
   goTurn();
 });
@@ -327,9 +339,9 @@ const goTurn = async () => {
 const changeSelectedChar = async (newChar) => {
   if (newChar) {
     hideAllMenus();
-   fightStore.selectedCharacter = newChar;
+    fightStore.selectedCharacter = newChar;
     selectedActions.value = fightStore.selectedCharacter.actions;
-    if (! fightStore.selectedCharacter.isEnemy) {
+    if (!fightStore.selectedCharacter.isEnemy) {
       updateArrowPosition(fightStore.selectedCharacter);
       showMenuBasic.value = true;
       showArrow();
@@ -346,7 +358,7 @@ const actionExecute = async (action) => {
   if (!fightStore.selectedCharacter) {
     console.error('No character selected');
     return;
-  } 
+  }
   const actionName = action.fileName;
   switch (actionName) {
     case 'attack':
@@ -397,6 +409,7 @@ const actionExecute = async (action) => {
  */
 const damageExecute = async (enemy) => {
   fightStore.targetCharacter = enemy;
+  updateEnemyCursorPosition(fightStore.targetCharacter);
   switch (selectedAction.value.fileName) {
     case 'attack':
       hideAllMenus();
@@ -484,14 +497,20 @@ const ApplyDamage = async () => {
       fightStore.targetCharacter.pg = 0;
     }
     if (pmPrice > 0) {
-     fightStore.selectedCharacter.pm -= pmPrice;
+      fightStore.selectedCharacter.pm -= pmPrice;
       if (fightStore.selectedCharacter.pm < 0) {
-       fightStore.selectedCharacter.pm = 0;
+        fightStore.selectedCharacter.pm = 0;
       }
+    }
+    if (!fightStore.selectedCharacter.isEnemy) {
+      showEnemyCursor();
     }
     lastDamage.value = damage;
     await new Promise(resolve => setTimeout(resolve, 1500));
     lastDamage.value = 0;
+    if (!fightStore.selectedCharacter.isEnemy) {
+      hideEnemyCursor();
+    }
     if (fightStore.targetCharacter.pg == 0) {
       fightStore.targetCharacter.isDead = true;
       appStore.playDead();
@@ -554,9 +573,9 @@ const checkContinue = async () => {
 const showDialog = async (key = "begin_fight") => {
   await new Promise(resolve => setTimeout(resolve, 1000));
   message.value = useLocalizeText(key);
-  opacity.value = 1.0;
+  isOpenDialog.value = true;
   await new Promise(resolve => setTimeout(resolve, 1000));
-  opacity.value = 0;
+  isOpenDialog.value = false;
 };
 
 /**
@@ -570,26 +589,26 @@ const navEndFight = () => {
  * Execute enemy reponse after allied attack
  */
 const executeEnemyResponse = async () => {
-      hideArrow();
-      const e = fightStore.getRandomAvailableEnemyAlive();
-      changeSelectedChar(e);
-      selectedAction.value = selectedActions.value[0];
-      fightStore.targetCharacter = fightStore.getRandomAvailableHeroAliveForTarget();
-      appStore.playAttack();
-      if (showAttack(fightStore.selectedCharacter, fightStore.targetCharacter)) {
-        if (await ApplyDamage()) {
-          if (fightStore.allHeroesAttacked()) {
-            await fightStore.resetHeroesAttacked();
-          }
-          const h = fightStore.getRandomAvailableHeroAlive();
-          if (h) {
-            await changeSelectedChar(h);
-          } else {
-            await checkContinue();
-            await resetTurn();
-          }
-        }
+  hideArrow();
+  const e = fightStore.getRandomAvailableEnemyAlive();
+  changeSelectedChar(e);
+  selectedAction.value = selectedActions.value[0];
+  fightStore.targetCharacter = fightStore.getRandomAvailableHeroAliveForTarget();
+  appStore.playAttack();
+  if (showAttack(fightStore.selectedCharacter, fightStore.targetCharacter)) {
+    if (await ApplyDamage()) {
+      if (fightStore.allHeroesAttacked()) {
+        await fightStore.resetHeroesAttacked();
       }
+      const h = fightStore.getRandomAvailableHeroAlive();
+      if (h) {
+        await changeSelectedChar(h);
+      } else {
+        await checkContinue();
+        await resetTurn();
+      }
+    }
+  }
 };
 
 /**

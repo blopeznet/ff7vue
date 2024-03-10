@@ -2,6 +2,11 @@
   --custom-radial-gradient--ff7: -webkit-radial-gradient(-180px 0px, circle, #0053ad 100px, #001b85 350px, #000223);
 }
 
+@font-face {
+  font-family: 'Reactor7';
+  src: url('../fonts/Reactor7.otf') format('opentype');
+}
+
 .background {
   position: fixed;
   top: 50%;
@@ -19,13 +24,27 @@
 }
 
 body {
+
   background-color: black;
-  font: bold 10px arial;
+  font: bold 10px;
   color:white;
 }
 
+p{
+  font-family: 'Reactor7', arial;
+}
+
+div{
+  font-family: 'Reactor7', arial;
+}
+
 span {
+  font-family: 'Reactor7', arial;
   color:white;
+}
+
+button {
+  font-family: 'Reactor7', arial;
 }
 
 a {
@@ -55,6 +74,6 @@ a {
 
 
 .dialog-content{
-  font: bold 14px arial;
+  font: bold 14px;
   color:white;
 }

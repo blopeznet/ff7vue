@@ -35,7 +35,7 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 14px;
-  opacity: 0;
+  opacity: 1;
   position: fixed;
   width: 730px;
   height: 150px;

@@ -18,6 +18,7 @@ export const useAppStore = defineStore({
     router: {},
     audio: null,
     playing: false,
+    applyFightAnimation:false,
   }),
   actions: {
     setLoading(loading) {
@@ -50,6 +51,7 @@ export const useAppStore = defineStore({
         case "Menu":
           break;
         case "Fight":
+          this.applyFightAnimation = false;
           break;
         case "EndFight":
           break;
@@ -197,6 +199,7 @@ export const useAppStore = defineStore({
       this.router.push({ name: "endgame", params: { param: "endgame" } });
     },
     navFight() {
+      this.applyFightAnimation = true;
       this.playBackgroundAudio("fight");
       this.router.push({ name: "fight", params: { param: "fight" } });
     },

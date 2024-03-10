@@ -1,5 +1,5 @@
 /**
- * Hide arrow
+ * Show arrow
  */
 export function showArrow() {
   const elementArrow = document.querySelector("#arrow");
@@ -37,6 +37,50 @@ export function updateArrowPosition(selectedCharacter) {
       elementArrow.style.zIndex = 100;
       elementArrow.style.left = `${targetLeft + 40}px`;
       elementArrow.style.top = `${targetTop - 25}px`;
+      elementArrow.style.visibility = "visible";
+    }
+  }
+}
+
+/**
+ * Show enemyCursor
+ */
+export function showEnemyCursor() {
+  const elementArrow = document.querySelector("#enemyCursor");
+  if (elementArrow) {
+    elementArrow.style.visibility = "visible"; // Ocultar la flecha
+  }
+}
+
+/**
+ * Hide enemyCursor
+ */
+export function hideEnemyCursor() {
+  const elementArrow = document.querySelector("#enemyCursor");
+  if (elementArrow) {
+    elementArrow.style.visibility = "hidden"; // Ocultar la flecha
+  }
+}
+
+/**
+ * Update enemyCursor location above target char when select
+ */
+export function updateEnemyCursorPosition(selectedCharacter) {
+  const elementArrow = document.querySelector("#enemyCursor");
+  const elementCharacter = document.querySelector(
+    "#" + selectedCharacter.fileName
+  );
+  if (elementArrow) {
+    if (elementArrow && elementCharacter) {
+      const targetLeft = parseFloat(
+        window.getComputedStyle(elementCharacter).getPropertyValue("left")
+      );
+      const targetTop = parseFloat(
+        window.getComputedStyle(elementCharacter).getPropertyValue("top")
+      );
+      elementArrow.style.zIndex = 100;
+      elementArrow.style.left = `${targetLeft - 25}px`;
+      elementArrow.style.top = `${targetTop+60}px`;
       elementArrow.style.visibility = "visible";
     }
   }
@@ -556,7 +600,7 @@ export function calculateStyleTargets(sourceMenu) {
   return {
     position: "absolute",
     border: "4px solid #fff",
-    background: "linear-gradient(to bottom, #070B43, #0A4AA9)",
+    background: "var(--custom-radial-gradient--ff7)",
     color: "#FFFFFF",
     padding: "0px",
     margin: "0px",
@@ -587,7 +631,7 @@ export function calculateStyleMagics() {
   return {
     position: "absolute",
     border: "4px solid #fff",
-    background: "linear-gradient(to bottom, #070B43, #0A4AA9)",
+    background: "var(--custom-radial-gradient--ff7)",
     color: "#FFFFFF",
     padding: "0px",
     margin: "0px",

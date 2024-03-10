@@ -45,6 +45,10 @@
   transition: opacity 1s ease-in-out;
 }
 
+.dialog-content{
+  margin-top: -12px;
+}
+
 .dialog-box-history:hover {
   cursor: pointer;
 }

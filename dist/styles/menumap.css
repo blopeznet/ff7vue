@@ -36,13 +36,14 @@
 .final-box-time-info {
   right: 12px;
   width: 200px;
-  height: 70px;
+  height: 85px;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: auto auto;
-  gap: 5px;
+  gap: 0px;
+  margin: -12px;
 }
 
 .grid-item {
@@ -140,5 +141,56 @@ td {
   font-size: 20px;
   width: 120px;
 }
+
+/* Style for the progress bar container */
+progress {
+  width: 100%;
+  height: 6px;
+  border: 1px solid gray;
+  border-radius: 0;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+/* Style for the progress bar background */
+progress::-webkit-progress-bar {
+  background-color: maroon;
+}
+
+/* Style for the pg class */
+.pg::-webkit-progress-value {
+  background: linear-gradient(to right, #0a4aa9, #ffffff);
+}
+
+/* Style for the pm class */
+.pm::-webkit-progress-value {
+  background: linear-gradient(to right, rgb(86, 239, 86), #ffffff);
+}
+
+.grid-menu-item2:hover {
+  color: white;
+  font-size: 21px;
+}
+
+/**Dialog restored**/
+
+.dialog-box-restored{
+  background: var(--custom-radial-gradient--ff7);
+  border: 5px solid;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 14px;
+  opacity: 0;
+  position: fixed;
+  width: 200px; 
+  z-index: 10000;
+  transition: opacity 0.5s ease-in-out;
+  transform: translate(-50%, -50%);
+}
+
 
 

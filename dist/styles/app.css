@@ -1,100 +1,44 @@
-/** STYLES APP **/
 
-  .round-button-container {
-    margin-left: 4px;
-    margin-right: 8px; /* Espacio entre los botones */
-  }
-  
-  .round-button-container:last-child {
-    margin-right: 0;
-  }
-  
-  button.round-button {
-    display: inline-block;
-    cursor: pointer;
-    border: 2px solid #0b0a0a;
-    border-radius: 35px;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #ffffff;
-    transition: background-color 0.3s, border-color 0.3s;
-    font-size: 18px; /* Tamaño de fuente */
-  }
-  
-  button.round-button:hover {
-    background-color: #4d4d4e;
-    border-color: #000000;
-    color: #e1e1e1;
-  }
-  
-  button.round-button:active {
-    background-color: #000000;
-    border-color: #4d4d4e;
-    color: #ffffff;
-  }
-  
-  .round-button-label {
-    color: #333;
-    margin-left: 8px; /* Espacio entre el botón y su etiqueta */
-    font-size: 18px; /* Tamaño de fuente */
-  }
-  
-  .bottom-bar-label {
-    color: #333;
-    margin-left: 8px; /* Espacio entre el botón y su etiqueta */
-    font-size: 18px; /* Tamaño de fuente */
-  }
-  
-  .round-selector-container {
-    display: flex;
-    align-items: center;
-    margin-right: 12px; /* Espacio entre los contenedores */
-  }
-  
-  @media screen and (max-width: 768px) {
-    .round-button-container {
-      margin-right: 4px; /* Espacio entre los botones */
-    }
-    
-    button.round-button {
-      padding: 8px 16px; /* Ajusta el padding del botón */
-      font-size: 12px; /* Tamaño de fuente */
-    }
-    
-    .round-button-label,
-    .bottom-bar-label {
-      font-size: 12px; /* Tamaño de fuente */
-    }
-    
-    .round-selector-container {
-      margin-right: 8px; /* Espacio entre los contenedores */
-    }
-  }
+.fade-enter-active {
+  transition: opacity 0.5s ease; 
+}
+.fade-enter {
+  opacity: 0; 
+}
+.fade-leave-active {
+  transition: opacity 0.5s ease; 
+}
+.fade-leave-to {
+  opacity: 0;
+}
 
-  select {
-    width: 200px; /* Define el ancho deseado */
-    padding: 8px; /* Añade un relleno para mejorar la apariencia */
-    font-size: 16px; /* Opcional: ajusta el tamaño de la fuente según sea necesario */
-    /* Otras propiedades de estilo según tu diseño */
-  }
+.blur-rotate-fight-enter-active, .blur-rotate-fight-leave-active {
+  transition: filter 0.5s ease, transform 0.5s ease, opacity 0.5s ease; 
+}
+.blur-rotate-fight-enter, .blur-rotate-fight-leave-to {
+  filter: blur(10px); 
+  transform: rotate(360deg); 
+  opacity: 0; 
+}
 
-  .dialog-box-screen {
-    background-image: url('../images/rotate.png');
-    background-size: cover;    
-    opacity: 1; 
-    position: fixed;
-    width: 50px;
-    height: 50px;    
-    z-index: 10000;
-    animation: opacityAnimation 2s infinite alternate;
-    transform: translate(600%, 630%);
-  }
 
-  @keyframes opacityAnimation {
-    0% {
-      opacity: 0.1;
-    }
-    100% {
-      opacity: 0.5;
-    }
+.continuous-rotate {
+  animation: rotate 5s linear infinite; 
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+debug{
+  position: fixed!important;
+  color:white;
+  bottom:0px!important;
+  z-index: 1000000!important;
+}
+  

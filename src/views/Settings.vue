@@ -192,7 +192,7 @@ const handleMenuKeyDown = async (event) => {
  * Function to update volume
  * */
 const updateVolume = (event) => {
-  appStore.musicVolume = parseFloat(event.target.value);
+  appStore.setVolume(parseFloat(event.target.value));
 };
 
 /**

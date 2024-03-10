@@ -4,13 +4,13 @@
     "spanish": "Español",
     "settings": "Ajustes",
     "history_intro": "Hace 10 años...",
-    "history": "Quería unirme al Cuerpo de Élite de Shinra, convertirme en un SOLDADO. La prueba final era acompañar a Sephiroth a Gaia en una misión de reconocimiento. Encontramos a una joven perdida, Ifalna. Sephiroth decidió llevarla al médico más cercano. ¡Finalmente lo recordé!",
+    "history": "Quería unirme al Cuerpo de Élite de Shinra, convertirme en un SOLDADO. La prueba final era acompañar a Sephiroth a Gaia en una misión de reconocimiento. Encontramos a una joven perdida. Sephiroth decidió llevarla al médico más cercano.",
     "map":"Mapa",
     "map_messages": {
         "01": "No puedes ir en esa dirección.",
         "02": "Esa no es la dirección correcta.",
         "03": "Deberías reconsiderar tu dirección.",
-        "04": "Recuerda que debes llevar a Ifalna a su destino.",
+        "04": "Recuerda que debes llevarla a su destino.",
         "05": "..."
     },
     "items":"Objetos",
@@ -70,8 +70,8 @@
     "next":"Siguiente",
     "content_about": {
         "title": "ACERCA DE",
-        "introduction": "Bienvenido a ffvii para Vue 3",
-        "mainContent": "Hace unos años cuando empecé a trabajar como programador, mi juego favorito era el Final Fantasy VII. Ahora, un largo tiempo después, he escrito este código para adaptar y utilizar Vue 3 y llevar esta demostración a su finalización, puedes jugar un juego si quieres.",
+        "introduction": "Bienvenido a ffvii Shinra's memories",
+        "mainContent": "Hace unos años cuando empecé a trabajar como programador, mi juego favorito era el Final Fantasy VII. Ahora, un largo tiempo después, he escrito este código para adaptar y utilizar Vue 3 y llevar esta demostración a su finalización, puedes jugar un juego si quieres ^_^.",
         "disclaimer": "Descargo de responsabilidad: He realizado este proyecto sin ningún interés económico y de forma personal, como demostración técnica de las capacidades de la tecnología Vue 3, y mi pequeño tributo al mundo ffvii.",
         "repositoryLink": "https://github.com/your_username/ffvii-demo",
         "repositoryLinkText": "Ver el repositorio del código fuente aquí",

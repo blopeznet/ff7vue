@@ -27,6 +27,12 @@ export const useAppStore = defineStore({
     setLocale(locale) {
       this.locale = locale;
     },
+    setVolume(newValue) {
+      this.musicVolume = newValue;
+      if (this.audio) {
+        this.audio.volume = this.musicVolume;       
+      }
+    },
     setRouter(router) {
       this.router = router;
     },
@@ -209,7 +215,7 @@ export const useAppStore = defineStore({
           this.audio.pause();
           await new Promise(resolve => this.audio.onpause = resolve);
         }
-        this.audio = new Audio(this.calculateMusic(`${name}.mp3`));
+        this.audio = new Audio(this.calculateMusic(`${name}.mp3`));        
         this.audio.volume = this.musicVolume;
         this.audio.play();
         this.playing = true;

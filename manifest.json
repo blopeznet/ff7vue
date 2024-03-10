@@ -4,9 +4,9 @@
   "display": "standalone",
   "scope": "/ff7vue/",
   "start_url": "/ff7vue/",
-  "name": "ff7vue3",
-  "short_name": "ff7 vue3",
-  "description": "ff7 vue3 game tribute",
+  "name": "ff7 Shinra",
+  "short_name": "ff7 Shinra",
+  "description": "ff7 Shinra's memories",
   "icons": [
     {
       "src": "icon-72x72.png",
